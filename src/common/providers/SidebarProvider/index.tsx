@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { SidebarContext } from './context';
+import { SidebarContext } from "./context";
 
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from "react";
 
-import config from '@/config';
+import config from "@/config";
 
 export function SidebarProvider({ children }: PropsWithChildren) {
   const cookieName = `${config.storage.prefix}SidebarCollapsed`;

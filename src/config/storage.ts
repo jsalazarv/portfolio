@@ -1,3 +1,3 @@
 export default {
-  prefix: '__PTMngr',
+  prefix: "__PTMngr",
 };

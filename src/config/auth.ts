@@ -1,14 +1,14 @@
-import storage from './storage';
+import storage from "./storage";
 
 const auth = {
-  redirectTo: '/',
-  loginPage: '/login',
+  redirectTo: "/",
+  loginPage: "/login",
   session: {
     keys: {
-      accessToken: storage.prefix + 'AccessToken',
-      tokenType: storage.prefix + 'TokenType',
-      expiresAt: storage.prefix + 'ExpiresAt',
-      refreshToken: storage.prefix + 'RefreshToken',
+      accessToken: storage.prefix + "AccessToken",
+      tokenType: storage.prefix + "TokenType",
+      expiresAt: storage.prefix + "ExpiresAt",
+      refreshToken: storage.prefix + "RefreshToken",
     },
   },
 };

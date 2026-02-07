@@ -1,6 +1,6 @@
-import { NotebookPen } from 'lucide-react';
+import { NotebookPen } from "lucide-react";
 
-import { SignInForm } from './partials/SignInForm';
+import { SignInForm } from "./partials/SignInForm";
 
 export function SignIn() {
   return (

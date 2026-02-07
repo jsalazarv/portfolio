@@ -1,7 +1,7 @@
-import { Menu, Search, Bell, ChevronRight } from 'lucide-react';
+import { Menu, Search, Bell, ChevronRight } from "lucide-react";
 
-import { Button } from '@/common/components/ui/button';
-import { useSidebar } from '@/common/hooks/useSidebar';
+import { Button } from "@/common/components/ui/button";
+import { useSidebar } from "@/common/hooks/useSidebar";
 
 function NotificationButton() {
   return (

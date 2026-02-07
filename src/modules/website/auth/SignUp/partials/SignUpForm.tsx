@@ -1,18 +1,26 @@
-import { Button } from '@/common/components/ui/button';
+import { Button } from "@/common/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/common/components/ui/card';
-import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/common/components/ui/field';
-import { Input } from '@/common/components/ui/input';
-import { cn } from '@/common/lib/utils';
+} from "@/common/components/ui/card";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/common/components/ui/field";
+import { Input } from "@/common/components/ui/input";
+import { cn } from "@/common/lib/utils";
 
-export function SignUpForm({ className, ...props }: React.ComponentProps<'div'>) {
+export function SignUpForm({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
+    <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
@@ -23,7 +31,12 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<'div'>)
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input id="email" type="email" placeholder="m@example.com" required />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="m@example.com"
+                  required
+                />
               </Field>
               <Field>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
@@ -45,8 +58,8 @@ export function SignUpForm({ className, ...props }: React.ComponentProps<'div'>)
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a> and{' '}
-        <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+        and <a href="#">Privacy Policy</a>.
       </FieldDescription>
     </div>
   );

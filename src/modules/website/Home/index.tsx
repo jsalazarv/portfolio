@@ -6,7 +6,7 @@ import { SkillsEducationSection } from "./partials/SkillsEducationSection";
 
 export function Home() {
   return (
-    <div className="mx-auto max-w-3xl space-y-4">
+    <div className="mx-auto w-full md:max-w-3xl space-y-4">
       <HeaderSection />
       <PortfolioSection />
       <ExperienceSection />

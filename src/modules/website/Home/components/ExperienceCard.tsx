@@ -2,7 +2,7 @@ import type { Experience } from "../types";
 
 export function ExperienceCard({ title, role, period, points }: Experience) {
   return (
-    <div className="bg-card border border-border rounded-2xl p-5">
+    <div className="flex h-full flex-col bg-card border border-border rounded-2xl p-5">
       <div className="flex items-start justify-between mb-1">
         <h3 className="text-foreground text-xl font-semibold">{title}</h3>
         <span className="text-muted-foreground text-sm border border-border rounded-full px-3 py-1">

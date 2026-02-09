@@ -22,4 +22,24 @@ export const experiences: Experience[] = [
       "Tools: Used Illustrator, Photoshop & InDesign.",
     ],
   },
+  {
+    title: "Meetzed",
+    role: "Graphic Designer",
+    period: "2020 - 2021",
+    points: [
+      "Collaboration: Supported Lead Designer on projects.",
+      "Branding: Crafted unique brand identities.",
+      "Tools: Used Illustrator, Photoshop & InDesign.",
+    ],
+  },
+  {
+    title: "Meetzed",
+    role: "Graphic Designer",
+    period: "2020 - 2021",
+    points: [
+      "Collaboration: Supported Lead Designer on projects.",
+      "Branding: Crafted unique brand identities.",
+      "Tools: Used Illustrator, Photoshop & InDesign.",
+    ],
+  },
 ];

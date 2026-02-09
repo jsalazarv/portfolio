@@ -2,21 +2,21 @@ import type { Education } from "../types";
 
 export const educationData: Education[] = [
   {
-    title: "High School",
-    subtitle: "Humanities",
-    location: "Delhi Cantonment, India",
-    period: "2017",
+    title: "home.education.highSchool.title",
+    subtitle: "home.education.highSchool.subtitle",
+    location: "home.education.highSchool.location",
+    period: "home.education.highSchool.period",
   },
   {
-    title: "Diploma",
-    subtitle: "Animation and Graphic Design",
-    location: "Delhi, India",
-    period: "2017-18",
+    title: "home.education.diploma.title",
+    subtitle: "home.education.diploma.subtitle",
+    location: "home.education.diploma.location",
+    period: "home.education.diploma.period",
   },
   {
-    title: "Graduation",
-    subtitle: "Bachelor of fine Arts",
-    location: "IGNOU Delhi, India",
-    period: "2017-21",
+    title: "home.education.graduation.title",
+    subtitle: "home.education.graduation.subtitle",
+    location: "home.education.graduation.location",
+    period: "home.education.graduation.period",
   },
 ];

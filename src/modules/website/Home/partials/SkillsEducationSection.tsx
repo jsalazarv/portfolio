@@ -3,14 +3,17 @@ import { SkillCard } from "../components/SkillCard";
 import { ToolBadge } from "../components/ToolBadge";
 import { educationData } from "../data/education";
 import { designTools, editingTools, languages } from "../data/skills";
+import { useTranslation } from "react-i18next";
 
 export function SkillsEducationSection() {
+  const { t } = useTranslation();
+
   return (
     <div className="grid md:grid-cols-2 gap-4">
       {/* Left Column - Tools and Languages */}
       <div className="space-y-4">
         {/* Design Tools */}
-        <SkillCard title="Design Tools">
+        <SkillCard title={t("sections.designTools")}>
           <div className="flex gap-2">
             {designTools.map((tool, index) => (
               <ToolBadge key={index} {...tool} />
@@ -19,7 +22,7 @@ export function SkillsEducationSection() {
         </SkillCard>
 
         {/* Editing Tools */}
-        <SkillCard title="Editing Tools">
+        <SkillCard title={t("sections.editingTools")}>
           <div className="flex gap-2">
             {editingTools.map((tool, index) => (
               <ToolBadge key={index} {...tool} />
@@ -36,7 +39,7 @@ export function SkillsEducationSection() {
         </SkillCard>
 
         {/* Languages */}
-        <SkillCard title="Languages">
+        <SkillCard title={t("sections.languages")}>
           <div className="flex gap-3">
             {languages.map((lang, index) => (
               <span key={index} className="text-2xl">

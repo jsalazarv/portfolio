@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import type { PropsWithChildren, ReactNode } from "react";
 
 import { Badge } from "@/common/components/ui/badge";
 import { portfolioLinks } from "@/modules/website/Home/data/portfolio";
+import { profile } from "@/modules/website/Home/data/profile";
 
 interface ErrorLayoutProps extends PropsWithChildren {
   icon: ReactNode;
@@ -22,6 +24,7 @@ export function ErrorLayout({
   standalone = false,
 }: ErrorLayoutProps) {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation();
 
   const errorContent = (
     <div className="w-full max-w-3xl mx-auto flex flex-col gap-8 items-center text-center animate-in fade-in-0 zoom-in-95 duration-500">
@@ -29,7 +32,7 @@ export function ErrorLayout({
       <div className="flex flex-col items-center gap-4">
         {icon}
         <Badge variant="outline" className="text-base px-4 py-1.5">
-          Error {errorCode}
+          {t("errors.badge", { code: errorCode })}
         </Badge>
       </div>
 
@@ -78,7 +81,9 @@ export function ErrorLayout({
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               {/* Social Links */}
               <div className="flex items-center gap-4">
-                <span className="text-muted-foreground text-sm">Connect:</span>
+                <span className="text-muted-foreground text-sm">
+                  {t("footer.connect")}
+                </span>
                 <div className="flex gap-3">
                   {portfolioLinks.map((link, index) => (
                     <a
@@ -87,7 +92,7 @@ export function ErrorLayout({
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center w-10 h-10 rounded-full bg-card border border-border hover:border-foreground/40 transition-colors"
-                      aria-label={link.label}
+                      aria-label={t(link.label)}
                     >
                       {typeof link.icon === "string" ? (
                         <span className="text-lg">{link.icon}</span>
@@ -101,7 +106,7 @@ export function ErrorLayout({
 
               {/* Copyright */}
               <p className="text-muted-foreground/60 text-sm">
-                © {currentYear} Juan Salazar. All rights reserved.
+                {t("footer.rights", { year: currentYear, name: profile.name })}
               </p>
             </div>
           </div>

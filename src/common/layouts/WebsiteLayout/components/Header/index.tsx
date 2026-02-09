@@ -2,18 +2,21 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { LanguageToggle } from "@/common/components/LanguageToggle";
 import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/lib/utils";
+import { useTranslation } from "react-i18next";
 
 const NAV_ITEMS = [
-  { path: "/", label: "Home" },
-  { path: "/about", label: "About" },
-  { path: "/projects", label: "Projects" },
-  { path: "/contact", label: "Contact" },
+  { path: "/", labelKey: "nav.home" },
+  { path: "/about", labelKey: "nav.about" },
+  { path: "/projects", labelKey: "nav.projects" },
+  { path: "/contact", labelKey: "nav.contact" },
 ];
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
@@ -43,13 +46,16 @@ export function Header() {
                     )
                   }
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </NavLink>
               ))}
             </nav>
 
             {/* Theme Toggle - Desktop */}
-            <ThemeToggle />
+            <div className="flex items-center gap-2">
+              <LanguageToggle />
+              <ThemeToggle />
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -78,17 +84,23 @@ export function Header() {
                     )
                   }
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </NavLink>
               ))}
 
               {/* Theme Toggle - Mobile */}
               <div className="px-2 pt-2 border-t border-border">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 justify-between">
                   <span className="text-sm font-medium text-muted-foreground">
-                    Tema:
+                    {t("header.theme")}
                   </span>
                   <ThemeToggle />
+                </div>
+                <div className="flex items-center gap-2 pt-3 justify-between">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    {t("header.language")}
+                  </span>
+                  <LanguageToggle />
                 </div>
               </div>
             </div>

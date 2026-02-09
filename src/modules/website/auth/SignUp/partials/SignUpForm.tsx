@@ -14,23 +14,26 @@ import {
 } from "@/common/components/ui/field";
 import { Input } from "@/common/components/ui/input";
 import { cn } from "@/common/lib/utils";
+import { Trans, useTranslation } from "react-i18next";
 
 export function SignUpForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { t } = useTranslation();
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>Sign up with your email account</CardDescription>
+          <CardTitle className="text-xl">{t("auth.welcomeBack")}</CardTitle>
+          <CardDescription>{t("auth.signUpWithEmail")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{t("auth.email")}</FieldLabel>
                 <Input
                   id="email"
                   type="email"
@@ -39,18 +42,21 @@ export function SignUpForm({
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor="password">Password</FieldLabel>
+                <FieldLabel htmlFor="password">{t("auth.password")}</FieldLabel>
                 <Input id="password" type="password" required />
 
-                <FieldLabel htmlFor="password">Confirm Password</FieldLabel>
+                <FieldLabel htmlFor="password">
+                  {t("auth.confirmPassword")}
+                </FieldLabel>
                 <Input id="password" type="password" required />
               </Field>
               <Field>
                 <Button type="submit" variant="secondary">
-                  Sign up
+                  {t("auth.signUp")}
                 </Button>
                 <FieldDescription className="text-center">
-                  Already have an account? <a href="/">Sign in</a>
+                  {t("auth.alreadyAccount")}{" "}
+                  <a href="/">{t("auth.login")}</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>
@@ -58,8 +64,13 @@ export function SignUpForm({
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        <Trans
+          i18nKey="auth.agree"
+          components={{
+            terms: <a href="#" />,
+            privacy: <a href="#" />,
+          }}
+        />
       </FieldDescription>
     </div>
   );

@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next";
+
 import { portfolioLinks } from "@/modules/website/Home/data/portfolio";
+import { profile } from "@/modules/website/Home/data/profile";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useTranslation();
 
   return (
     <footer>
@@ -9,7 +13,9 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Social Links */}
           <div className="flex items-center gap-4">
-            <span className="text-muted-foreground text-sm">Connect:</span>
+            <span className="text-muted-foreground text-sm">
+              {t("footer.connect")}
+            </span>
             <div className="flex gap-3">
               {portfolioLinks.map((link, index) => (
                 <a
@@ -18,7 +24,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-card border border-border hover:border-foreground/40 transition-colors"
-                  aria-label={link.label}
+                  aria-label={t(link.label)}
                 >
                   {typeof link.icon === "string" ? (
                     <span className="text-lg">{link.icon}</span>
@@ -32,7 +38,7 @@ export function Footer() {
 
           {/* Copyright */}
           <p className="text-muted-foreground/60 text-sm">
-            © {currentYear} Juan Salazar. All rights reserved.
+            {t("footer.rights", { year: currentYear, name: profile.name })}
           </p>
         </div>
       </div>

@@ -10,27 +10,27 @@ import {
 export const portfolioLinks: PortfolioLink[] = [
   {
     icon: "🟡",
-    label: "Bento",
+    label: "home.portfolio.bento",
     url: "https://bento.me/juansalazar",
   },
   {
     icon: <BehanceIcon />,
-    label: "Behance",
+    label: "home.portfolio.behance",
     url: "https://behance.net/juansalazar",
   },
   {
     icon: <InstagramIcon />,
-    label: "Instagram",
+    label: "home.portfolio.instagram",
     url: "https://instagram.com/juansalazar",
   },
   {
     icon: <YoutubeIcon />,
-    label: "Youtube",
+    label: "home.portfolio.youtube",
     url: "https://youtube.com/@juansalazar",
   },
   {
     icon: <DribbbleIcon />,
-    label: "Dribbble",
+    label: "home.portfolio.dribbble",
     url: "https://dribbble.com/juansalazar",
   },
 ];

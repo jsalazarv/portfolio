@@ -5,18 +5,18 @@ import type { Detail } from "../types";
 export const details: Detail[] = [
   {
     icon: <Calendar className="w-4 h-4" />,
-    label: "26 years",
+    label: "home.details.age",
   },
   {
     icon: <Globe className="w-4 h-4" />,
-    label: "iamsunilfreelancer.com",
+    label: "home.details.website",
   },
   {
     icon: <Phone className="w-4 h-4" />,
-    label: "+91 9899052055",
+    label: "home.details.phone",
   },
   {
     icon: "🇲🇽",
-    label: "Mèxico",
+    label: "home.details.country",
   },
 ];

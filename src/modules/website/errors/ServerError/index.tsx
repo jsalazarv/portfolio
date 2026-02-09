@@ -1,12 +1,14 @@
 import { Home, RefreshCw, ServerCrash } from "lucide-react";
 import { useEffect } from "react";
 import { Link, useRouteError } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/common/components/ui/button";
 import { ErrorLayout } from "@/common/layouts/ErrorLayout";
 
 export function ServerError() {
   const error = useRouteError();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (import.meta.env.DEV) {
@@ -23,14 +25,14 @@ export function ServerError() {
         />
       }
       errorCode="500"
-      title="Error del servidor"
-      description="Algo salió mal en nuestros servidores. Por favor, intenta nuevamente más tarde."
+      title={t("errors.serverError.title")}
+      description={t("errors.serverError.description")}
       standalone={true}
     >
       <Button asChild size="lg" className="w-full sm:w-auto">
         <Link to="/">
           <Home className="w-4 h-4" />
-          Volver al inicio
+          {t("errors.notFound.backHome")}
         </Link>
       </Button>
       <Button
@@ -40,7 +42,7 @@ export function ServerError() {
         onClick={() => window.location.reload()}
       >
         <RefreshCw className="w-4 h-4" />
-        Reintentar
+        {t("errors.serverError.retry")}
       </Button>
     </ErrorLayout>
   );

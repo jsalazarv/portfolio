@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { blogService } from "@/common/services/blog.service";
 import { PostForm } from "./components/PostForm";
 import type { BlogPost } from "@/common/types/blog.types";
@@ -21,7 +22,7 @@ export function EditPost() {
         setPost(data);
       } catch (error) {
         console.error("Error fetching post:", error);
-        alert("Error al cargar el post");
+        toast.error("Error al cargar el post");
       } finally {
         setLoading(false);
       }
@@ -36,10 +37,11 @@ export function EditPost() {
     setIsSubmitting(true);
     try {
       await blogService.updatePost(id, data);
+      toast.success("Post actualizado exitosamente");
       navigate("/dashboard/blog");
     } catch (error) {
       console.error("Error updating post:", error);
-      alert("Error al actualizar el post");
+      toast.error("Error al actualizar el post. Intenta nuevamente.");
     } finally {
       setIsSubmitting(false);
     }

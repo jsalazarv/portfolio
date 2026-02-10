@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { blogService } from "@/common/services/blog.service";
 import { PostForm } from "./components/PostForm";
 import type { PostFormData } from "./schemas/post.schema";
@@ -12,10 +13,11 @@ export function CreatePost() {
     setIsLoading(true);
     try {
       await blogService.createPost(data);
+      toast.success("Post creado exitosamente");
       navigate("/dashboard/blog");
     } catch (error) {
       console.error("Error creating post:", error);
-      alert("Error al crear el post");
+      toast.error("Error al crear el post. Intenta nuevamente.");
     } finally {
       setIsLoading(false);
     }

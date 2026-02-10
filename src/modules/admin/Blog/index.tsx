@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { toast } from "sonner";
 import { blogService } from "@/common/services/blog.service";
 import { Button } from "@/common/components/ui/button";
 import { Badge } from "@/common/components/ui/badge";
@@ -36,10 +37,11 @@ export function AdminBlog() {
 
     try {
       await blogService.deletePost(id);
+      toast.success(`Post "${title}" eliminado exitosamente`);
       fetchPosts();
     } catch (error) {
       console.error("Error deleting post:", error);
-      alert("Error al eliminar el post");
+      toast.error("Error al eliminar el post. Intenta nuevamente.");
     }
   };
 

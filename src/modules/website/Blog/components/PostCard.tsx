@@ -1,9 +1,14 @@
 import { Card } from "@/common/components/ui/card";
 import { Badge } from "@/common/components/ui/badge";
 import { Link } from "react-router-dom";
+import { Clock } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import type { BlogPost } from "@/common/types/blog.types";
+import {
+  calculateReadingTime,
+  formatReadingTime,
+} from "@/common/utils/readingTime";
 
 interface PostCardProps {
   post: BlogPost;
@@ -42,8 +47,13 @@ export function PostCard({ post }: PostCardProps) {
             {post.description}
           </p>
 
-          <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <span>{post.author}</span>
+          <div className="flex items-center justify-between text-xs text-muted-foreground pt-3 border-t">
+            <div className="flex items-center gap-1">
+              <Clock className="h-3 w-3" />
+              <span>
+                {formatReadingTime(calculateReadingTime(post.content))}
+              </span>
+            </div>
             <span>
               {format(
                 new Date(post.publishedAt || post.createdAt),

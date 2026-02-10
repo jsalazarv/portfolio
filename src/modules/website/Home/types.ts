@@ -26,7 +26,7 @@ export interface Education {
 }
 
 export interface Tool {
-  color: string;
+  tool: "ai" | "ps" | "id" | "xd" | "ae" | "pr";
   text: string;
 }
 

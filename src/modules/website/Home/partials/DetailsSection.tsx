@@ -1,4 +1,4 @@
-import { DetailBadge } from "../components/DetailBadge";
+import { Badge } from "@/common/components/ui/badge";
 import { details } from "../data/details.tsx";
 import { useTranslation } from "react-i18next";
 
@@ -13,7 +13,16 @@ export function DetailsSection() {
         </span>
         <div className="flex flex-wrap gap-2">
           {details.map((detail, index) => (
-            <DetailBadge key={index} {...detail} />
+            <Badge
+              key={index}
+              variant="secondary"
+              className="gap-2 rounded-full px-3 py-1.5"
+            >
+              <span className="w-4 h-4 flex items-center justify-center">
+                {detail.icon}
+              </span>
+              <span>{t(detail.label)}</span>
+            </Badge>
           ))}
         </div>
       </div>

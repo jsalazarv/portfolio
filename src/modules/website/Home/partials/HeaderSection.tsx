@@ -1,4 +1,4 @@
-import { InterestTag } from "../components/InterestTag";
+import { Badge } from "@/common/components/ui/badge";
 import { interests } from "../data/interests.tsx";
 import { profile } from "../data/profile";
 import { useTranslation } from "react-i18next";
@@ -33,7 +33,14 @@ export function HeaderSection() {
           </span>
           <div className="flex flex-wrap gap-2">
             {interests.map((interest, index) => (
-              <InterestTag key={index} {...interest} />
+              <Badge
+                key={index}
+                variant="outline"
+                className="gap-2 bg-secondary rounded-full px-3 py-1.5 text-foreground/80 cursor-pointer hover:bg-accent transition-colors"
+              >
+                {interest.icon}
+                <span>{t(interest.label)}</span>
+              </Badge>
             ))}
           </div>
         </div>

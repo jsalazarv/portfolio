@@ -9,7 +9,7 @@ function NotificationButton() {
       <Button variant="ghost" size="icon">
         <Bell className="h-5 w-5 text-foreground" />
       </Button>
-      <span className="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] rounded-full px-1.5 py-0.5 flex items-center justify-center border border-background shadow">
+      <span className="absolute -top-1 -right-1 bg-green-500 text-primary-foreground text-[10px] rounded-full px-1.5 py-0.5 flex items-center justify-center border border-background shadow">
         0
       </span>
     </div>

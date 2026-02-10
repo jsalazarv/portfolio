@@ -38,7 +38,7 @@ export function RelatedPosts({ currentPost }: RelatedPostsProps) {
           })
           .filter(({ score }) => score > 0)
           .sort((a, b) => b.score - a.score)
-          .slice(0, 3)
+          .slice(0, 2)
           .map(({ post }) => post);
 
         setRelatedPosts(scored);
@@ -59,7 +59,7 @@ export function RelatedPosts({ currentPost }: RelatedPostsProps) {
   return (
     <section className="space-y-6 pt-12 border-t">
       <h2 className="text-2xl font-bold text-foreground">Posts Relacionados</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {relatedPosts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}

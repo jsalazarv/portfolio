@@ -23,7 +23,7 @@ export function Blog() {
       try {
         const response = await blogService.getPosts({
           page: currentPage,
-          limit: 9,
+          limit: 6,
           search,
           category: selectedCategory || undefined,
         });
@@ -70,7 +70,7 @@ export function Blog() {
         type="website"
       />
 
-      <div className="mx-auto w-full md:max-w-5xl space-y-8 py-8">
+      <div className="mx-auto w-full md:max-w-3xl space-y-8 py-8">
         <div className="space-y-4">
           <h1 className="text-4xl font-bold text-foreground">Blog</h1>
           <p className="text-muted-foreground">
@@ -85,8 +85,8 @@ export function Blog() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 9 }).map((_, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {Array.from({ length: 6 }).map((_, index) => (
               <PostCardSkeleton key={index} />
             ))}
           </div>
@@ -96,7 +96,7 @@ export function Blog() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {posts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}

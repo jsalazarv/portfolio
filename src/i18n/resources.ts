@@ -3,6 +3,7 @@ export const resources = {
     translation: {
       nav: {
         home: "Home",
+        blog: "Blog",
         about: "About",
         projects: "Projects",
         contact: "Contact",

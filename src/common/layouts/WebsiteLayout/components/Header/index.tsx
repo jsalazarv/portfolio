@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 
 const NAV_ITEMS = [
   { path: "/", labelKey: "nav.home" },
+  { path: "/blog", labelKey: "nav.blog" },
   { path: "/about", labelKey: "nav.about" },
   { path: "/projects", labelKey: "nav.projects" },
   { path: "/contact", labelKey: "nav.contact" },

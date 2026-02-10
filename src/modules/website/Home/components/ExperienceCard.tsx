@@ -1,3 +1,4 @@
+import { Card } from "@/common/components/ui/card";
 import type { Experience } from "../types";
 import { useTranslation } from "react-i18next";
 
@@ -5,7 +6,11 @@ export function ExperienceCard({ title, role, period, points }: Experience) {
   const { t } = useTranslation();
 
   return (
-    <div className="flex h-full flex-col bg-card border border-border rounded-2xl p-5">
+    <Card
+      padding="comfortable"
+      rounded="large"
+      className="flex h-full flex-col"
+    >
       <div className="flex items-start justify-between mb-1">
         <h3 className="text-foreground text-xl font-semibold">{t(title)}</h3>
         <span className="text-muted-foreground text-sm border border-border rounded-full px-3 py-1">
@@ -26,6 +31,6 @@ export function ExperienceCard({ title, role, period, points }: Experience) {
           ))}
         </ul>
       </div>
-    </div>
+    </Card>
   );
 }

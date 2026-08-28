@@ -45,7 +45,7 @@ export function Dock({ items, defaultActiveId }: DockProps) {
   return (
     <div
       ref={containerRef}
-      className="grid grid-cols-4 gap-3 px-6 md:flex md:items-center md:gap-4 md:px-0"
+      className="grid grid-cols-2 gap-3 px-6 md:flex md:items-center md:gap-4 md:px-0"
       onKeyDown={handleKeyDown}
     >
       {items.map((item) => (

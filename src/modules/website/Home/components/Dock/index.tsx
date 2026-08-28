@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import type { LucideIcon } from "lucide-react";
 
@@ -19,12 +19,35 @@ interface DockProps {
 }
 
 export function Dock({ items, defaultActiveId }: DockProps) {
-  const [activeId, setActiveId] = useState(
-    defaultActiveId ?? items[0]?.id ?? "",
-  );
+  const [activeId, setActiveId] = useState(defaultActiveId ?? items[0]?.id ?? "");
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+
+    e.preventDefault();
+
+    const buttons = Array.from(
+      containerRef.current?.querySelectorAll<HTMLButtonElement>("[data-dock-button]") ?? [],
+    );
+
+    const currentIndex = buttons.indexOf(document.activeElement as HTMLButtonElement);
+    const total = buttons.length;
+
+    const nextIndex =
+      e.key === "ArrowRight"
+        ? (currentIndex + 1) % total
+        : (currentIndex - 1 + total) % total;
+
+    buttons[nextIndex]?.focus();
+  };
 
   return (
-    <div className="flex items-center gap-4">
+    <div
+      ref={containerRef}
+      className="flex items-center gap-4"
+      onKeyDown={handleKeyDown}
+    >
       {items.map((item) => (
         <DockItem
           key={item.id}

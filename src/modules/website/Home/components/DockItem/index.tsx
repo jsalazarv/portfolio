@@ -5,20 +5,25 @@ import type { LucideIcon } from "lucide-react";
 import { cn } from "@/common/lib/utils";
 
 interface DockItemProps {
+  ref?: React.Ref<HTMLButtonElement>;
   icon: LucideIcon;
   label: string;
   isActive: boolean;
+  tabIndex?: number;
   onClick: () => void;
 }
 
 export function DockItem({
+  ref,
   icon: Icon,
   label,
   isActive,
+  tabIndex = 0,
   onClick,
 }: DockItemProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const showLabel = isActive || isHovered;
+  const [isFocused, setIsFocused] = useState(false);
+  const isHighlighted = isActive || isHovered || isFocused;
 
   return (
     <div
@@ -27,13 +32,16 @@ export function DockItem({
       onMouseLeave={() => setIsHovered(false)}
     >
       <button
+        ref={ref}
+        data-dock-button
         onClick={onClick}
         aria-label={label}
+        tabIndex={tabIndex}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         className={cn(
-          "w-16 h-16 rounded-full border border-border flex items-center justify-center transition-all duration-200 cursor-pointer",
-          isActive || isHovered
-            ? "bg-white shadow-md scale-125"
-            : "bg-white/60 shadow-sm",
+          "w-16 h-16 rounded-full border border-border flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none",
+          isHighlighted ? "bg-white shadow-md scale-125" : "bg-white/60 shadow-sm",
         )}
       >
         <Icon size={24} strokeWidth={1.5} />
@@ -41,7 +49,7 @@ export function DockItem({
       <span
         className={cn(
           "text-sm font-medium text-foreground transition-opacity duration-200",
-          showLabel ? "opacity-100" : "opacity-0 pointer-events-none",
+          isHighlighted ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
       >
         {label}

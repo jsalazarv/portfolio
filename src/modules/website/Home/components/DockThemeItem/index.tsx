@@ -31,7 +31,7 @@ export function DockThemeItem() {
     <div className="flex flex-col items-center gap-3">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button aria-label="Theme" className={cn(DOCK_CIRCLE_CLASSES)}>
+          <button data-dock-button aria-label="Theme" className={cn(DOCK_CIRCLE_CLASSES)}>
             {getCurrentIcon(theme)}
           </button>
         </DropdownMenuTrigger>

@@ -15,7 +15,7 @@ const LANGS = [
 ];
 
 const DOCK_CIRCLE_CLASSES =
-  "w-16 h-16 rounded-full border border-border bg-white/60 shadow-sm flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-125 hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:scale-125 focus-visible:bg-white focus-visible:shadow-md";
+  "w-10 h-10 md:w-16 md:h-16 rounded-full border border-border bg-white/60 shadow-sm flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-125 hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:scale-125 focus-visible:bg-white focus-visible:shadow-md";
 
 export function DockLanguageItem() {
   const { i18n } = useTranslation();
@@ -32,7 +32,7 @@ export function DockLanguageItem() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button data-dock-button aria-label="Language" className={cn(DOCK_CIRCLE_CLASSES)}>
-            <Globe size={24} strokeWidth={1.5} />
+            <Globe className="size-4 md:size-6" strokeWidth={1.5} />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="center" side="top">

@@ -45,7 +45,9 @@ export function DockThemeItem() {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <span className="opacity-0 pointer-events-none text-sm font-medium">Theme</span>
+      <span className="opacity-0 pointer-events-none text-sm font-medium">
+        Theme
+      </span>
     </div>
   );
 }

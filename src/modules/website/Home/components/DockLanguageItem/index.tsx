@@ -37,14 +37,19 @@ export function DockLanguageItem() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="center" side="top">
           {LANGS.map((lang) => (
-            <DropdownMenuItem key={lang.code} onClick={() => setLang(lang.code)}>
+            <DropdownMenuItem
+              key={lang.code}
+              onClick={() => setLang(lang.code)}
+            >
               <span>{lang.label}</span>
               {current === lang.code && <Check className="size-4 ml-auto" />}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <span className="opacity-0 pointer-events-none text-sm font-medium">Language</span>
+      <span className="opacity-0 pointer-events-none text-sm font-medium">
+        Language
+      </span>
     </div>
   );
 }

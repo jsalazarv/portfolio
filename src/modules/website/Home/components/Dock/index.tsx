@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import type { LucideIcon } from "lucide-react";
 
 import { DockItem } from "@/modules/website/Home/components/DockItem";
@@ -18,7 +19,9 @@ interface DockProps {
 }
 
 export function Dock({ items, defaultActiveId }: DockProps) {
-  const [activeId, setActiveId] = useState(defaultActiveId ?? items[0]?.id ?? "");
+  const [activeId, setActiveId] = useState(
+    defaultActiveId ?? items[0]?.id ?? "",
+  );
 
   return (
     <div className="flex items-center gap-4">

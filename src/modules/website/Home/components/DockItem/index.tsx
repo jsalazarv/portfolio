@@ -9,7 +9,12 @@ interface DockItemProps {
   onClick: () => void;
 }
 
-export function DockItem({ icon: Icon, label, isActive, onClick }: DockItemProps) {
+export function DockItem({
+  icon: Icon,
+  label,
+  isActive,
+  onClick,
+}: DockItemProps) {
   return (
     <div className="flex flex-col items-center gap-3">
       <button

@@ -16,9 +16,13 @@ export function HomeStatusBar() {
     <div className="fixed bottom-0 left-0 right-0 h-14 px-6 flex items-center justify-between border-t border-border bg-secondary">
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center shrink-0">
-          <span className="text-xs font-bold text-background select-none">JS</span>
+          <span className="text-xs font-bold text-background select-none">
+            JS
+          </span>
         </div>
-        <span className="text-sm font-medium text-muted-foreground">Juan S.</span>
+        <span className="text-sm font-medium text-muted-foreground">
+          Juan S.
+        </span>
       </div>
       <span className="text-sm font-medium text-muted-foreground tabular-nums">
         {time}

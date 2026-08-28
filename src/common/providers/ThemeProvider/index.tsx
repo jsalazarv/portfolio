@@ -16,7 +16,6 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = window.document.documentElement;
-    console.log("Theme changed to:", theme);
 
     // Remove both classes first
     root.classList.remove("light", "dark");
@@ -26,7 +25,6 @@ export function ThemeProvider({
         .matches
         ? "dark"
         : "light";
-      console.log("System theme detected:", systemTheme);
       root.classList.add(systemTheme);
     } else {
       root.classList.add(theme);
@@ -34,13 +32,11 @@ export function ThemeProvider({
 
     // Force a reflow to ensure the theme change is applied
     void root.offsetHeight;
-    console.log("Applied theme class:", root.classList.toString());
   }, [theme]);
 
   const value = {
     theme,
     setTheme: (theme: Theme) => {
-      console.log("Setting theme to:", theme);
       localStorage.setItem(storageKey, theme);
       setTheme(theme);
     },

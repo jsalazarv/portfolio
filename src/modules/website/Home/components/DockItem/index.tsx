@@ -40,11 +40,11 @@ export function DockItem({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={cn(
-          "w-10 h-10 md:w-16 md:h-16 rounded-full border border-border flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none",
+          "w-14 h-14 md:w-16 md:h-16 rounded-full border border-border flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none",
           isHighlighted ? "bg-white shadow-md scale-125" : "bg-white/60 shadow-sm",
         )}
       >
-        <Icon className="size-4 md:size-6" strokeWidth={1.5} />
+        <Icon className="size-5 md:size-6" strokeWidth={1.5} />
       </button>
       <span
         className={cn(

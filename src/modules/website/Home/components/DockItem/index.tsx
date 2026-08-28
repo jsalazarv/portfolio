@@ -27,7 +27,7 @@ export function DockItem({
 
   return (
     <div
-      className="flex flex-col items-center gap-3"
+      className="flex flex-col items-center justify-center gap-3"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

@@ -1,29 +1,32 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import { AdminLayout } from "@/common/layouts/AdminLayout";
+import { HomeLayout } from "@/common/layouts/HomeLayout";
 import { WebsiteLayout } from "@/common/layouts/WebsiteLayout";
-import { Dashboard } from "@/modules/admin/Dashboard";
 import { AdminBlog } from "@/modules/admin/Blog";
 import { CreatePost } from "@/modules/admin/Blog/CreatePost";
 import { EditPost } from "@/modules/admin/Blog/EditPost";
+import { Dashboard } from "@/modules/admin/Dashboard";
 import { SignIn } from "@/modules/website/auth/SignIn";
 import { SignUp } from "@/modules/website/auth/SignUp";
-import { Home } from "@/modules/website/Home";
 import { Blog } from "@/modules/website/Blog";
 import { BlogPost } from "@/modules/website/Blog/BlogPost";
 import { NotFound } from "@/modules/website/errors/NotFound";
 import { ServerError } from "@/modules/website/errors/ServerError";
+import { Home } from "@/modules/website/Home";
 
 export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomeLayout />,
+    errorElement: <ServerError />,
+    children: [{ path: "/", element: <Home /> }],
+  },
   {
     path: "/",
     element: <WebsiteLayout />,
     errorElement: <ServerError />,
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
       {
         path: "/blog",
         element: <Blog />,

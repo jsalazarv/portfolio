@@ -79,7 +79,7 @@ export function DockItem({
           )
         ) : avatarFallback ? (
           compact ? (
-            <span className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-[9px] font-semibold shrink-0">
+            <span className={cn("w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-semibold shrink-0", isActive ? "bg-primary-foreground text-primary" : "bg-muted text-foreground")}>
               {avatarFallback}
             </span>
           ) : (

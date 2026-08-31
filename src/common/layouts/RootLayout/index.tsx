@@ -27,7 +27,7 @@ export function RootLayout() {
           "fixed left-1/2 z-50 transition-all duration-500 ease-in-out",
           isHome
             ? "-translate-x-1/2 -translate-y-1/2 top-1/2"
-            : "-translate-x-1/2 top-4 w-full max-w-3xl px-4 md:px-8",
+            : "-translate-x-1/2 top-4 w-full max-w-3xl",
         )}
       >
         <div

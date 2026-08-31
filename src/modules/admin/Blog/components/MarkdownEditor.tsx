@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Label } from "@/common/components/ui/label";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+
 import { Button } from "@/common/components/ui/button";
+import { Label } from "@/common/components/ui/label";
 
 interface MarkdownEditorProps {
   value: string;

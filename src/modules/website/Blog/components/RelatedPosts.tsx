@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { blogService } from "@/common/services/blog.service";
-import type { BlogPost } from "@/common/types/blog.types";
+
 import { PostCard } from "./PostCard";
+
+import type { BlogPost } from "@/common/types/blog.types";
+
+import { blogService } from "@/common/services/blog.service";
 
 interface RelatedPostsProps {
   currentPost: BlogPost;

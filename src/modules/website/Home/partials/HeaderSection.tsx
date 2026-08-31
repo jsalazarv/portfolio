@@ -1,7 +1,9 @@
-import { Badge } from "@/common/components/ui/badge";
+import { useTranslation } from "react-i18next";
+
 import { interests } from "../data/interests.tsx";
 import { profile } from "../data/profile";
-import { useTranslation } from "react-i18next";
+
+import { Badge } from "@/common/components/ui/badge";
 
 export function HeaderSection() {
   const { t } = useTranslation();

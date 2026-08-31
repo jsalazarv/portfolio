@@ -1,6 +1,8 @@
-import { Badge } from "@/common/components/ui/badge";
-import { portfolioLinks } from "../data/portfolio.tsx";
 import { useTranslation } from "react-i18next";
+
+import { portfolioLinks } from "../data/portfolio.tsx";
+
+import { Badge } from "@/common/components/ui/badge";
 
 export function PortfolioSection() {
   const { t } = useTranslation();

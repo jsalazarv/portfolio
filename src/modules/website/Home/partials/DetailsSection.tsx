@@ -1,6 +1,8 @@
-import { Badge } from "@/common/components/ui/badge";
-import { details } from "../data/details.tsx";
 import { useTranslation } from "react-i18next";
+
+import { details } from "../data/details.tsx";
+
+import { Badge } from "@/common/components/ui/badge";
 
 export function DetailsSection() {
   const { t } = useTranslation();

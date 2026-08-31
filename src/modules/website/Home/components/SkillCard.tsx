@@ -1,5 +1,6 @@
-import { Card } from "@/common/components/ui/card";
 import type { ReactNode } from "react";
+
+import { Card } from "@/common/components/ui/card";
 
 interface SkillCardProps {
   title: string;

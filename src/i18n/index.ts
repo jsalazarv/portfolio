@@ -7,8 +7,7 @@ const storedLang =
   typeof window !== "undefined" ? localStorage.getItem("lang") : null;
 const browserLang =
   typeof navigator !== "undefined" ? navigator.language.toLowerCase() : "en";
-const detectedLang =
-  storedLang || (browserLang.startsWith("es") ? "es" : "en");
+const detectedLang = storedLang || (browserLang.startsWith("es") ? "es" : "en");
 
 i18n.use(initReactI18next).init({
   resources,

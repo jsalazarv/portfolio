@@ -1,13 +1,16 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import slugify from "slugify";
+
+import { MarkdownEditor } from "./MarkdownEditor";
+import { postSchema, type PostFormData } from "../schemas/post.schema";
+
+import type { BlogPost } from "@/common/types/blog.types";
+
 import { Button } from "@/common/components/ui/button";
 import { Input } from "@/common/components/ui/input";
 import { Label } from "@/common/components/ui/label";
-import { MarkdownEditor } from "./MarkdownEditor";
-import { postSchema, type PostFormData } from "../schemas/post.schema";
-import type { BlogPost } from "@/common/types/blog.types";
 
 interface PostFormProps {
   post?: BlogPost;

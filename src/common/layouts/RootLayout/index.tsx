@@ -27,10 +27,18 @@ export function RootLayout() {
           "fixed left-1/2 z-50 transition-all duration-500 ease-in-out",
           isHome
             ? "-translate-x-1/2 -translate-y-1/2 top-1/2"
-            : "-translate-x-1/2 top-6",
+            : "-translate-x-1/2 top-4",
         )}
       >
-        <Dock items={items} activeId={activeId} compact={!isHome} />
+        <div
+          className={cn(
+            "transition-all duration-500",
+            !isHome &&
+              "bg-card/80 backdrop-blur-md border border-border rounded-2xl px-4 py-2 shadow-sm",
+          )}
+        >
+          <Dock items={items} activeId={activeId} compact={!isHome} />
+        </div>
       </div>
 
       {/* Status bar — only on home */}

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 import type { LucideIcon } from "lucide-react";
 
@@ -15,11 +15,10 @@ export interface NavDockItem {
 
 interface DockProps {
   items: NavDockItem[];
-  defaultActiveId?: string;
+  activeId: string;
 }
 
-export function Dock({ items, defaultActiveId }: DockProps) {
-  const [activeId, setActiveId] = useState(defaultActiveId ?? items[0]?.id ?? "");
+export function Dock({ items, activeId }: DockProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -54,10 +53,7 @@ export function Dock({ items, defaultActiveId }: DockProps) {
           icon={item.icon}
           label={item.label}
           isActive={activeId === item.id}
-          onClick={() => {
-            setActiveId(item.id);
-            item.onClick();
-          }}
+          onClick={item.onClick}
         />
       ))}
       <DockLanguageItem />

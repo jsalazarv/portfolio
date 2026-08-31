@@ -1,7 +1,8 @@
-import { Home, RefreshCw, ServerCrash } from "lucide-react";
+import { Home01Icon, Refresh01Icon, ServerCrashIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect } from "react";
-import { Link, useRouteError } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Link, useRouteError } from "react-router-dom";
 
 import { Button } from "@/common/components/ui/button";
 import { ErrorLayout } from "@/common/layouts/ErrorLayout";
@@ -19,9 +20,11 @@ export function ServerError() {
   return (
     <ErrorLayout
       icon={
-        <ServerCrash
-          className="w-24 h-24 text-destructive/40"
+        <HugeiconsIcon
+          icon={ServerCrashIcon}
+          size={96}
           strokeWidth={1.5}
+          className="text-destructive/40"
         />
       }
       errorCode="500"
@@ -31,7 +34,7 @@ export function ServerError() {
     >
       <Button asChild size="lg" className="w-full sm:w-auto">
         <Link to="/">
-          <Home className="w-4 h-4" />
+          <HugeiconsIcon icon={Home01Icon} size={16} strokeWidth={1.5} />
           {t("errors.notFound.backHome")}
         </Link>
       </Button>
@@ -41,7 +44,7 @@ export function ServerError() {
         className="w-full sm:w-auto"
         onClick={() => window.location.reload()}
       >
-        <RefreshCw className="w-4 h-4" />
+        <HugeiconsIcon icon={Refresh01Icon} size={16} strokeWidth={1.5} />
         {t("errors.serverError.retry")}
       </Button>
     </ErrorLayout>

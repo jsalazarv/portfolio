@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Plus, Edit, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { Add01Icon, Delete01Icon, Edit01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import { blogService } from "@/common/services/blog.service";
-import { Button } from "@/common/components/ui/button";
-import { Badge } from "@/common/components/ui/badge";
+
 import type { BlogPost } from "@/common/types/blog.types";
+
+import { Badge } from "@/common/components/ui/badge";
+import { Button } from "@/common/components/ui/button";
+import { blogService } from "@/common/services/blog.service";
 
 export function AdminBlog() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -56,7 +59,7 @@ export function AdminBlog() {
         </div>
         <Link to="/dashboard/blog/new">
           <Button>
-            <Plus className="h-4 w-4 mr-2" />
+            <HugeiconsIcon icon={Add01Icon} size={16} strokeWidth={1.5} className="mr-2" />
             Nuevo Post
           </Button>
         </Link>
@@ -107,7 +110,7 @@ export function AdminBlog() {
               <div className="flex gap-2">
                 <Link to={`/dashboard/blog/edit/${post.id}`}>
                   <Button variant="ghost" size="icon" title="Editar">
-                    <Edit className="h-4 w-4" />
+                    <HugeiconsIcon icon={Edit01Icon} size={16} strokeWidth={1.5} />
                   </Button>
                 </Link>
                 <Button
@@ -116,7 +119,7 @@ export function AdminBlog() {
                   onClick={() => handleDelete(post.id, post.title)}
                   title="Eliminar"
                 >
-                  <Trash2 className="h-4 w-4 text-destructive" />
+                  <HugeiconsIcon icon={Delete01Icon} size={16} strokeWidth={1.5} className="text-destructive" />
                 </Button>
               </div>
             </div>

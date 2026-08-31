@@ -1,37 +1,41 @@
 import { useState } from "react";
 
-import type { LucideIcon } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import type { IconSvgElement } from "@hugeicons/react";
 
 import { cn } from "@/common/lib/utils";
 
 interface DockItemProps {
   ref?: React.Ref<HTMLButtonElement>;
-  icon: LucideIcon;
+  icon: IconSvgElement;
   label: string;
   isActive: boolean;
   compact?: boolean;
   tabIndex?: number;
   onClick: () => void;
+  avatarSrc?: string;
+  avatarFallback?: string;
 }
 
 export function DockItem({
   ref,
-  icon: Icon,
+  icon,
   label,
   isActive,
   compact = false,
   tabIndex = 0,
   onClick,
+  avatarSrc,
+  avatarFallback,
 }: DockItemProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [imgFailed, setImgFailed] = useState(false);
   const isHighlighted = isActive || isHovered || isFocused;
 
   return (
     <div
-      className={cn(
-        compact ? "flex items-center" : "flex flex-col items-center justify-center gap-3",
-      )}
+      className={cn(!compact && "flex flex-col items-center justify-center gap-3")}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -44,30 +48,55 @@ export function DockItem({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={cn(
-          "rounded-full border border-border flex items-center justify-center transition-all duration-500 cursor-pointer focus-visible:outline-none",
-          compact ? "w-10 h-10" : "w-14 h-14 md:w-16 md:h-16",
-          isHighlighted ? "bg-card shadow-md scale-125" : "bg-card/60 shadow-sm",
+          "rounded-full border border-border flex items-center transition-all duration-300 cursor-pointer focus-visible:outline-none",
+          compact
+            ? cn("h-9 px-3 gap-2 bg-card", isActive && "shadow-md", isHighlighted && "scale-105")
+            : cn(
+                "w-14 h-14 md:w-16 md:h-16 justify-center transition-all duration-500 overflow-hidden",
+                isHighlighted ? "bg-card scale-125" : "bg-card/60",
+                isActive && "shadow-md",
+              ),
         )}
       >
-        <Icon
-          className={cn(
-            "transition-all duration-500",
-            compact ? "size-4" : "size-5 md:size-6",
-          )}
-          strokeWidth={1.5}
-        />
+        {avatarSrc && !imgFailed ? (
+          compact ? (
+            <img
+              src={avatarSrc}
+              alt={label}
+              className="w-6 h-6 rounded-full object-cover shrink-0"
+              onError={() => setImgFailed(true)}
+            />
+          ) : (
+            <img
+              src={avatarSrc}
+              alt={label}
+              className="w-full h-full object-cover"
+              onError={() => setImgFailed(true)}
+            />
+          )
+        ) : avatarFallback ? (
+          compact ? (
+            <span className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-[9px] font-semibold shrink-0">
+              {avatarFallback}
+            </span>
+          ) : (
+            <span className="w-full h-full flex items-center justify-center text-sm font-semibold">
+              {avatarFallback}
+            </span>
+          )
+        ) : (
+          <HugeiconsIcon
+            icon={icon}
+            size={compact ? 16 : 24}
+            strokeWidth={1.2}
+            className="shrink-0 transition-all duration-300"
+          />
+        )}
+        {compact && (
+          <span className="whitespace-nowrap text-xs font-medium">{label}</span>
+        )}
       </button>
-      {compact ? (
-        <span
-          onClick={onClick}
-          className={cn(
-            "overflow-hidden whitespace-nowrap text-xs font-medium text-foreground transition-all duration-300 ease-in-out cursor-pointer",
-            isHighlighted ? "max-w-[8rem] opacity-100 ml-2" : "max-w-0 opacity-0 ml-0",
-          )}
-        >
-          {label}
-        </span>
-      ) : (
+      {!compact && (
         <span
           className={cn(
             "text-sm font-medium text-foreground transition-opacity duration-200",

@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { ArrowLeft, Calendar, User, Clock } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { blogService } from "@/common/services/blog.service";
-import { Badge } from "@/common/components/ui/badge";
-import { Button } from "@/common/components/ui/button";
-import type { BlogPost as BlogPostType } from "@/common/types/blog.types";
+import { ArrowLeft01Icon, Calendar01Icon, Clock01Icon, UserIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import { useParams, Link } from "react-router-dom";
+import remarkGfm from "remark-gfm";
+
 import { BlogPostSkeleton } from "./components/BlogPostSkeleton";
 import { RelatedPosts } from "./components/RelatedPosts";
+
+import type { BlogPost as BlogPostType } from "@/common/types/blog.types";
+
 import { SEO } from "@/common/components/SEO";
+import { Badge } from "@/common/components/ui/badge";
+import { Button } from "@/common/components/ui/button";
+import { blogService } from "@/common/services/blog.service";
 import {
   calculateReadingTime,
   formatReadingTime,
@@ -73,7 +77,7 @@ export function BlogPost() {
       <article className="mx-auto w-full md:max-w-3xl space-y-8 py-8">
         <Link to="/blog">
           <Button variant="ghost" size="sm">
-            <ArrowLeft className="h-4 w-4 mr-2" />
+            <HugeiconsIcon icon={ArrowLeft01Icon} size={16} strokeWidth={1.5} className="mr-2" />
             Volver al blog
           </Button>
         </Link>
@@ -103,11 +107,11 @@ export function BlogPost() {
 
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
-              <User className="h-4 w-4" />
+              <HugeiconsIcon icon={UserIcon} size={16} strokeWidth={1.5} />
               <span>{post.author}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
+              <HugeiconsIcon icon={Calendar01Icon} size={16} strokeWidth={1.5} />
               <span>
                 {format(
                   new Date(post.publishedAt || post.createdAt),
@@ -117,7 +121,7 @@ export function BlogPost() {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4" />
+              <HugeiconsIcon icon={Clock01Icon} size={16} strokeWidth={1.5} />
               <span>
                 {formatReadingTime(calculateReadingTime(post.content))}
               </span>

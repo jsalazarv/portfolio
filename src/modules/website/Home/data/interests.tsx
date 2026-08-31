@@ -1,18 +1,19 @@
-import { Gamepad2, Film, Plane } from "lucide-react";
+import { Airplane01Icon, Film01Icon, GameController01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 import type { Interest } from "../types";
 
 export const interests: Interest[] = [
   {
-    icon: <Gamepad2 className="w-4 h-4" />,
+    icon: <HugeiconsIcon icon={GameController01Icon} size={16} strokeWidth={1.5} />,
     label: "home.interests.gaming",
   },
   {
-    icon: <Film className="w-4 h-4" />,
+    icon: <HugeiconsIcon icon={Film01Icon} size={16} strokeWidth={1.5} />,
     label: "home.interests.filmMaking",
   },
   {
-    icon: <Plane className="w-4 h-4" />,
+    icon: <HugeiconsIcon icon={Airplane01Icon} size={16} strokeWidth={1.5} />,
     label: "home.interests.traveling",
   },
 ];

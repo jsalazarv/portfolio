@@ -1,18 +1,19 @@
-import { Calendar, Globe, Phone } from "lucide-react";
+import { Calendar01Icon, Call02Icon, GlobeIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 import type { Detail } from "../types";
 
 export const details: Detail[] = [
   {
-    icon: <Calendar className="w-4 h-4" />,
+    icon: <HugeiconsIcon icon={Calendar01Icon} size={16} strokeWidth={1.5} />,
     label: "home.details.age",
   },
   {
-    icon: <Globe className="w-4 h-4" />,
+    icon: <HugeiconsIcon icon={GlobeIcon} size={16} strokeWidth={1.5} />,
     label: "home.details.website",
   },
   {
-    icon: <Phone className="w-4 h-4" />,
+    icon: <HugeiconsIcon icon={Call02Icon} size={16} strokeWidth={1.5} />,
     label: "home.details.phone",
   },
   {

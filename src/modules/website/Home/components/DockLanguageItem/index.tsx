@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-import { Check, Globe } from "lucide-react";
+import { CheckIcon, LanguageSquareIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+
 import { useTranslation } from "react-i18next";
 
 import {
@@ -23,7 +25,6 @@ interface DockLanguageItemProps {
 export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
   const { i18n } = useTranslation();
   const current = (i18n.resolvedLanguage ?? i18n.language ?? "es").slice(0, 2);
-  const [isHovered, setIsHovered] = useState(false);
   const [open, setOpen] = useState(false);
 
   const setLang = (code: string) => {
@@ -33,49 +34,38 @@ export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
   };
 
   return (
-    <div
-      className={cn(compact ? "flex items-center" : "flex flex-col items-center gap-3")}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className={cn(!compact && "flex flex-col items-center gap-3")}>
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
           <button
             data-dock-button
             aria-label="Language"
             className={cn(
-              "rounded-full border border-border bg-card/60 shadow-sm flex items-center justify-center transition-all duration-500 cursor-pointer hover:scale-125 hover:bg-card hover:shadow-md focus-visible:outline-none focus-visible:scale-125 focus-visible:bg-card focus-visible:shadow-md",
-              compact ? "w-10 h-10" : "w-14 h-14 md:w-16 md:h-16",
+              "rounded-full border border-border shadow-sm flex items-center transition-all duration-300 cursor-pointer focus-visible:outline-none",
+              compact
+                ? "bg-card h-9 px-3 gap-2 hover:scale-105 focus-visible:scale-105"
+                : "w-14 h-14 md:w-16 md:h-16 justify-center bg-card/60 hover:scale-125 hover:bg-card focus-visible:scale-125 focus-visible:bg-card",
             )}
           >
-            <Globe
-              className={cn("transition-all duration-500", compact ? "size-4" : "size-5 md:size-6")}
-              strokeWidth={1.5}
+            <HugeiconsIcon
+              icon={LanguageSquareIcon}
+              size={compact ? 16 : 24}
+              strokeWidth={1.2}
+              className="shrink-0 transition-all duration-300"
             />
+            {compact && <span className="whitespace-nowrap text-xs font-medium">Language</span>}
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="center" side="top">
           {LANGS.map((lang) => (
             <DropdownMenuItem key={lang.code} onClick={() => setLang(lang.code)}>
               <span>{lang.label}</span>
-              {current === lang.code && <Check className="size-4 ml-auto" />}
+              {current === lang.code && <HugeiconsIcon icon={CheckIcon} size={16} className="ml-auto" />}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      {compact ? (
-        <span
-          onClick={() => setOpen(true)}
-          className={cn(
-            "overflow-hidden whitespace-nowrap text-xs font-medium text-foreground transition-all duration-300 ease-in-out cursor-pointer",
-            isHovered ? "max-w-[8rem] opacity-100 ml-2" : "max-w-0 opacity-0 ml-0",
-          )}
-        >
-          Language
-        </span>
-      ) : (
-        <span className="opacity-0 pointer-events-none text-sm font-medium">Language</span>
-      )}
+      {!compact && <span className="opacity-0 pointer-events-none text-sm font-medium">Language</span>}
     </div>
   );
 }

@@ -1,4 +1,6 @@
-import { Check, Monitor, Moon, Sun } from "lucide-react";
+import { CheckIcon, MonitorIcon, Moon01Icon, Sun01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+
 import { Button } from "@/common/components/ui/button";
 import {
   DropdownMenu,
@@ -12,9 +14,9 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const getCurrentIcon = () => {
-    if (theme === "light") return <Sun className="size-4" />;
-    if (theme === "dark") return <Moon className="size-4" />;
-    return <Monitor className="size-4" />;
+    if (theme === "light") return <HugeiconsIcon icon={Sun01Icon} size={16} strokeWidth={1.5} />;
+    if (theme === "dark") return <HugeiconsIcon icon={Moon01Icon} size={16} strokeWidth={1.5} />;
+    return <HugeiconsIcon icon={MonitorIcon} size={16} strokeWidth={1.5} />;
   };
 
   return (
@@ -27,21 +29,21 @@ export function ThemeToggle() {
 
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          <Monitor className="size-4" />
+          <HugeiconsIcon icon={MonitorIcon} size={16} strokeWidth={1.5} />
           <span>Sistema</span>
-          {theme === "system" && <Check className="size-4 ml-auto" />}
+          {theme === "system" && <HugeiconsIcon icon={CheckIcon} size={16} className="ml-auto" />}
         </DropdownMenuItem>
 
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          <Sun className="size-4" />
+          <HugeiconsIcon icon={Sun01Icon} size={16} strokeWidth={1.5} />
           <span>Claro</span>
-          {theme === "light" && <Check className="size-4 ml-auto" />}
+          {theme === "light" && <HugeiconsIcon icon={CheckIcon} size={16} className="ml-auto" />}
         </DropdownMenuItem>
 
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          <Moon className="size-4" />
+          <HugeiconsIcon icon={Moon01Icon} size={16} strokeWidth={1.5} />
           <span>Oscuro</span>
-          {theme === "dark" && <Check className="size-4 ml-auto" />}
+          {theme === "dark" && <HugeiconsIcon icon={CheckIcon} size={16} className="ml-auto" />}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

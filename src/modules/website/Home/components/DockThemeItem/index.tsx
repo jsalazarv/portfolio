@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Check, Monitor, Moon, Sun } from "lucide-react";
 
 import {
@@ -28,9 +30,14 @@ function getCurrentIcon(theme: string, compact: boolean) {
 
 export function DockThemeItem({ compact = false }: DockThemeItemProps) {
   const { theme, setTheme } = useTheme();
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div
+      className={cn(compact ? "relative flex items-center" : "flex flex-col items-center gap-3")}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button
@@ -54,7 +61,18 @@ export function DockThemeItem({ compact = false }: DockThemeItemProps) {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <span className="opacity-0 pointer-events-none text-sm font-medium">Theme</span>
+      {compact ? (
+        <span
+          className={cn(
+            "absolute left-full ml-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-xs font-medium bg-card text-foreground px-2 py-1 rounded-md shadow-sm border border-border transition-all duration-200 pointer-events-none",
+            isHovered ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1",
+          )}
+        >
+          Theme
+        </span>
+      ) : (
+        <span className="opacity-0 pointer-events-none text-sm font-medium">Theme</span>
+      )}
     </div>
   );
 }

@@ -29,7 +29,11 @@ export function DockItem({
 
   return (
     <div
-      className="flex flex-col items-center justify-center gap-3"
+      className={cn(
+        compact
+          ? "relative flex items-center"
+          : "flex flex-col items-center justify-center gap-3",
+      )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -55,14 +59,25 @@ export function DockItem({
           strokeWidth={1.5}
         />
       </button>
-      <span
-        className={cn(
-          "text-sm font-medium text-foreground transition-opacity duration-200",
-          isHighlighted ? "opacity-100" : "opacity-0 pointer-events-none",
-        )}
-      >
-        {label}
-      </span>
+      {compact ? (
+        <span
+          className={cn(
+            "absolute left-full ml-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-xs font-medium bg-card text-foreground px-2 py-1 rounded-md shadow-sm border border-border transition-all duration-200 pointer-events-none",
+            isHighlighted ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1",
+          )}
+        >
+          {label}
+        </span>
+      ) : (
+        <span
+          className={cn(
+            "text-sm font-medium text-foreground transition-opacity duration-200",
+            isHighlighted ? "opacity-100" : "opacity-0 pointer-events-none",
+          )}
+        >
+          {label}
+        </span>
+      )}
     </div>
   );
 }

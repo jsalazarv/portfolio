@@ -1,8 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import { AdminLayout } from "@/common/layouts/AdminLayout";
-import { HomeLayout } from "@/common/layouts/HomeLayout";
-import { WebsiteLayout } from "@/common/layouts/WebsiteLayout";
+import { RootLayout } from "@/common/layouts/RootLayout";
 import { AdminBlog } from "@/modules/admin/Blog";
 import { CreatePost } from "@/modules/admin/Blog/CreatePost";
 import { EditPost } from "@/modules/admin/Blog/EditPost";
@@ -18,27 +17,13 @@ import { Home } from "@/modules/website/Home";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeLayout />,
-    errorElement: <ServerError />,
-    children: [{ path: "/", element: <Home /> }],
-  },
-  {
-    path: "/",
-    element: <WebsiteLayout />,
+    element: <RootLayout />,
     errorElement: <ServerError />,
     children: [
-      {
-        path: "/blog",
-        element: <Blog />,
-      },
-      {
-        path: "/blog/:slug",
-        element: <BlogPost />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
+      { path: "/", element: <Home /> },
+      { path: "/blog", element: <Blog /> },
+      { path: "/blog/:slug", element: <BlogPost /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
   {
@@ -56,26 +41,11 @@ export const router = createBrowserRouter([
     element: <AdminLayout />,
     errorElement: <ServerError />,
     children: [
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "/dashboard/blog",
-        element: <AdminBlog />,
-      },
-      {
-        path: "/dashboard/blog/new",
-        element: <CreatePost />,
-      },
-      {
-        path: "/dashboard/blog/edit/:id",
-        element: <EditPost />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
+      { path: "/dashboard", element: <Dashboard /> },
+      { path: "/dashboard/blog", element: <AdminBlog /> },
+      { path: "/dashboard/blog/new", element: <CreatePost /> },
+      { path: "/dashboard/blog/edit/:id", element: <EditPost /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);

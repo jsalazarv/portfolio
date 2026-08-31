@@ -33,7 +33,7 @@ export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
 
   return (
     <div
-      className={cn(compact ? "relative flex items-center" : "flex flex-col items-center gap-3")}
+      className={cn(compact ? "flex items-center" : "flex flex-col items-center gap-3")}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -65,8 +65,8 @@ export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
       {compact ? (
         <span
           className={cn(
-            "absolute left-full ml-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-xs font-medium bg-card text-foreground px-2 py-1 rounded-md shadow-sm border border-border transition-all duration-200 pointer-events-none",
-            isHovered ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-1",
+            "overflow-hidden whitespace-nowrap text-xs font-medium text-foreground transition-all duration-300 ease-in-out",
+            isHovered ? "max-w-[8rem] opacity-100 ml-2" : "max-w-0 opacity-0 ml-0",
           )}
         >
           Language

@@ -15,24 +15,33 @@ const THEMES = [
   { value: "system" as const, label: "System", icon: Monitor },
 ];
 
-const DOCK_CIRCLE_CLASSES =
-  "w-14 h-14 md:w-16 md:h-16 rounded-full border border-border bg-white/60 shadow-sm flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-125 hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:scale-125 focus-visible:bg-white focus-visible:shadow-md";
-
-function getCurrentIcon(theme: string) {
-  if (theme === "light") return <Sun className="size-5 md:size-6" strokeWidth={1.5} />;
-  if (theme === "dark") return <Moon className="size-5 md:size-6" strokeWidth={1.5} />;
-  return <Monitor className="size-5 md:size-6" strokeWidth={1.5} />;
+interface DockThemeItemProps {
+  compact?: boolean;
 }
 
-export function DockThemeItem() {
+function getCurrentIcon(theme: string, compact: boolean) {
+  const cls = cn("transition-all duration-500", compact ? "size-4" : "size-5 md:size-6");
+  if (theme === "light") return <Sun className={cls} strokeWidth={1.5} />;
+  if (theme === "dark") return <Moon className={cls} strokeWidth={1.5} />;
+  return <Monitor className={cls} strokeWidth={1.5} />;
+}
+
+export function DockThemeItem({ compact = false }: DockThemeItemProps) {
   const { theme, setTheme } = useTheme();
 
   return (
     <div className="flex flex-col items-center gap-3">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button data-dock-button aria-label="Theme" className={cn(DOCK_CIRCLE_CLASSES)}>
-            {getCurrentIcon(theme)}
+          <button
+            data-dock-button
+            aria-label="Theme"
+            className={cn(
+              "rounded-full border border-border bg-white/60 shadow-sm flex items-center justify-center transition-all duration-500 cursor-pointer hover:scale-125 hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:scale-125 focus-visible:bg-white focus-visible:shadow-md",
+              compact ? "w-10 h-10" : "w-14 h-14 md:w-16 md:h-16",
+            )}
+          >
+            {getCurrentIcon(theme, compact)}
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="center" side="top">
@@ -45,9 +54,7 @@ export function DockThemeItem() {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <span className="opacity-0 pointer-events-none text-sm font-medium">
-        Theme
-      </span>
+      <span className="opacity-0 pointer-events-none text-sm font-medium">Theme</span>
     </div>
   );
 }

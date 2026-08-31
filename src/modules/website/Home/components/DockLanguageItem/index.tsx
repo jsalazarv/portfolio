@@ -14,10 +14,11 @@ const LANGS = [
   { code: "en", label: "English" },
 ];
 
-const DOCK_CIRCLE_CLASSES =
-  "w-14 h-14 md:w-16 md:h-16 rounded-full border border-border bg-white/60 shadow-sm flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-125 hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:scale-125 focus-visible:bg-white focus-visible:shadow-md";
+interface DockLanguageItemProps {
+  compact?: boolean;
+}
 
-export function DockLanguageItem() {
+export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
   const { i18n } = useTranslation();
   const current = (i18n.resolvedLanguage ?? i18n.language ?? "es").slice(0, 2);
 
@@ -31,25 +32,30 @@ export function DockLanguageItem() {
     <div className="flex flex-col items-center gap-3">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button data-dock-button aria-label="Language" className={cn(DOCK_CIRCLE_CLASSES)}>
-            <Globe className="size-5 md:size-6" strokeWidth={1.5} />
+          <button
+            data-dock-button
+            aria-label="Language"
+            className={cn(
+              "rounded-full border border-border bg-white/60 shadow-sm flex items-center justify-center transition-all duration-500 cursor-pointer hover:scale-125 hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:scale-125 focus-visible:bg-white focus-visible:shadow-md",
+              compact ? "w-10 h-10" : "w-14 h-14 md:w-16 md:h-16",
+            )}
+          >
+            <Globe
+              className={cn("transition-all duration-500", compact ? "size-4" : "size-5 md:size-6")}
+              strokeWidth={1.5}
+            />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="center" side="top">
           {LANGS.map((lang) => (
-            <DropdownMenuItem
-              key={lang.code}
-              onClick={() => setLang(lang.code)}
-            >
+            <DropdownMenuItem key={lang.code} onClick={() => setLang(lang.code)}>
               <span>{lang.label}</span>
               {current === lang.code && <Check className="size-4 ml-auto" />}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <span className="opacity-0 pointer-events-none text-sm font-medium">
-        Language
-      </span>
+      <span className="opacity-0 pointer-events-none text-sm font-medium">Language</span>
     </div>
   );
 }

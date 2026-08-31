@@ -58,8 +58,8 @@ export function Dock({ items, activeId, compact = false }: DockProps) {
           onClick={item.onClick}
         />
       ))}
-      <DockLanguageItem />
-      <DockThemeItem />
+      <DockLanguageItem compact={compact} />
+      <DockThemeItem compact={compact} />
     </div>
   );
 }

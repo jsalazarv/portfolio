@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 
 import type { NavDockItem } from "@/modules/website/Home/components/Dock";
 import { Dock } from "@/modules/website/Home/components/Dock";
-import { HomeStatusBar } from "@/modules/website/Home/components/HomeStatusBar";
 import { Footer } from "@/common/layouts/WebsiteLayout/components/Footer";
 import { cn } from "@/common/lib/utils";
 
@@ -42,9 +41,6 @@ export function RootLayout() {
           <Dock items={items} activeId={activeId} compact={!isHome} />
         </div>
       </div>
-
-      {/* Status bar — only on home */}
-      {isHome && <HomeStatusBar />}
 
       {/* Page content + footer — only on inner routes */}
       {!isHome && (

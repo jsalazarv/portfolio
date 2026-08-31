@@ -18,9 +18,9 @@ export interface DockItemDef {
 }
 
 export const DOCK_ITEMS: DockItemDef[] = [
+  { id: "about", icon: UserIcon, label: "About", path: "/about", avatarSrc: "/avatar.jpg", avatarFallback: "JS" },
   { id: "home", icon: Home01Icon, label: "Home", path: "/" },
   { id: "blog", icon: FileTextIcon, label: "Blog", path: "/blog" },
-  { id: "about", icon: UserIcon, label: "About", path: "/about", avatarSrc: "/avatar.jpg", avatarFallback: "JS" },
   { id: "projects", icon: BashIcon, label: "Projects", path: "/projects" },
   { id: "contact", icon: Mail01Icon, label: "Contact", path: "/contact" },
 ];

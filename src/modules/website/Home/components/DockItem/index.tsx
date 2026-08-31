@@ -50,11 +50,14 @@ export function DockItem({
         className={cn(
           "rounded-full border border-border flex items-center transition-all duration-300 cursor-pointer focus-visible:outline-none",
           compact
-            ? cn("h-9 px-3 gap-2 bg-card", isActive && "shadow-md", isHighlighted && "scale-105")
+            ? cn(
+                "h-9 px-3 gap-2",
+                isActive ? "bg-primary text-primary-foreground shadow-md" : "bg-card",
+                isHighlighted && "scale-105",
+              )
             : cn(
                 "w-14 h-14 md:w-16 md:h-16 justify-center transition-all duration-500 overflow-hidden",
-                isHighlighted ? "bg-card scale-125" : "bg-card/60",
-                isActive && "shadow-md",
+                isActive ? "bg-primary text-primary-foreground shadow-md scale-125" : isHighlighted ? "bg-card scale-125" : "bg-card/60",
               ),
         )}
       >

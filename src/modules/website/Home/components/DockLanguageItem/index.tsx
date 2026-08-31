@@ -36,7 +36,7 @@ export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
             data-dock-button
             aria-label="Language"
             className={cn(
-              "rounded-full border border-border bg-white/60 shadow-sm flex items-center justify-center transition-all duration-500 cursor-pointer hover:scale-125 hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:scale-125 focus-visible:bg-white focus-visible:shadow-md",
+              "rounded-full border border-border bg-card/60 shadow-sm flex items-center justify-center transition-all duration-500 cursor-pointer hover:scale-125 hover:bg-card hover:shadow-md focus-visible:outline-none focus-visible:scale-125 focus-visible:bg-card focus-visible:shadow-md",
               compact ? "w-10 h-10" : "w-14 h-14 md:w-16 md:h-16",
             )}
           >

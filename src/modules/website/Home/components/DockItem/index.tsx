@@ -44,7 +44,7 @@ export function DockItem({
         className={cn(
           "rounded-full border border-border flex items-center justify-center transition-all duration-500 cursor-pointer focus-visible:outline-none",
           compact ? "w-10 h-10" : "w-14 h-14 md:w-16 md:h-16",
-          isHighlighted ? "bg-white shadow-md scale-125" : "bg-white/60 shadow-sm",
+          isHighlighted ? "bg-card shadow-md scale-125" : "bg-card/60 shadow-sm",
         )}
       >
         <Icon

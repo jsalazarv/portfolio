@@ -24,6 +24,7 @@ export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
   const { i18n } = useTranslation();
   const current = (i18n.resolvedLanguage ?? i18n.language ?? "es").slice(0, 2);
   const [isHovered, setIsHovered] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const setLang = (code: string) => {
     if (code === current) return;
@@ -37,7 +38,7 @@ export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <DropdownMenu>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
           <button
             data-dock-button
@@ -64,8 +65,9 @@ export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
       </DropdownMenu>
       {compact ? (
         <span
+          onClick={() => setOpen(true)}
           className={cn(
-            "overflow-hidden whitespace-nowrap text-xs font-medium text-foreground transition-all duration-300 ease-in-out",
+            "overflow-hidden whitespace-nowrap text-xs font-medium text-foreground transition-all duration-300 ease-in-out cursor-pointer",
             isHovered ? "max-w-[8rem] opacity-100 ml-2" : "max-w-0 opacity-0 ml-0",
           )}
         >

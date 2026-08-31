@@ -59,8 +59,9 @@ export function DockItem({
       </button>
       {compact ? (
         <span
+          onClick={onClick}
           className={cn(
-            "overflow-hidden whitespace-nowrap text-xs font-medium text-foreground transition-all duration-300 ease-in-out",
+            "overflow-hidden whitespace-nowrap text-xs font-medium text-foreground transition-all duration-300 ease-in-out cursor-pointer",
             isHighlighted ? "max-w-[8rem] opacity-100 ml-2" : "max-w-0 opacity-0 ml-0",
           )}
         >

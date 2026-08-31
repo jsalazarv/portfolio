@@ -31,6 +31,7 @@ function getCurrentIcon(theme: string, compact: boolean) {
 export function DockThemeItem({ compact = false }: DockThemeItemProps) {
   const { theme, setTheme } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <div
@@ -38,7 +39,7 @@ export function DockThemeItem({ compact = false }: DockThemeItemProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <DropdownMenu>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
           <button
             data-dock-button
@@ -63,8 +64,9 @@ export function DockThemeItem({ compact = false }: DockThemeItemProps) {
       </DropdownMenu>
       {compact ? (
         <span
+          onClick={() => setOpen(true)}
           className={cn(
-            "overflow-hidden whitespace-nowrap text-xs font-medium text-foreground transition-all duration-300 ease-in-out",
+            "overflow-hidden whitespace-nowrap text-xs font-medium text-foreground transition-all duration-300 ease-in-out cursor-pointer",
             isHovered ? "max-w-[8rem] opacity-100 ml-2" : "max-w-0 opacity-0 ml-0",
           )}
         >

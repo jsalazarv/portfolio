@@ -34,7 +34,7 @@ export function RootLayout() {
           className={cn(
             "transition-all duration-500",
             !isHome &&
-              "w-full bg-card/80 backdrop-blur-md rounded-2xl px-4 py-2 flex justify-center",
+              "w-full bg-card/80 backdrop-blur-md rounded-2xl px-6 py-4 flex justify-center",
           )}
         >
           <Dock items={items} activeId={activeId} compact={!isHome} />

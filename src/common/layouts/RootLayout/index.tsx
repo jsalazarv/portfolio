@@ -16,11 +16,13 @@ export function RootLayout() {
     id: def.id,
     icon: def.icon,
     label: def.label,
+    avatarSrc: def.avatarSrc,
+    avatarFallback: def.avatarFallback,
     onClick: () => navigateTo(def.id, def.path),
   }));
 
   return (
-    <div className={cn("min-h-screen bg-secondary", !isHome && "bg-background")}>
+    <div className="min-h-screen bg-background">
       {/* Dock — fixed, transitions between center and top */}
       <div
         className={cn(
@@ -34,7 +36,7 @@ export function RootLayout() {
           className={cn(
             "transition-all duration-500",
             !isHome &&
-              "w-full bg-card/80 backdrop-blur-md rounded-2xl px-6 py-4 flex justify-center",
+              "w-full bg-card/80 backdrop-blur-md rounded-full px-3 py-4 flex justify-center",
           )}
         >
           <Dock items={items} activeId={activeId} compact={!isHome} />

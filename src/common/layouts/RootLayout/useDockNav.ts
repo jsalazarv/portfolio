@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const TRANSITION_DELAY_MS = 400;
-
 function pathToId(pathname: string): string {
   if (pathname === "/") return "home";
   return pathname.replace(/^\//, "").split("/")[0];
@@ -28,7 +26,7 @@ export function useDockNav(): UseDockNavReturn {
   const navigateTo = useCallback(
     (id: string, path: string) => {
       setActiveId(id);
-      setTimeout(() => navigate(path), TRANSITION_DELAY_MS);
+      navigate(path);
     },
     [navigate],
   );

@@ -16,9 +16,10 @@ export interface NavDockItem {
 interface DockProps {
   items: NavDockItem[];
   activeId: string;
+  compact?: boolean;
 }
 
-export function Dock({ items, activeId }: DockProps) {
+export function Dock({ items, activeId, compact = false }: DockProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -53,6 +54,7 @@ export function Dock({ items, activeId }: DockProps) {
           icon={item.icon}
           label={item.label}
           isActive={activeId === item.id}
+          compact={compact}
           onClick={item.onClick}
         />
       ))}

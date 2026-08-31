@@ -9,6 +9,7 @@ interface DockItemProps {
   icon: LucideIcon;
   label: string;
   isActive: boolean;
+  compact?: boolean;
   tabIndex?: number;
   onClick: () => void;
 }
@@ -18,6 +19,7 @@ export function DockItem({
   icon: Icon,
   label,
   isActive,
+  compact = false,
   tabIndex = 0,
   onClick,
 }: DockItemProps) {
@@ -40,11 +42,18 @@ export function DockItem({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={cn(
-          "w-14 h-14 md:w-16 md:h-16 rounded-full border border-border flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none",
+          "rounded-full border border-border flex items-center justify-center transition-all duration-500 cursor-pointer focus-visible:outline-none",
+          compact ? "w-10 h-10" : "w-14 h-14 md:w-16 md:h-16",
           isHighlighted ? "bg-white shadow-md scale-125" : "bg-white/60 shadow-sm",
         )}
       >
-        <Icon className="size-5 md:size-6" strokeWidth={1.5} />
+        <Icon
+          className={cn(
+            "transition-all duration-500",
+            compact ? "size-4" : "size-5 md:size-6",
+          )}
+          strokeWidth={1.5}
+        />
       </button>
       <span
         className={cn(

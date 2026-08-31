@@ -30,7 +30,7 @@ export function RootLayout() {
             : "-translate-x-1/2 top-6",
         )}
       >
-        <Dock items={items} activeId={activeId} />
+        <Dock items={items} activeId={activeId} compact={!isHome} />
       </div>
 
       {/* Status bar — only on home */}

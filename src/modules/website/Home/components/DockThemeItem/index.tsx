@@ -63,7 +63,7 @@ export function DockThemeItem({ compact = false }: DockThemeItemProps) {
         <span
           className={cn(
             "text-sm font-medium text-foreground transition-opacity duration-200",
-            isHovered ? "opacity-100" : "opacity-0 pointer-events-none",
+            !isHovered && "md:opacity-0 md:pointer-events-none",
           )}
         >
           {nextMeta.label}

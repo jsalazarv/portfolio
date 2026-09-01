@@ -49,7 +49,7 @@ export function Dock({ items, activeId, compact = false }: DockProps) {
     <div
       ref={containerRef}
       className={cn(
-        "grid grid-cols-2 gap-3 px-6 md:px-0",
+        "w-full grid grid-cols-2 gap-3 px-6 md:px-0 md:w-auto",
         compact ? "md:flex md:items-center md:gap-2" : "md:flex md:items-center md:gap-8",
       )}
       onKeyDown={handleKeyDown}

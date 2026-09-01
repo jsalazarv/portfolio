@@ -12,6 +12,7 @@ import { Blog } from "@/modules/website/Blog";
 import { BlogPost } from "@/modules/website/Blog/BlogPost";
 import { NotFound } from "@/modules/website/errors/NotFound";
 import { ServerError } from "@/modules/website/errors/ServerError";
+import { Contact } from "@/modules/website/Contact";
 import { Home } from "@/modules/website/Home";
 
 function Placeholder({ title }: { title: string }) {
@@ -32,7 +33,7 @@ export const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/about", element: <Placeholder title="About" /> },
       { path: "/projects", element: <Placeholder title="Projects" /> },
-      { path: "/contact", element: <Placeholder title="Contact" /> },
+      { path: "/contact", element: <Contact /> },
       { path: "/blog", element: <Blog /> },
       { path: "/blog/:slug", element: <BlogPost /> },
       { path: "*", element: <NotFound /> },

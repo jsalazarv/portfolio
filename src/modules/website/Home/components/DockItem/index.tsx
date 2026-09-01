@@ -57,7 +57,7 @@ export function DockItem({
               )
             : cn(
                 "w-14 h-14 md:w-16 md:h-16 justify-center transition-all duration-500 overflow-hidden",
-                isActive ? "bg-primary text-primary-foreground scale-125" : cn("border border-border", isHighlighted ? "bg-card scale-125" : "bg-card/60"),
+                isActive ? "bg-primary text-primary-foreground md:scale-125" : cn("border border-border", isHighlighted ? "bg-card scale-125" : "bg-card/60"),
               ),
         )}
       >
@@ -103,7 +103,7 @@ export function DockItem({
         <span
           className={cn(
             "text-sm font-medium text-foreground transition-opacity duration-200",
-            isHighlighted ? "opacity-100" : "opacity-0 pointer-events-none",
+            !isHighlighted && "md:opacity-0 md:pointer-events-none",
           )}
         >
           {label}

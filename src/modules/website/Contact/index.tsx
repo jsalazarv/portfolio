@@ -130,7 +130,7 @@ export function Contact() {
             {LINKEDIN_HANDLE}
           </span>
         </span>
-        <span className="flex items-center gap-1.5 text-xs text-muted-foreground group-hover:text-primary transition-colors duration-200 shrink-0">
+        <span className="hidden sm:flex items-center gap-1.5 text-xs text-muted-foreground group-hover:text-primary transition-colors duration-200 shrink-0">
           <HugeiconsIcon
             icon={ArrowUpRight01Icon}
             size={14}

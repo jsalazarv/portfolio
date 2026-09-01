@@ -1,4 +1,10 @@
-import { Home, Users, Settings, NotebookPen } from "lucide-react";
+import {
+  Home01Icon,
+  NotebookPenIcon,
+  Settings01Icon,
+  UsersIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import { useSidebar } from "@/common/hooks/useSidebar";
@@ -10,17 +16,17 @@ const MENU_ITEMS = [
     Items: [
       {
         path: "/",
-        icon: <Home className="w-5 h-5" />,
+        icon: <HugeiconsIcon icon={Home01Icon} size={20} strokeWidth={1.5} />,
         title: "Inicio",
       },
       {
         path: "/customers",
-        icon: <Users className="w-5 h-5" />,
+        icon: <HugeiconsIcon icon={UsersIcon} size={20} strokeWidth={1.5} />,
         title: "Usuarios",
       },
       {
         path: "/settings",
-        icon: <Settings className="w-5 h-5" />,
+        icon: <HugeiconsIcon icon={Settings01Icon} size={20} strokeWidth={1.5} />,
         title: "Configuración",
       },
     ],
@@ -60,7 +66,7 @@ export function SideBar() {
           )}
         >
           <div className="flex items-center gap-2">
-            <NotebookPen className="w-5 h-5" />
+            <HugeiconsIcon icon={NotebookPenIcon} size={20} strokeWidth={1.5} />
             {!isCollapsed && <span className="text-xl font-bold">Tasks</span>}
           </div>
         </div>

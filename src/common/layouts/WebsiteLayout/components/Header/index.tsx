@@ -1,11 +1,12 @@
-import { Menu, X } from "lucide-react";
+import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 
 import { LanguageToggle } from "@/common/components/LanguageToggle";
 import { ThemeToggle } from "@/common/components/ThemeToggle";
 import { cn } from "@/common/lib/utils";
-import { useTranslation } from "react-i18next";
 
 const NAV_ITEMS = [
   { path: "/", labelKey: "nav.home" },
@@ -65,7 +66,10 @@ export function Header() {
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-card border border-border hover:border-foreground/40 transition-colors text-foreground"
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {isMobileMenuOpen
+              ? <HugeiconsIcon icon={Cancel01Icon} size={20} strokeWidth={1.5} />
+              : <HugeiconsIcon icon={Menu01Icon} size={20} strokeWidth={1.5} />
+            }
           </button>
         </div>
 

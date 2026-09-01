@@ -11,6 +11,7 @@ export const resources = {
       header: {
         interests: "Interests",
         theme: "Theme:",
+        themeLabel: "Theme",
         language: "Language",
       },
       language: {
@@ -132,13 +133,15 @@ export const resources = {
     translation: {
       nav: {
         home: "Inicio",
-        about: "Sobre mi",
+        blog: "Blog",
+        about: "Sobre mí",
         projects: "Proyectos",
         contact: "Contacto",
       },
       header: {
         interests: "Intereses",
         theme: "Tema:",
+        themeLabel: "Tema",
         language: "Idioma",
       },
       language: {

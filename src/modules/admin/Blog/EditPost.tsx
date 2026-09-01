@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { blogService } from "@/common/services/blog.service";
+
 import { PostForm } from "./components/PostForm";
-import type { BlogPost } from "@/common/types/blog.types";
+
 import type { PostFormData } from "./schemas/post.schema";
+import type { BlogPost } from "@/common/types/blog.types";
+
+import { blogService } from "@/common/services/blog.service";
 
 export function EditPost() {
   const { id } = useParams<{ id: string }>();

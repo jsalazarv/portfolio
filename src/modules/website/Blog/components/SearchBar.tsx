@@ -1,5 +1,7 @@
+import { Search01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+
 import { Input } from "@/common/components/ui/input";
-import { Search } from "lucide-react";
 
 interface SearchBarProps {
   value: string;
@@ -10,7 +12,7 @@ interface SearchBarProps {
 export function SearchBar({ value, onChange, placeholder }: SearchBarProps) {
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      <HugeiconsIcon icon={Search01Icon} size={16} strokeWidth={1.5} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
       <Input
         type="search"
         placeholder={placeholder || "Buscar posts..."}

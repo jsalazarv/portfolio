@@ -1,6 +1,8 @@
-import { Card } from "@/common/components/ui/card";
-import type { Education } from "../types";
 import { useTranslation } from "react-i18next";
+
+import type { Education } from "../types";
+
+import { Card } from "@/common/components/ui/card";
 
 export function EducationCard({
   title,

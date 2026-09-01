@@ -1,9 +1,10 @@
-import { Home, LayoutDashboard, SearchX } from "lucide-react";
+import { DashboardBrowsingIcon, Home01Icon, SearchRemoveIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { Button } from "@/common/components/ui/button";
 import { ErrorLayout } from "@/common/layouts/ErrorLayout";
-import { useTranslation } from "react-i18next";
 
 export function NotFound() {
   const { t } = useTranslation();
@@ -11,9 +12,11 @@ export function NotFound() {
   return (
     <ErrorLayout
       icon={
-        <SearchX
-          className="w-24 h-24 text-muted-foreground/40"
+        <HugeiconsIcon
+          icon={SearchRemoveIcon}
+          size={96}
           strokeWidth={1.5}
+          className="text-muted-foreground/40"
         />
       }
       errorCode="404"
@@ -22,13 +25,13 @@ export function NotFound() {
     >
       <Button asChild size="lg" className="w-full sm:w-auto">
         <Link to="/">
-          <Home className="w-4 h-4" />
+          <HugeiconsIcon icon={Home01Icon} size={16} strokeWidth={1.5} />
           {t("errors.notFound.backHome")}
         </Link>
       </Button>
       <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
         <Link to="/dashboard">
-          <LayoutDashboard className="w-4 h-4" />
+          <HugeiconsIcon icon={DashboardBrowsingIcon} size={16} strokeWidth={1.5} />
           {t("errors.notFound.toDashboard")}
         </Link>
       </Button>

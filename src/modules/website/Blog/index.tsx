@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { blogService } from "@/common/services/blog.service";
-import type { BlogPost } from "@/common/types/blog.types";
+
+import { CategoryFilter } from "./components/CategoryFilter";
+import { Pagination } from "./components/Pagination";
 import { PostCard } from "./components/PostCard";
 import { PostCardSkeleton } from "./components/PostCardSkeleton";
 import { SearchBar } from "./components/SearchBar";
-import { Pagination } from "./components/Pagination";
-import { CategoryFilter } from "./components/CategoryFilter";
+
+import type { BlogPost } from "@/common/types/blog.types";
+
 import { SEO } from "@/common/components/SEO";
+import { blogService } from "@/common/services/blog.service";
 
 export function Blog() {
   const [posts, setPosts] = useState<BlogPost[]>([]);

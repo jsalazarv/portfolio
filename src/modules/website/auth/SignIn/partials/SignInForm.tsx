@@ -1,3 +1,5 @@
+import { Trans, useTranslation } from "react-i18next";
+
 import { Button } from "@/common/components/ui/button";
 import {
   Field,
@@ -7,7 +9,6 @@ import {
 } from "@/common/components/ui/field";
 import { Input } from "@/common/components/ui/input";
 import { cn } from "@/common/lib/utils";
-import { Trans, useTranslation } from "react-i18next";
 
 export function SignInForm({
   className,
@@ -54,8 +55,7 @@ export function SignInForm({
                 {t("auth.login")}
               </Button>
               <FieldDescription className="text-center">
-                {t("auth.noAccount")}{" "}
-                <a href="/sign-up">{t("auth.signUp")}</a>
+                {t("auth.noAccount")} <a href="/sign-up">{t("auth.signUp")}</a>
               </FieldDescription>
             </Field>
           </FieldGroup>

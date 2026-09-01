@@ -1,10 +1,13 @@
-import { Card } from "@/common/components/ui/card";
-import { Badge } from "@/common/components/ui/badge";
-import { Link } from "react-router-dom";
-import { Clock } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { Clock01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Link } from "react-router-dom";
+
 import type { BlogPost } from "@/common/types/blog.types";
+
+import { Badge } from "@/common/components/ui/badge";
+import { Card } from "@/common/components/ui/card";
 import {
   calculateReadingTime,
   formatReadingTime,
@@ -49,7 +52,7 @@ export function PostCard({ post }: PostCardProps) {
 
           <div className="flex items-center justify-between text-xs text-muted-foreground pt-3 border-t">
             <div className="flex items-center gap-1">
-              <Clock className="h-3 w-3" />
+              <HugeiconsIcon icon={Clock01Icon} size={12} strokeWidth={1.5} />
               <span>
                 {formatReadingTime(calculateReadingTime(post.content))}
               </span>

@@ -1,9 +1,10 @@
+import { useTranslation } from "react-i18next";
+
 import { EducationCard } from "../components/EducationCard";
 import { SkillCard } from "../components/SkillCard";
 import { ToolBadge } from "../components/ToolBadge";
 import { educationData } from "../data/education";
 import { designTools, editingTools, languages } from "../data/skills";
-import { useTranslation } from "react-i18next";
 
 export function SkillsEducationSection() {
   const { t } = useTranslation();

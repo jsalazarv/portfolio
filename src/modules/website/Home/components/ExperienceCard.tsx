@@ -1,6 +1,8 @@
-import { Card } from "@/common/components/ui/card";
-import type { Experience } from "../types";
 import { useTranslation } from "react-i18next";
+
+import type { Experience } from "../types";
+
+import { Card } from "@/common/components/ui/card";
 
 export function ExperienceCard({ title, role, period, points }: Experience) {
   const { t } = useTranslation();

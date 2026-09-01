@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { blogService } from "@/common/services/blog.service";
+
 import { PostForm } from "./components/PostForm";
+
 import type { PostFormData } from "./schemas/post.schema";
+
+import { blogService } from "@/common/services/blog.service";
 
 export function CreatePost() {
   const navigate = useNavigate();

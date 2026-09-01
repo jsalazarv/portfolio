@@ -1,6 +1,8 @@
 import { http, HttpResponse } from "msw";
-import type { BlogPost } from "@/common/types/blog.types";
+
 import postsData from "../data/posts.json";
+
+import type { BlogPost } from "@/common/types/blog.types";
 
 let posts: BlogPost[] = JSON.parse(JSON.stringify(postsData));
 

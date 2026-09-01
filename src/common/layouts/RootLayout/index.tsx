@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import type { NavDockItem } from "@/modules/website/Home/components/Dock";
 import { Dock } from "@/modules/website/Home/components/Dock";
@@ -10,11 +11,12 @@ import { useDockNav } from "./useDockNav";
 
 export function RootLayout() {
   const { isHome, activeId, navigateTo } = useDockNav();
+  const { t } = useTranslation();
 
   const items: NavDockItem[] = DOCK_ITEMS.map((def) => ({
     id: def.id,
     icon: def.icon,
-    label: def.label,
+    label: t(def.labelKey),
     avatarSrc: def.avatarSrc,
     avatarFallback: def.avatarFallback,
     onClick: () => navigateTo(def.id, def.path),
@@ -31,6 +33,22 @@ export function RootLayout() {
             : "-translate-x-1/2 top-4 w-full max-w-3xl",
         )}
       >
+        {isHome && (
+          <p
+            className="text-center text-5xl font-bold text-foreground mb-6 tracking-widest select-none"
+            style={{ fontFamily: '"Doto", sans-serif', fontVariationSettings: '"ROND" 100' }}
+          >
+            {"jsalazarv".split("").map((char, i) => (
+              <span
+                key={i}
+                className="glow-letter"
+                style={{ animationDelay: `${i * 0.18}s` }}
+              >
+                {char}
+              </span>
+            ))}
+          </p>
+        )}
         <div
           className={cn(
             "transition-all duration-500",

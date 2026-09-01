@@ -11,16 +11,16 @@ import type { IconSvgElement } from "@hugeicons/react";
 export interface DockItemDef {
   id: string;
   icon: IconSvgElement;
-  label: string;
+  labelKey: string;
   path: string;
   avatarSrc?: string;
   avatarFallback?: string;
 }
 
 export const DOCK_ITEMS: DockItemDef[] = [
-  { id: "about", icon: UserIcon, label: "About", path: "/about", avatarSrc: "/avatar.jpg", avatarFallback: "JS" },
-  { id: "home", icon: Home01Icon, label: "Home", path: "/" },
-  { id: "blog", icon: FileTextIcon, label: "Blog", path: "/blog" },
-  { id: "projects", icon: BashIcon, label: "Projects", path: "/projects" },
-  { id: "contact", icon: Mail01Icon, label: "Contact", path: "/contact" },
+  { id: "about", icon: UserIcon, labelKey: "nav.about", path: "/about", avatarSrc: "/avatar.jpg", avatarFallback: "JS" },
+  { id: "home", icon: Home01Icon, labelKey: "nav.home", path: "/" },
+  { id: "blog", icon: FileTextIcon, labelKey: "nav.blog", path: "/blog" },
+  { id: "projects", icon: BashIcon, labelKey: "nav.projects", path: "/projects" },
+  { id: "contact", icon: Mail01Icon, labelKey: "nav.contact", path: "/contact" },
 ];

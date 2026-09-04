@@ -26,7 +26,9 @@ const MENU_ITEMS = [
       },
       {
         path: "/settings",
-        icon: <HugeiconsIcon icon={Settings01Icon} size={20} strokeWidth={1.5} />,
+        icon: (
+          <HugeiconsIcon icon={Settings01Icon} size={20} strokeWidth={1.5} />
+        ),
         title: "Configuración",
       },
     ],

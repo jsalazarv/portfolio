@@ -1,4 +1,8 @@
-import { DashboardBrowsingIcon, Home01Icon, SearchRemoveIcon } from "@hugeicons/core-free-icons";
+import {
+  DashboardBrowsingIcon,
+  Home01Icon,
+  SearchRemoveIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -31,7 +35,11 @@ export function NotFound() {
       </Button>
       <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
         <Link to="/dashboard">
-          <HugeiconsIcon icon={DashboardBrowsingIcon} size={16} strokeWidth={1.5} />
+          <HugeiconsIcon
+            icon={DashboardBrowsingIcon}
+            size={16}
+            strokeWidth={1.5}
+          />
           {t("errors.notFound.toDashboard")}
         </Link>
       </Button>

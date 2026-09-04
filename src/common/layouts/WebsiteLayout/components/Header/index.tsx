@@ -66,10 +66,11 @@ export function Header() {
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-card border border-border hover:border-foreground/40 transition-colors text-foreground"
             aria-label="Toggle menu"
           >
-            {isMobileMenuOpen
-              ? <HugeiconsIcon icon={Cancel01Icon} size={20} strokeWidth={1.5} />
-              : <HugeiconsIcon icon={Menu01Icon} size={20} strokeWidth={1.5} />
-            }
+            {isMobileMenuOpen ? (
+              <HugeiconsIcon icon={Cancel01Icon} size={20} strokeWidth={1.5} />
+            ) : (
+              <HugeiconsIcon icon={Menu01Icon} size={20} strokeWidth={1.5} />
+            )}
           </button>
         </div>
 

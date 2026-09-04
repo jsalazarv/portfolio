@@ -1,7 +1,7 @@
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { Clock01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import { Link } from "react-router-dom";
 
 import type { BlogPost } from "@/common/types/blog.types";

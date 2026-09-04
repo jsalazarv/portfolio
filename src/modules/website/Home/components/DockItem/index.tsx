@@ -1,6 +1,6 @@
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 
-import { HugeiconsIcon } from "@hugeicons/react";
 import type { IconSvgElement } from "@hugeicons/react";
 
 import { cn } from "@/common/lib/utils";
@@ -35,7 +35,9 @@ export function DockItem({
 
   return (
     <div
-      className={cn(!compact && "flex flex-col items-center justify-center gap-3")}
+      className={cn(
+        !compact && "flex flex-col items-center justify-center gap-3",
+      )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -52,12 +54,19 @@ export function DockItem({
           compact
             ? cn(
                 "h-9 px-3 gap-2",
-                isActive ? "bg-primary text-primary-foreground" : "bg-card border border-border",
+                isActive
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-card border border-border",
                 isHighlighted && "scale-105",
               )
             : cn(
                 "w-14 h-14 md:w-16 md:h-16 justify-center transition-all duration-500 overflow-hidden",
-                isActive ? "bg-primary text-primary-foreground md:scale-125" : cn("border border-border", isHighlighted ? "bg-card scale-125" : "bg-card/60"),
+                isActive
+                  ? "bg-primary text-primary-foreground md:scale-125"
+                  : cn(
+                      "border border-border",
+                      isHighlighted ? "bg-card scale-125" : "bg-card/60",
+                    ),
               ),
         )}
       >
@@ -79,7 +88,14 @@ export function DockItem({
           )
         ) : avatarFallback ? (
           compact ? (
-            <span className={cn("w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-semibold shrink-0", isActive ? "bg-primary-foreground text-primary" : "bg-muted text-foreground")}>
+            <span
+              className={cn(
+                "w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-semibold shrink-0",
+                isActive
+                  ? "bg-primary-foreground text-primary"
+                  : "bg-muted text-foreground",
+              )}
+            >
               {avatarFallback}
             </span>
           ) : (

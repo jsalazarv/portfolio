@@ -6,13 +6,14 @@ import { AdminBlog } from "@/modules/admin/Blog";
 import { CreatePost } from "@/modules/admin/Blog/CreatePost";
 import { EditPost } from "@/modules/admin/Blog/EditPost";
 import { Dashboard } from "@/modules/admin/Dashboard";
+import { About } from "@/modules/website/About";
 import { SignIn } from "@/modules/website/auth/SignIn";
 import { SignUp } from "@/modules/website/auth/SignUp";
 import { Blog } from "@/modules/website/Blog";
 import { BlogPost } from "@/modules/website/Blog/BlogPost";
+import { Contact } from "@/modules/website/Contact";
 import { NotFound } from "@/modules/website/errors/NotFound";
 import { ServerError } from "@/modules/website/errors/ServerError";
-import { Contact } from "@/modules/website/Contact";
 import { Home } from "@/modules/website/Home";
 
 function Placeholder({ title }: { title: string }) {
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
     errorElement: <ServerError />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/about", element: <Placeholder title="About" /> },
+      { path: "/about", element: <About /> },
       { path: "/projects", element: <Placeholder title="Projects" /> },
       { path: "/contact", element: <Contact /> },
       { path: "/blog", element: <Blog /> },

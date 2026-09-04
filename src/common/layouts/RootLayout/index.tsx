@@ -1,17 +1,17 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-
 import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-
-import type { NavDockItem } from "@/modules/website/Home/components/Dock";
-import { Dock } from "@/modules/website/Home/components/Dock";
-import { Footer } from "@/common/layouts/WebsiteLayout/components/Footer";
-import { cn } from "@/common/lib/utils";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Outlet } from "react-router-dom";
 
 import { DOCK_ITEMS } from "./dockItems";
 import { useDockNav } from "./useDockNav";
+
+import type { NavDockItem } from "@/modules/website/Home/components/Dock";
+
+import { Footer } from "@/common/layouts/WebsiteLayout/components/Footer";
+import { cn } from "@/common/lib/utils";
+import { Dock } from "@/modules/website/Home/components/Dock";
 
 export function RootLayout() {
   const { isHome, activeId, navigateTo } = useDockNav();
@@ -44,7 +44,10 @@ export function RootLayout() {
         {isHome && (
           <p
             className="text-center text-5xl font-bold text-foreground mb-6 tracking-widest select-none"
-            style={{ fontFamily: '"Doto", sans-serif', fontVariationSettings: '"ROND" 100' }}
+            style={{
+              fontFamily: '"Doto", sans-serif',
+              fontVariationSettings: '"ROND" 100',
+            }}
           >
             {"jsalazarv".split("").map((char, i) => (
               <span
@@ -69,7 +72,10 @@ export function RootLayout() {
             <>
               <span
                 className="md:hidden text-sm font-bold tracking-widest select-none px-2"
-                style={{ fontFamily: '"Doto", sans-serif', fontVariationSettings: '"ROND" 100' }}
+                style={{
+                  fontFamily: '"Doto", sans-serif',
+                  fontVariationSettings: '"ROND" 100',
+                }}
               >
                 jsalazarv
               </span>

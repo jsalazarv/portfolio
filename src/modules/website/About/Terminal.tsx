@@ -10,7 +10,15 @@ type Line =
 const DELAY = 380;
 const SPINNER = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 
-function JobDesc({ role, company, period }: { role: string; company: string; period: string }) {
+function JobDesc({
+  role,
+  company,
+  period,
+}: {
+  role: string;
+  company: string;
+  period: string;
+}) {
   return (
     <span>
       <span className="text-foreground">{role}</span>
@@ -25,13 +33,16 @@ export function Terminal({ runCount }: { runCount: number }) {
   const { t } = useTranslation();
   const role = t("about.terminal.role");
   const command = t("about.terminal.command");
-  const jobs = t("about.terminal.jobs", { returnObjects: true }) as Array<{ company: string; period: string }>;
+  const jobs = t("about.terminal.jobs", { returnObjects: true }) as Array<{
+    company: string;
+    period: string;
+  }>;
 
   const lines: Line[] = [
     { type: "command", text: command },
-    { type: "pass",    role, company: jobs[0].company, period: jobs[0].period },
-    { type: "pass",    role, company: jobs[1].company, period: jobs[1].period },
-    { type: "pass",    role, company: jobs[2].company, period: jobs[2].period },
+    { type: "pass", role, company: jobs[0].company, period: jobs[0].period },
+    { type: "pass", role, company: jobs[1].company, period: jobs[1].period },
+    { type: "pass", role, company: jobs[2].company, period: jobs[2].period },
     { type: "running", role, company: jobs[3].company, period: jobs[3].period },
   ];
 
@@ -91,8 +102,14 @@ export function Terminal({ runCount }: { runCount: number }) {
             )}
             {line.type === "pass" && (
               <div className="flex items-center gap-2">
-                <span className="text-green-500 font-bold shrink-0">✓ PASS</span>
-                <JobDesc role={line.role} company={line.company} period={line.period} />
+                <span className="text-green-500 font-bold shrink-0">
+                  ✓ PASS
+                </span>
+                <JobDesc
+                  role={line.role}
+                  company={line.company}
+                  period={line.period}
+                />
               </div>
             )}
             {line.type === "running" && (
@@ -100,7 +117,11 @@ export function Terminal({ runCount }: { runCount: number }) {
                 <span className="text-yellow-500 font-bold shrink-0">
                   {SPINNER[spinnerFrame]} RUN
                 </span>
-                <JobDesc role={line.role} company={line.company} period={line.period} />
+                <JobDesc
+                  role={line.role}
+                  company={line.company}
+                  period={line.period}
+                />
               </div>
             )}
             {line.type === "summary" && (

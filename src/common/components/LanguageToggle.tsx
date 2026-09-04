@@ -37,7 +37,9 @@ export function LanguageToggle() {
         {LANGS.map((lang) => (
           <DropdownMenuItem key={lang.code} onClick={() => setLang(lang.code)}>
             <span>{t(lang.labelKey)}</span>
-            {current === lang.code && <HugeiconsIcon icon={CheckIcon} size={16} className="ml-auto" />}
+            {current === lang.code && (
+              <HugeiconsIcon icon={CheckIcon} size={16} className="ml-auto" />
+            )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

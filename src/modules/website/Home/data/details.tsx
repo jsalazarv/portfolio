@@ -1,4 +1,8 @@
-import { Calendar01Icon, Call02Icon, GlobeIcon } from "@hugeicons/core-free-icons";
+import {
+  Calendar01Icon,
+  Call02Icon,
+  GlobeIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
 import type { Detail } from "../types";

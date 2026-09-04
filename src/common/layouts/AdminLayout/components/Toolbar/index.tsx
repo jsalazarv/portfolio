@@ -13,7 +13,12 @@ function NotificationButton() {
   return (
     <div className="relative">
       <Button variant="ghost" size="icon">
-        <HugeiconsIcon icon={BellIcon} size={20} strokeWidth={1.5} className="text-foreground" />
+        <HugeiconsIcon
+          icon={BellIcon}
+          size={20}
+          strokeWidth={1.5}
+          className="text-foreground"
+        />
       </Button>
       <span className="absolute -top-1 -right-1 bg-green-500 text-primary-foreground text-[10px] rounded-full px-1.5 py-0.5 flex items-center justify-center border border-background shadow">
         0
@@ -31,10 +36,15 @@ export function Toolbar() {
         {/* Left: Hamburger */}
         <div className="flex items-center">
           <Button variant="ghost" size="icon" onClick={toggleSidebar}>
-            {isCollapsed
-              ? <HugeiconsIcon icon={ChevronRightIcon} size={20} strokeWidth={1.5} />
-              : <HugeiconsIcon icon={Menu01Icon} size={20} strokeWidth={1.5} />
-            }
+            {isCollapsed ? (
+              <HugeiconsIcon
+                icon={ChevronRightIcon}
+                size={20}
+                strokeWidth={1.5}
+              />
+            ) : (
+              <HugeiconsIcon icon={Menu01Icon} size={20} strokeWidth={1.5} />
+            )}
           </Button>
         </div>
         {/* Right: Icons */}

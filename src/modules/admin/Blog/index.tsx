@@ -1,7 +1,11 @@
+import {
+  Add01Icon,
+  Delete01Icon,
+  Edit01Icon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { Add01Icon, Delete01Icon, Edit01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -59,7 +63,12 @@ export function AdminBlog() {
         </div>
         <Link to="/dashboard/blog/new">
           <Button>
-            <HugeiconsIcon icon={Add01Icon} size={16} strokeWidth={1.5} className="mr-2" />
+            <HugeiconsIcon
+              icon={Add01Icon}
+              size={16}
+              strokeWidth={1.5}
+              className="mr-2"
+            />
             Nuevo Post
           </Button>
         </Link>
@@ -110,7 +119,11 @@ export function AdminBlog() {
               <div className="flex gap-2">
                 <Link to={`/dashboard/blog/edit/${post.id}`}>
                   <Button variant="ghost" size="icon" title="Editar">
-                    <HugeiconsIcon icon={Edit01Icon} size={16} strokeWidth={1.5} />
+                    <HugeiconsIcon
+                      icon={Edit01Icon}
+                      size={16}
+                      strokeWidth={1.5}
+                    />
                   </Button>
                 </Link>
                 <Button
@@ -119,7 +132,12 @@ export function AdminBlog() {
                   onClick={() => handleDelete(post.id, post.title)}
                   title="Eliminar"
                 >
-                  <HugeiconsIcon icon={Delete01Icon} size={16} strokeWidth={1.5} className="text-destructive" />
+                  <HugeiconsIcon
+                    icon={Delete01Icon}
+                    size={16}
+                    strokeWidth={1.5}
+                    className="text-destructive"
+                  />
                 </Button>
               </div>
             </div>

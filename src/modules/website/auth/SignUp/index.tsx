@@ -13,7 +13,11 @@ export function SignUp() {
             className="flex items-center gap-2 self-center font-medium"
           >
             <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-              <HugeiconsIcon icon={NotebookPenIcon} size={20} strokeWidth={1.5} />
+              <HugeiconsIcon
+                icon={NotebookPenIcon}
+                size={20}
+                strokeWidth={1.5}
+              />
             </div>
             Tasks
           </a>

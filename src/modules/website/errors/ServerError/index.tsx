@@ -1,4 +1,8 @@
-import { Home01Icon, Refresh01Icon, ServerCrashIcon } from "@hugeicons/core-free-icons";
+import {
+  Home01Icon,
+  Refresh01Icon,
+  ServerCrashIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";

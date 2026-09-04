@@ -1,7 +1,3 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import type { TFunction } from "i18next";
-
 import {
   ArrowUpRight01Icon,
   CheckmarkCircle01Icon,
@@ -9,6 +5,10 @@ import {
   SentIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
+import type { TFunction } from "i18next";
 
 import { Button } from "@/common/components/ui/button";
 import {
@@ -37,10 +37,7 @@ interface ContactFormErrors {
   message?: string;
 }
 
-function validateForm(
-  data: ContactFormData,
-  t: TFunction,
-): ContactFormErrors {
+function validateForm(data: ContactFormData, t: TFunction): ContactFormErrors {
   const errors: ContactFormErrors = {};
 
   if (!data.name.trim()) errors.name = t("contact.validation.nameRequired");

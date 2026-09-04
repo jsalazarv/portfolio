@@ -1,7 +1,12 @@
+import {
+  ArrowLeft01Icon,
+  Calendar01Icon,
+  Clock01Icon,
+  UserIcon,
+} from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { ArrowLeft01Icon, Calendar01Icon, Clock01Icon, UserIcon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { useParams, Link } from "react-router-dom";
@@ -77,7 +82,12 @@ export function BlogPost() {
       <article className="mx-auto w-full md:max-w-3xl space-y-8 py-8">
         <Link to="/blog">
           <Button variant="ghost" size="sm">
-            <HugeiconsIcon icon={ArrowLeft01Icon} size={16} strokeWidth={1.5} className="mr-2" />
+            <HugeiconsIcon
+              icon={ArrowLeft01Icon}
+              size={16}
+              strokeWidth={1.5}
+              className="mr-2"
+            />
             Volver al blog
           </Button>
         </Link>
@@ -111,7 +121,11 @@ export function BlogPost() {
               <span>{post.author}</span>
             </div>
             <div className="flex items-center gap-2">
-              <HugeiconsIcon icon={Calendar01Icon} size={16} strokeWidth={1.5} />
+              <HugeiconsIcon
+                icon={Calendar01Icon}
+                size={16}
+                strokeWidth={1.5}
+              />
               <span>
                 {format(
                   new Date(post.publishedAt || post.createdAt),

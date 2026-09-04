@@ -31,10 +31,14 @@ export function Dock({ items, activeId, compact = false }: DockProps) {
     e.preventDefault();
 
     const buttons = Array.from(
-      containerRef.current?.querySelectorAll<HTMLButtonElement>("[data-dock-button]") ?? [],
+      containerRef.current?.querySelectorAll<HTMLButtonElement>(
+        "[data-dock-button]",
+      ) ?? [],
     );
 
-    const currentIndex = buttons.indexOf(document.activeElement as HTMLButtonElement);
+    const currentIndex = buttons.indexOf(
+      document.activeElement as HTMLButtonElement,
+    );
     const total = buttons.length;
 
     const nextIndex =
@@ -50,7 +54,9 @@ export function Dock({ items, activeId, compact = false }: DockProps) {
       ref={containerRef}
       className={cn(
         "w-full grid grid-cols-2 gap-3 px-6 md:px-0 md:w-auto",
-        compact ? "md:flex md:items-center md:gap-2" : "md:flex md:items-center md:gap-8",
+        compact
+          ? "md:flex md:items-center md:gap-2"
+          : "md:flex md:items-center md:gap-8",
       )}
       onKeyDown={handleKeyDown}
     >

@@ -72,5 +72,8 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

@@ -234,11 +234,69 @@
   }
 }
 
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer components {
   .required::after {
     content: "*";
     color: var(--destructive);
     margin-left: -0.25rem;
+  }
+
+  @keyframes hud-line-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hud-line-in {
+    animation: hud-line-in 0.3s ease forwards;
+  }
+
+  @keyframes scan {
+    0% { top: -15%; }
+    100% { top: 115%; }
+  }
+
+  .scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 56px;
+    top: 0;
+    pointer-events: none;
+    z-index: 30;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in oklch, var(--primary) 15%, transparent) 25%,
+      color-mix(in oklch, var(--primary) 55%, transparent) 50%,
+      color-mix(in oklch, var(--primary) 15%, transparent) 75%,
+      transparent 100%
+    );
+    box-shadow: 0 0 18px color-mix(in oklch, var(--primary) 35%, transparent);
+    animation: scan 2.8s linear infinite;
+  }
+
+  .scanlines-overlay {
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      oklch(0 0 0 / 0.04) 2px,
+      oklch(0 0 0 / 0.04) 4px
+    );
   }
 
   @keyframes glow-wave {

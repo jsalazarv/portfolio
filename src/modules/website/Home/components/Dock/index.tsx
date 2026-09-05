@@ -2,7 +2,6 @@ import { useRef } from "react";
 
 import type { IconSvgElement } from "@hugeicons/react";
 
-import { cn } from "@/common/lib/utils";
 import { DockItem } from "@/modules/website/Home/components/DockItem";
 import { DockLanguageItem } from "@/modules/website/Home/components/DockLanguageItem";
 import { DockThemeItem } from "@/modules/website/Home/components/DockThemeItem";
@@ -52,12 +51,7 @@ export function Dock({ items, activeId, compact = false }: DockProps) {
   return (
     <div
       ref={containerRef}
-      className={cn(
-        "w-full grid grid-cols-2 gap-3 px-6 md:px-0 md:w-auto",
-        compact
-          ? "md:flex md:items-center md:gap-2"
-          : "md:flex md:items-center md:gap-8",
-      )}
+      className="flex flex-wrap justify-center gap-4"
       onKeyDown={handleKeyDown}
     >
       {items.map((item) => (

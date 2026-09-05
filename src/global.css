@@ -301,7 +301,7 @@
 
   @keyframes glow-wave {
     0% {
-      opacity: 0.15;
+      opacity: 0.55;
       text-shadow: none;
     }
     10% {
@@ -309,7 +309,7 @@
       text-shadow: 0 0 12px currentColor, 0 0 30px currentColor;
     }
     20%, 100% {
-      opacity: 0.15;
+      opacity: 0.55;
       text-shadow: none;
     }
   }

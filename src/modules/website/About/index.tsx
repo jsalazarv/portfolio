@@ -33,9 +33,9 @@ export function About() {
   }, []);
 
   return (
-    <div className="w-full -mt-8 -mx-4 md:-mx-8 px-0">
+    <div className="w-full -mt-8">
       {/* HUD Frame */}
-      <div className="relative mx-4 md:mx-8 mb-8">
+      <div className="relative mb-8">
         {/* Outer div: background = border color, clip-path with 20px bevel */}
         <div
           className="bg-muted-foreground/50 p-px"

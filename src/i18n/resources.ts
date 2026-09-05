@@ -115,6 +115,20 @@ export const resources = {
           ],
         },
       },
+      blog: {
+        hud: {
+          title: "TRANSMISSION_LOG",
+          records: "RECORDS",
+        },
+        subtitle: "Articles on web development, clean code and experiences",
+        search: "SEARCH::",
+        all: "All",
+        recordCount: "{{count}} records",
+        empty: {
+          title: "// NO_RECORDS_FOUND",
+          subtitle: "query returned 0 results",
+        },
+      },
       contact: {
         title: "Contact",
         subtitle: "Let's build something great.",
@@ -265,6 +279,20 @@ export const resources = {
           description:
             "Algo salio mal en nuestros servidores. Por favor, intenta nuevamente mas tarde.",
           retry: "Reintentar",
+        },
+      },
+      blog: {
+        hud: {
+          title: "REGISTRO_TRANSMISIONES",
+          records: "REGISTROS",
+        },
+        subtitle: "Artículos sobre desarrollo web, clean code y experiencias",
+        search: "BUSCAR::",
+        all: "Todas",
+        recordCount: "{{count}} registros",
+        empty: {
+          title: "// SIN_REGISTROS",
+          subtitle: "la consulta no devolvió resultados",
         },
       },
       contact: {

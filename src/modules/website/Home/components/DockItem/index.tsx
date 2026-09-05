@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import type { IconSvgElement } from "@hugeicons/react";
 
+import { useClickSound } from "@/common/hooks/useClickSound";
 import { cn } from "@/common/lib/utils";
 
 interface DockItemProps {
@@ -34,6 +35,7 @@ export function DockItem({
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const isHighlighted = isActive || isHovered || isFocused;
+  const playClick = useClickSound();
 
   return (
     <div
@@ -78,7 +80,7 @@ export function DockItem({
       <button
         ref={ref}
         data-dock-button
-        onClick={onClick}
+        onClick={() => { playClick(); onClick(); }}
         aria-label={label}
         tabIndex={tabIndex}
         onFocus={() => setIsFocused(true)}

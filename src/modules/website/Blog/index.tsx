@@ -177,12 +177,12 @@ export function Blog() {
             <div className="absolute inset-0 scanlines-overlay pointer-events-none z-10" />
 
             {/* Header */}
-            <div className="flex items-center gap-2 px-4 py-2.5 bg-muted/60 border-b border-border">
+            <div className="flex items-center gap-2 px-4 py-4 bg-muted/60 border-b border-border font-mono text-[12px] backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
-              <span className="font-mono text-xs text-primary tracking-widest uppercase">
+              <span className="text-primary tracking-widest uppercase">
                 [ {t("blog.hud.title")} ]
               </span>
-              <span className="ml-auto font-mono text-[10px] text-muted-foreground tracking-wider">
+              <span className="ml-auto text-muted-foreground tracking-wider">
                 {String(MOCK_POSTS.length).padStart(3, "0")}{" "}
                 {t("blog.hud.records")}
               </span>
@@ -244,6 +244,16 @@ export function Blog() {
                     </div>
                   ))
               )}
+            </div>
+
+            {/* Footer */}
+            <div className="relative z-20 flex items-center justify-between px-4 py-1.5 bg-muted/60 border-t border-border font-mono text-[10px] tracking-wider text-muted-foreground/50 uppercase">
+              <span>{selectedCategory ?? t("blog.all")}</span>
+              {/* Pagination placeholder */}
+              <span>
+                {String(filtered.length).padStart(3, "0")}{" "}
+                {t("blog.hud.records")}
+              </span>
             </div>
           </div>
         </div>

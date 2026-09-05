@@ -93,9 +93,9 @@ export function Contact() {
           <div className="absolute inset-0 scanlines-overlay pointer-events-none z-10" />
 
           {/* Header */}
-          <div className="flex items-center gap-2 px-4 py-2.5 bg-muted/60 border-b border-border">
+          <div className="flex items-center gap-2 px-4 py-4 bg-muted/60 border-b border-border font-mono text-[12px] backdrop-blur-sm">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
-            <span className="font-mono text-xs text-primary tracking-widest uppercase">
+            <span className="text-primary tracking-widest uppercase">
               [ {t("contact.title")} ]
             </span>
           </div>

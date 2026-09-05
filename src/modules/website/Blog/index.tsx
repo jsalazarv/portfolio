@@ -104,7 +104,7 @@ function CategoryRow({ category, posts }: CategoryRowProps) {
   const { t } = useTranslation();
   return (
     <div className="space-y-3">
-      <div className="flex items-baseline gap-3">
+      <div className="flex items-baseline gap-3 px-4">
         <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50">
           cat::
         </span>
@@ -112,11 +112,12 @@ function CategoryRow({ category, posts }: CategoryRowProps) {
           {category}
         </span>
         <span className="font-mono text-[9px] text-muted-foreground/40 ml-auto">
-          {t("blog.recordCount", { count: String(posts.length).padStart(2, "0") })}
+          {t("blog.recordCount", {
+            count: String(posts.length).padStart(2, "0"),
+          })}
         </span>
       </div>
-
-      <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2 snap-x snap-mandatory">
+      <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2 snap-x snap-mandatory px-4">
         {posts.map((post) => (
           <PostCardWide key={post.id} post={post} />
         ))}
@@ -157,83 +158,95 @@ export function Blog() {
         type="website"
       />
 
-      <div className="w-full space-y-8 py-8">
-        {/* HUD Header */}
-        <div className="-mt-8">
+      <div className="-mt-8">
+        {/* Single HUD container */}
+        <div
+          className="bg-muted-foreground/50 p-px"
+          style={{
+            clipPath:
+              "polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px)",
+          }}
+        >
           <div
-            className="bg-muted-foreground/50 p-px"
+            className="relative bg-background overflow-hidden px-2"
             style={{
               clipPath:
-                "polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px)",
+                "polygon(19px 0%, 100% 0%, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0% 100%, 0% 19px)",
             }}
           >
-            <div
-              className="relative bg-background overflow-hidden"
-              style={{
-                clipPath:
-                  "polygon(19px 0%, 100% 0%, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0% 100%, 0% 19px)",
-              }}
-            >
-              <div className="absolute inset-0 scanlines-overlay pointer-events-none z-10" />
-              <div className="flex items-center gap-2 px-4 py-2.5 bg-muted/60 border-b border-border">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
-                <span className="font-mono text-xs text-primary tracking-widest uppercase">
-                  [ {t("blog.hud.title")} ]
-                </span>
-                <span className="ml-auto font-mono text-[10px] text-muted-foreground tracking-wider">
-                  {String(MOCK_POSTS.length).padStart(3, "0")} {t("blog.hud.records")}
-                </span>
+            <div className="absolute inset-0 scanlines-overlay pointer-events-none z-10" />
+
+            {/* Header */}
+            <div className="flex items-center gap-2 px-4 py-2.5 bg-muted/60 border-b border-border">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
+              <span className="font-mono text-xs text-primary tracking-widest uppercase">
+                [ {t("blog.hud.title")} ]
+              </span>
+              <span className="ml-auto font-mono text-[10px] text-muted-foreground tracking-wider">
+                {String(MOCK_POSTS.length).padStart(3, "0")}{" "}
+                {t("blog.hud.records")}
+              </span>
+            </div>
+            <div className="relative z-20 px-4 py-3 border-b border-border/40">
+              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">
+                {t("blog.subtitle")}
+              </p>
+            </div>
+
+            {/* Search + filters */}
+            <div className="relative z-20 px-4 py-3 border-b border-border/40 space-y-3">
+              <SearchBar
+                value={search}
+                onChange={setSearch}
+                placeholder={t("blog.search")}
+              />
+              <div className="flex gap-2 flex-wrap">
+                <CategoryFilter
+                  label={t("blog.all")}
+                  isActive={selectedCategory === null}
+                  onClick={() => setSelectedCategory(null)}
+                />
+                {categories.map((cat) => (
+                  <CategoryFilter
+                    key={cat}
+                    label={cat}
+                    isActive={selectedCategory === cat}
+                    onClick={() =>
+                      setSelectedCategory(selectedCategory === cat ? null : cat)
+                    }
+                  />
+                ))}
               </div>
-              <div className="relative z-20 px-4 py-3">
-                <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/60">
-                  {t("blog.subtitle")}
-                </p>
-              </div>
+            </div>
+
+            {/* Content */}
+            <div className="relative z-20 py-6 space-y-6">
+              {isEmpty ? (
+                <div className="py-12 text-center">
+                  <p className="font-mono text-xs text-muted-foreground/50 tracking-widest uppercase">
+                    {t("blog.empty.title")}
+                  </p>
+                  <p className="font-mono text-[10px] text-muted-foreground/30 tracking-wider mt-2">
+                    {t("blog.empty.subtitle")}
+                  </p>
+                </div>
+              ) : (
+                visibleCategories
+                  .filter((cat) => (grouped[cat]?.length ?? 0) > 0)
+                  .map((cat, i, arr) => (
+                    <div
+                      key={cat}
+                      className={cn(
+                        i < arr.length - 1 && "border-b border-border/40 pb-6",
+                      )}
+                    >
+                      <CategoryRow category={cat} posts={grouped[cat]} />
+                    </div>
+                  ))
+              )}
             </div>
           </div>
         </div>
-
-        {/* Search + category filters */}
-        <div className="space-y-3">
-          <SearchBar value={search} onChange={setSearch} placeholder={t("blog.search")} />
-          <div className="flex gap-2 flex-wrap">
-            <CategoryFilter
-              label={t("blog.all")}
-              isActive={selectedCategory === null}
-              onClick={() => setSelectedCategory(null)}
-            />
-            {categories.map((cat) => (
-              <CategoryFilter
-                key={cat}
-                label={cat}
-                isActive={selectedCategory === cat}
-                onClick={() =>
-                  setSelectedCategory(selectedCategory === cat ? null : cat)
-                }
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Content */}
-        {isEmpty ? (
-          <div className="py-16 text-center">
-            <p className="font-mono text-xs text-muted-foreground/50 tracking-widest uppercase">
-              {t("blog.empty.title")}
-            </p>
-            <p className="font-mono text-[10px] text-muted-foreground/30 tracking-wider mt-2">
-              {t("blog.empty.subtitle")}
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-8">
-            {visibleCategories
-              .filter((cat) => (grouped[cat]?.length ?? 0) > 0)
-              .map((cat) => (
-                <CategoryRow key={cat} category={cat} posts={grouped[cat]} />
-              ))}
-          </div>
-        )}
       </div>
     </>
   );

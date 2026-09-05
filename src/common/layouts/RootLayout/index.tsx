@@ -153,7 +153,7 @@ export function RootLayout() {
       {/* Page content + footer — only on inner routes */}
       {!isHome && (
         <div className="flex flex-col min-h-screen">
-          <main className="flex-1 pt-28 px-4 md:px-8 pb-8 max-w-3xl mx-auto w-full">
+          <main className="flex-1 pt-28 px-4 md:px-8 pb-4 max-w-3xl mx-auto w-full">
             <Outlet />
           </main>
           <Footer />

@@ -45,8 +45,6 @@ function validateForm(data: ContactFormData, t: TFunction): ContactFormErrors {
 
 const CLIP_BEVEL_OUTER =
   "polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px)";
-const CLIP_BEVEL_INNER =
-  "polygon(7px 0%, 100% 0%, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0% 100%, 0% 7px)";
 
 const FIELD_CLASS = cn(
   "w-full bg-transparent font-mono text-xs tracking-wider text-foreground",

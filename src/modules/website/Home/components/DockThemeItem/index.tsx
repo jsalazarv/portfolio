@@ -1,6 +1,7 @@
 import { Moon01Icon, Sun01Icon } from "@hugeicons/core-free-icons";
 import { useState } from "react";
 
+import { useClickSound } from "@/common/hooks/useClickSound";
 import { useTheme } from "@/common/hooks/useTheme";
 import { cn } from "@/common/lib/utils";
 
@@ -39,7 +40,9 @@ export function DockThemeItem({
   const current = THEME_META[theme as Theme] ?? THEME_META.light;
   const nextMeta = THEME_META[next];
 
-  const toggle = () => setTheme(next);
+  const { play } = useClickSound("/sounds/toggle-interface.mp3");
+
+  const toggle = () => { play(); setTheme(next); };
 
   return (
     <div

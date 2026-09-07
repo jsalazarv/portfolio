@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { useClickSound } from "@/common/hooks/useClickSound";
 import { useSoundEnabled } from "@/common/hooks/useSoundEnabled";
 import { cn } from "@/common/lib/utils";
 
@@ -28,8 +29,9 @@ export function DockSoundItem({
 
   const current = soundEnabled ? LABELS.on : LABELS.off;
   const next = soundEnabled ? LABELS.off : LABELS.on;
+  const { play } = useClickSound("/sounds/toggle-interface.mp3", true);
 
-  const toggle = () => setSoundEnabled(!soundEnabled);
+  const toggle = () => { play(); setSoundEnabled(!soundEnabled); };
 
   return (
     <div

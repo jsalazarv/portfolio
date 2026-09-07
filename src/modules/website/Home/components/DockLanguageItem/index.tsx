@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { useClickSound } from "@/common/hooks/useClickSound";
 import { cn } from "@/common/lib/utils";
 
 const NEXT_LANG: Record<string, { code: string; label: string }> = {
@@ -30,8 +31,10 @@ export function DockLanguageItem({
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const isHighlighted = isHovered || isFocused;
+  const { play } = useClickSound("/sounds/toggle-interface.mp3");
 
   const toggle = () => {
+    play();
     i18n.changeLanguage(next.code);
     localStorage.setItem("lang", next.code);
   };

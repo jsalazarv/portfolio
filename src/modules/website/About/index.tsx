@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useClickSound } from "@/common/hooks/useClickSound";
+
+const TOTAL_LINES = 11;
 
 export function About() {
   const { t } = useTranslation();
@@ -15,6 +18,8 @@ export function About() {
     period: string;
   }>;
 
+  const { play: playLoadingTick, stop: stopLoadingTick } = useClickSound("/sounds/loading.mp3");
+
   const [wordIndex, setWordIndex] = useState(0);
   const [visibleLines, setVisibleLines] = useState(0);
 
@@ -24,6 +29,14 @@ export function About() {
     }, 2000);
     return () => clearInterval(interval);
   }, [words.length]);
+
+  useEffect(() => {
+    if (visibleLines <= 0) return;
+    playLoadingTick();
+    if (visibleLines !== TOTAL_LINES) return;
+    const timeout = setTimeout(stopLoadingTick, 500);
+    return () => clearTimeout(timeout);
+  }, [visibleLines, playLoadingTick, stopLoadingTick]);
 
   useEffect(() => {
     const timers = [

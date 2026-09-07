@@ -4,6 +4,7 @@ import type { IconSvgElement } from "@hugeicons/react";
 
 import { DockItem } from "@/modules/website/Home/components/DockItem";
 import { DockLanguageItem } from "@/modules/website/Home/components/DockLanguageItem";
+import { DockSoundItem } from "@/modules/website/Home/components/DockSoundItem";
 import { DockThemeItem } from "@/modules/website/Home/components/DockThemeItem";
 
 export interface NavDockItem {
@@ -68,6 +69,7 @@ export function Dock({ items, activeId, compact = false }: DockProps) {
       ))}
       <DockLanguageItem compact={compact} />
       <DockThemeItem compact={compact} />
+      <DockSoundItem compact={compact} />
     </div>
   );
 }

@@ -35,7 +35,7 @@ export function DockItem({
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const isHighlighted = isActive || isHovered || isFocused;
-  const playClick = useClickSound();
+  const { play: playClick } = useClickSound();
 
   return (
     <div

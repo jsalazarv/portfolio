@@ -24,14 +24,14 @@
 
 ## File Map
 
-| Action | Path | Responsibility |
-|---|---|---|
-| Create | `src/common/layouts/RootLayout/index.tsx` | Owns the dock permanently; positions it via CSS transition based on current route |
-| Create | `src/common/layouts/RootLayout/useDockNav.ts` | Hook that intercepts navigation, triggers transition, then calls `navigate()` |
-| Create | `src/common/layouts/RootLayout/dockItems.tsx` | Static dock item definitions (icons + route mapping) |
-| Modify | `src/routes/Router.tsx` | Replace `HomeLayout` + website `WebsiteLayout` group with single `RootLayout` group |
-| Delete | `src/common/layouts/HomeLayout/index.tsx` | No longer needed — `RootLayout` covers the home route |
-| Modify | `src/modules/website/Home/index.tsx` | Remove dock + status bar — owned by `RootLayout` now |
+| Action | Path                                          | Responsibility                                                                      |
+| ------ | --------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Create | `src/common/layouts/RootLayout/index.tsx`     | Owns the dock permanently; positions it via CSS transition based on current route   |
+| Create | `src/common/layouts/RootLayout/useDockNav.ts` | Hook that intercepts navigation, triggers transition, then calls `navigate()`       |
+| Create | `src/common/layouts/RootLayout/dockItems.tsx` | Static dock item definitions (icons + route mapping)                                |
+| Modify | `src/routes/Router.tsx`                       | Replace `HomeLayout` + website `WebsiteLayout` group with single `RootLayout` group |
+| Delete | `src/common/layouts/HomeLayout/index.tsx`     | No longer needed — `RootLayout` covers the home route                               |
+| Modify | `src/modules/website/Home/index.tsx`          | Remove dock + status bar — owned by `RootLayout` now                                |
 
 ---
 
@@ -40,18 +40,21 @@
 Intercepts navigation: sets `navigatingTo` state (triggers animation), waits 400ms, then calls `navigate()`. Also derives `isHome` from `useLocation`.
 
 **Files:**
+
 - Create: `src/common/layouts/RootLayout/useDockNav.ts`
 
 **Interfaces:**
+
 - Consumes: `useNavigate`, `useLocation` from `react-router-dom`
 - Produces:
+
 ```ts
 interface UseDockNavReturn {
   isHome: boolean;
   activeId: string;
   navigateTo: (id: string, path: string) => void;
 }
-export function useDockNav(): UseDockNavReturn
+export function useDockNav(): UseDockNavReturn;
 ```
 
 - [ ] **Step 1: Create the file**
@@ -121,11 +124,14 @@ git commit --author="jsalazarv <jsalazarv8@gmail.com>" \
 Static list of dock items with icons and route paths. Centralizes the item definitions that `RootLayout` will use.
 
 **Files:**
+
 - Create: `src/common/layouts/RootLayout/dockItems.tsx`
 
 **Interfaces:**
+
 - Consumes: `LucideIcon` from `lucide-react`
 - Produces:
+
 ```ts
 export interface DockItemDef {
   id: string;
@@ -133,7 +139,7 @@ export interface DockItemDef {
   label: string;
   path: string;
 }
-export const DOCK_ITEMS: DockItemDef[]
+export const DOCK_ITEMS: DockItemDef[];
 ```
 
 - [ ] **Step 1: Create the file**
@@ -188,9 +194,11 @@ The core of this feature. Owns the dock with `position: fixed`. Uses `isHome` fr
 `transition-all duration-500` interpolates between these states smoothly. The `<Outlet />` renders the page content below the dock. On home, content area is hidden (the dock IS the home UI). On inner pages, content has `pt-32` to clear the fixed dock.
 
 **Files:**
+
 - Create: `src/common/layouts/RootLayout/index.tsx`
 
 **Interfaces:**
+
 - Consumes:
   - `useDockNav`, `UseDockNavReturn` from `./useDockNav`
   - `DOCK_ITEMS` from `./dockItems`
@@ -227,7 +235,9 @@ export function RootLayout() {
   }));
 
   return (
-    <div className={cn("min-h-screen bg-secondary", !isHome && "bg-background")}>
+    <div
+      className={cn("min-h-screen bg-secondary", !isHome && "bg-background")}
+    >
       {/* Dock — fixed, transitions between center and top */}
       <div
         className={cn(
@@ -274,16 +284,19 @@ Expected: TypeScript error — `Dock` does not accept `activeId` prop yet. This 
 `Dock` currently manages `activeId` internally with `useState`. `RootLayout` needs to control it externally (so the active state reflects the URL). Make `activeId` a controlled prop while keeping backward compatibility via an optional prop.
 
 **Files:**
+
 - Modify: `src/modules/website/Home/components/Dock/index.tsx`
 
 **Interfaces:**
+
 - Consumes: same as before
 - Produces:
+
 ```ts
 interface DockProps {
   items: NavDockItem[];
-  activeId: string;          // now required, controlled externally
-  defaultActiveId?: string;  // removed — no longer needed
+  activeId: string; // now required, controlled externally
+  defaultActiveId?: string; // removed — no longer needed
 }
 ```
 
@@ -322,10 +335,14 @@ export function Dock({ items, activeId }: DockProps) {
     e.preventDefault();
 
     const buttons = Array.from(
-      containerRef.current?.querySelectorAll<HTMLButtonElement>("[data-dock-button]") ?? [],
+      containerRef.current?.querySelectorAll<HTMLButtonElement>(
+        "[data-dock-button]",
+      ) ?? [],
     );
 
-    const currentIndex = buttons.indexOf(document.activeElement as HTMLButtonElement);
+    const currentIndex = buttons.indexOf(
+      document.activeElement as HTMLButtonElement,
+    );
     const total = buttons.length;
 
     const nextIndex =
@@ -386,11 +403,13 @@ git commit --author="jsalazarv <jsalazarv8@gmail.com>" \
 Wire everything together. `HomeLayout` is deleted. `WebsiteLayout` loses `<Header />`. `Home` page becomes an empty placeholder (the dock is the home UI, rendered by `RootLayout`). The router uses a single `RootLayout` group for all website routes.
 
 **Files:**
+
 - Modify: `src/routes/Router.tsx`
 - Modify: `src/modules/website/Home/index.tsx`
 - Delete: `src/common/layouts/HomeLayout/index.tsx`
 
 **Interfaces:**
+
 - Consumes: `RootLayout` from `@/common/layouts/RootLayout`
 
 - [ ] **Step 1: Update Router.tsx**
@@ -483,6 +502,7 @@ npm run dev
 ```
 
 Open `http://localhost:5173`. Check:
+
 - `/` → dock centered, status bar at bottom, gray background
 - Click "Blog" → dock animates upward to top-center (~400ms), then `/blog` loads with dock as header
 - Click "Home" in dock → dock animates back to center, background turns gray

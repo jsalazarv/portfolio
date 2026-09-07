@@ -66,8 +66,12 @@ export function RootLayout() {
                 {/* Header bar */}
                 <div className="flex items-center gap-2 px-4 py-3 bg-muted/60 border-b border-border font-mono text-[11px] backdrop-blur-sm">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
-                  <span className="text-primary tracking-widest uppercase">[ jsalazarv ]</span>
-                  <span className="ml-auto text-muted-foreground tracking-wider uppercase">SYS :: ACTIVE</span>
+                  <span className="text-primary tracking-widest uppercase">
+                    [ jsalazarv ]
+                  </span>
+                  <span className="ml-auto text-muted-foreground tracking-wider uppercase">
+                    SYS :: ACTIVE
+                  </span>
                 </div>
 
                 {/* Content */}

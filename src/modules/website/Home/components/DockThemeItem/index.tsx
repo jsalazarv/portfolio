@@ -43,7 +43,6 @@ export function DockThemeItem({ compact = false }: DockThemeItemProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-
       <span
         className={cn(
           "absolute inset-0 pointer-events-none transition-opacity duration-200",
@@ -81,10 +80,26 @@ export function DockThemeItem({ compact = false }: DockThemeItemProps) {
         <span className="relative inline-flex justify-center">
           {/* Spacer invisible que reserva el ancho del label más largo */}
           <span className="invisible select-none" aria-hidden>
-            {current.label.length >= nextMeta.label.length ? current.label : nextMeta.label}
+            {current.label.length >= nextMeta.label.length
+              ? current.label
+              : nextMeta.label}
           </span>
-          <span className={cn("absolute inset-0 flex justify-center transition-opacity duration-200", isHovered ? "opacity-0" : "opacity-100")}>{current.label}</span>
-          <span className={cn("absolute inset-0 flex justify-center transition-opacity duration-200", isHovered ? "opacity-100" : "opacity-0")}>{nextMeta.label}</span>
+          <span
+            className={cn(
+              "absolute inset-0 flex justify-center transition-opacity duration-200",
+              isHovered ? "opacity-0" : "opacity-100",
+            )}
+          >
+            {current.label}
+          </span>
+          <span
+            className={cn(
+              "absolute inset-0 flex justify-center transition-opacity duration-200",
+              isHovered ? "opacity-100" : "opacity-0",
+            )}
+          >
+            {nextMeta.label}
+          </span>
         </span>
       </button>
     </div>

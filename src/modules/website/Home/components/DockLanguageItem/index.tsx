@@ -38,7 +38,6 @@ export function DockLanguageItem({ compact = false }: DockLanguageItemProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-
       <span
         className={cn(
           "absolute inset-0 pointer-events-none transition-opacity duration-200",

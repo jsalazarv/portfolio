@@ -32,7 +32,8 @@ function validateForm(data: ContactFormData, t: TFunction): ContactFormErrors {
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
     errors.email = t("contact.validation.emailInvalid");
   }
-  if (!data.message.trim()) errors.message = t("contact.validation.messageRequired");
+  if (!data.message.trim())
+    errors.message = t("contact.validation.messageRequired");
   return errors;
 }
 
@@ -47,10 +48,16 @@ const FIELD_CLASS = cn(
 export function Contact() {
   const { t } = useTranslation();
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
-  const [formData, setFormData] = useState<ContactFormData>({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [errors, setErrors] = useState<ContactFormErrors>({});
 
-  function handleFieldChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  function handleFieldChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof ContactFormErrors]) {
@@ -109,17 +116,29 @@ export function Contact() {
           {isSent ? (
             <div className="relative z-20 flex flex-col items-center text-center gap-2 py-14">
               <span className="font-mono text-primary text-lg">✓</span>
-              <p className="font-mono text-xs tracking-widest uppercase text-foreground">{t("contact.sent")}</p>
-              <p className="font-mono text-[10px] tracking-wider text-muted-foreground/60 mt-1">{t("contact.sentDescription")}</p>
+              <p className="font-mono text-xs tracking-widest uppercase text-foreground">
+                {t("contact.sent")}
+              </p>
+              <p className="font-mono text-[10px] tracking-wider text-muted-foreground/60 mt-1">
+                {t("contact.sentDescription")}
+              </p>
             </div>
           ) : (
-            <form id="contact-form" onSubmit={handleSubmit} noValidate className="relative z-20 p-4 flex flex-col gap-4">
+            <form
+              id="contact-form"
+              onSubmit={handleSubmit}
+              noValidate
+              className="relative z-20 p-4 flex flex-col gap-4"
+            >
               <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50">
                 {t("contact.formTitle")}
               </p>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="name" className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50">
+                <label
+                  htmlFor="name"
+                  className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50"
+                >
                   {t("contact.name")}::
                 </label>
                 <input
@@ -130,13 +149,19 @@ export function Contact() {
                   placeholder={t("contact.namePlaceholder")}
                   aria-invalid={!!errors.name}
                   disabled={isSending}
-                  className={cn(FIELD_CLASS, errors.name && "border-destructive")}
+                  className={cn(
+                    FIELD_CLASS,
+                    errors.name && "border-destructive",
+                  )}
                 />
                 <FieldError>{errors.name}</FieldError>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="email" className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50">
+                <label
+                  htmlFor="email"
+                  className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50"
+                >
                   {t("contact.emailField")}::
                 </label>
                 <input
@@ -148,13 +173,19 @@ export function Contact() {
                   placeholder={t("contact.emailPlaceholder")}
                   aria-invalid={!!errors.email}
                   disabled={isSending}
-                  className={cn(FIELD_CLASS, errors.email && "border-destructive")}
+                  className={cn(
+                    FIELD_CLASS,
+                    errors.email && "border-destructive",
+                  )}
                 />
                 <FieldError>{errors.email}</FieldError>
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="message" className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50">
+                <label
+                  htmlFor="message"
+                  className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50"
+                >
                   {t("contact.message")}::
                 </label>
                 <textarea
@@ -166,11 +197,14 @@ export function Contact() {
                   placeholder={t("contact.messagePlaceholder")}
                   aria-invalid={!!errors.message || undefined}
                   disabled={isSending}
-                  className={cn(FIELD_CLASS, "resize-none", errors.message && "border-destructive")}
+                  className={cn(
+                    FIELD_CLASS,
+                    "resize-none",
+                    errors.message && "border-destructive",
+                  )}
                 />
                 <FieldError>{errors.message}</FieldError>
               </div>
-
             </form>
           )}
           {!isSent && (
@@ -181,7 +215,11 @@ export function Contact() {
                 rel="noopener noreferrer"
                 className="font-mono text-[10px] tracking-widest uppercase flex items-center gap-1.5 border border-border/70 px-2.5 py-1 text-muted-foreground hover:border-primary hover:text-primary transition-colors duration-200 cursor-pointer"
               >
-                <HugeiconsIcon icon={Linkedin01Icon} size={11} strokeWidth={1.5} />
+                <HugeiconsIcon
+                  icon={Linkedin01Icon}
+                  size={11}
+                  strokeWidth={1.5}
+                />
                 <span>LinkedIn</span>
               </a>
               <button
@@ -191,7 +229,9 @@ export function Contact() {
                 className="font-mono text-[10px] tracking-widest uppercase flex items-center gap-1.5 border border-border/70 px-2.5 py-1 text-muted-foreground hover:border-primary hover:text-primary transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer focus-visible:outline-none"
               >
                 <span>↑</span>
-                <span>{isSending ? t("contact.sending") : t("contact.send")}</span>
+                <span>
+                  {isSending ? t("contact.sending") : t("contact.send")}
+                </span>
               </button>
             </div>
           )}

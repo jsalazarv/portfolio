@@ -43,7 +43,6 @@ export function DockItem({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-
       {/* Bevel activo — relleno sólido naranja */}
       {isActive && (
         <span
@@ -80,7 +79,10 @@ export function DockItem({
       <button
         ref={ref}
         data-dock-button
-        onClick={() => { playClick(); onClick(); }}
+        onClick={() => {
+          playClick();
+          onClick();
+        }}
         aria-label={label}
         tabIndex={tabIndex}
         onFocus={() => setIsFocused(true)}

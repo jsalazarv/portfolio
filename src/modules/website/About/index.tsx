@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+
 import { useClickSound } from "@/common/hooks/useClickSound";
 
 const TOTAL_LINES = 11;
@@ -18,7 +19,9 @@ export function About() {
     period: string;
   }>;
 
-  const { play: playLoadingTick, stop: stopLoadingTick } = useClickSound("/sounds/loading.mp3");
+  const { play: playLoadingTick, stop: stopLoadingTick } = useClickSound(
+    "/sounds/loading.mp3",
+  );
 
   const [wordIndex, setWordIndex] = useState(0);
   const [visibleLines, setVisibleLines] = useState(0);
@@ -96,6 +99,7 @@ export function About() {
                       filter: "grayscale(100%) contrast(1.15) brightness(0.88)",
                     }}
                   />
+
                   <div className="scan-line" />
                   <div className="absolute bottom-1.5 left-0 right-0 flex justify-center z-30 pointer-events-none">
                     <span className="font-mono text-[9px] text-primary bg-background/80 px-2 py-0.5 tracking-[0.2em] animate-pulse uppercase">

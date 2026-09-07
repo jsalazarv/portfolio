@@ -28,9 +28,6 @@ export function Footer() {
             <span>
               {t("footer.rights", { year: currentYear, name: profile.name })}
             </span>
-            <span className="text-primary animate-pulse">
-              ● {t("about.hud.online")}
-            </span>
           </div>
         </div>
       </div>

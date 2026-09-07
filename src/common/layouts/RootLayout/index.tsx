@@ -1,5 +1,3 @@
-import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
@@ -128,13 +126,17 @@ export function RootLayout() {
             >
               jsalazarv
             </span>
-            <button
-              aria-label="Open menu"
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden flex items-center justify-center w-9 h-9 border border-border/60 hover:border-primary/50 transition-colors duration-200 cursor-pointer focus-visible:outline-none"
-            >
-              <HugeiconsIcon icon={Menu01Icon} size={20} strokeWidth={1.5} />
-            </button>
+            <div className="md:hidden relative">
+              <span className="absolute inset-0 pointer-events-none" style={{ clipPath: "polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px)", background: "color-mix(in oklch, var(--muted-foreground) 40%, transparent)" }} />
+              <span className="absolute inset-[1px]" style={{ clipPath: "polygon(7px 0%, 100% 0%, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0% 100%, 0% 7px)", background: "var(--card)" }} />
+              <button
+                aria-label="Open menu"
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="relative z-10 font-mono text-[10px] tracking-widest uppercase text-muted-foreground cursor-pointer focus-visible:outline-none px-3 py-1.5"
+              >
+                menu
+              </button>
+            </div>
 
             {/* Desktop dock */}
             <div className="hidden md:flex">
@@ -151,15 +153,21 @@ export function RootLayout() {
             className="absolute inset-0 bg-background/80 backdrop-blur-sm"
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6">
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+            <div className="w-full flex flex-col gap-4">
             <Dock items={items} activeId={activeId} compact={false} />
-            <button
-              aria-label="Close menu"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-center w-10 h-10 border border-border/60 hover:border-primary/50 transition-colors duration-200 cursor-pointer focus-visible:outline-none"
-            >
-              <HugeiconsIcon icon={Cancel01Icon} size={18} strokeWidth={1.5} />
-            </button>
+            <div className="relative w-full">
+              <span className="absolute inset-0 pointer-events-none" style={{ clipPath: "polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px)", background: "color-mix(in oklch, var(--muted-foreground) 40%, transparent)" }} />
+              <span className="absolute inset-[1px]" style={{ clipPath: "polygon(7px 0%, 100% 0%, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0% 100%, 0% 7px)", background: "var(--card)" }} />
+              <button
+                aria-label="Close menu"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative z-10 w-full font-mono text-[10px] tracking-widest uppercase text-muted-foreground cursor-pointer focus-visible:outline-none px-3 py-1.5 text-center"
+              >
+                {t("nav.close")}
+              </button>
+            </div>
+            </div>
           </div>
         </div>
       )}

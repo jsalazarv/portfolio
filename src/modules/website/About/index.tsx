@@ -85,8 +85,8 @@ export function About() {
               <div className="absolute inset-0 z-10 scanlines-overlay pointer-events-none" />
 
               {/* Top: 2 columns — photo + directive/function */}
-              <div className="flex pt-6">
-                <div className="relative w-36 md:w-44 shrink-0 self-start z-20 overflow-hidden ml-6">
+              <div className="flex flex-col sm:flex-row pt-6">
+                <div className="relative w-36 sm:w-36 md:w-44 shrink-0 self-start z-20 overflow-hidden mx-auto sm:mx-0 sm:ml-6">
                   <div className="absolute top-1 left-1 w-5 h-5 border-t-2 border-l-2 border-primary z-30 pointer-events-none" />
                   <div className="absolute top-1 right-1 w-5 h-5 border-t-2 border-r-2 border-primary z-30 pointer-events-none" />
                   <div className="absolute bottom-6 left-1 w-5 h-5 border-b-2 border-l-2 border-primary z-30 pointer-events-none" />
@@ -108,13 +108,13 @@ export function About() {
                   </div>
                 </div>
 
-                <div className="relative z-20 flex-1 flex flex-col pt-8 pb-8 px-6">
+                <div className="relative z-20 flex-1 flex flex-col pt-4 sm:pt-8 pb-8 px-6">
                   <table className="font-mono text-xs w-full border-collapse">
                     <tbody>
                       {visibleLines >= 1 && (
                         <tr className="hud-line-in">
                           <td className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 pr-4 py-1 align-top whitespace-nowrap">
-                            name::
+                            {t("about.labels.name")}::
                           </td>
                           <td className="uppercase tracking-widest text-foreground py-1">
                             {t("about.subject.name")}
@@ -124,7 +124,7 @@ export function About() {
                       {visibleLines >= 2 && (
                         <tr className="hud-line-in">
                           <td className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 pr-4 py-1 align-top whitespace-nowrap">
-                            role::
+                            {t("about.labels.role")}::
                           </td>
                           <td className="uppercase tracking-widest text-primary py-1">
                             {t("about.subject.role")}
@@ -134,7 +134,7 @@ export function About() {
                       {visibleLines >= 3 && (
                         <tr className="hud-line-in">
                           <td className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 pr-4 py-1 align-top whitespace-nowrap">
-                            origin::
+                            {t("about.labels.origin")}::
                           </td>
                           <td className="uppercase tracking-widest text-foreground py-1">
                             {t("about.subject.origin")}
@@ -144,7 +144,7 @@ export function About() {
                       {visibleLines >= 4 && (
                         <tr className="hud-line-in">
                           <td className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 pr-4 py-1 align-top whitespace-nowrap">
-                            exp::
+                            {t("about.labels.exp")}::
                           </td>
                           <td className="uppercase tracking-widest text-foreground py-1">
                             {t("about.subject.yearsExp")}
@@ -154,7 +154,7 @@ export function About() {
                       {visibleLines >= 5 && (
                         <tr className="hud-line-in">
                           <td className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 pr-4 py-1 align-top whitespace-nowrap">
-                            directive::
+                            {t("about.labels.directive")}::
                           </td>
                           <td className="uppercase tracking-widest text-foreground py-1">
                             {t("about.subject.directive")}
@@ -164,7 +164,7 @@ export function About() {
                       {visibleLines >= 6 && (
                         <tr className="hud-line-in">
                           <td className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 pr-4 py-1 align-top whitespace-nowrap">
-                            function::
+                            {t("about.labels.function")}::
                           </td>
                           <td className="uppercase tracking-widest text-foreground py-1">
                             {t("about.bio")}{" "}
@@ -177,7 +177,7 @@ export function About() {
                       {visibleLines >= 7 && (
                         <tr className="hud-line-in">
                           <td className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 pr-4 py-1 align-top whitespace-nowrap">
-                            status::
+                            {t("about.labels.status")}::
                           </td>
                           <td className="uppercase tracking-widest text-foreground py-1">
                             {t("about.estado")}
@@ -198,7 +198,7 @@ export function About() {
                   <div className="hud-line-in pt-6">
                     <div className="border-l-2 border-primary pl-3 flex-1">
                       <span className="block text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 mb-1.5">
-                        stack::
+                        {t("about.labels.stack")}::
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {skills.map((skill, i) => (
@@ -218,7 +218,7 @@ export function About() {
                   <div className="hud-line-in">
                     <div className="border-l-2 border-primary pl-3 flex-1">
                       <span className="block text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 mb-1.5">
-                        career::
+                        {t("about.labels.career")}::
                       </span>
                       <div className="space-y-1.5">
                         {jobs.map((job, i) => {
@@ -258,7 +258,7 @@ export function About() {
                   <div className="hud-line-in">
                     <div className="border-l-2 border-primary pl-3 flex-1">
                       <span className="block text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 mb-1.5">
-                        education::
+                        {t("about.labels.education")}::
                       </span>
                       <div className="space-y-1.5">
                         {education.map((item, i) => (
@@ -289,7 +289,7 @@ export function About() {
                   <div className="hud-line-in">
                     <div className="border-l-2 border-primary pl-3 flex-1">
                       <span className="block text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 mb-1">
-                        philosophy::
+                        {t("about.labels.philosophy")}::
                       </span>
                       <span className="uppercase tracking-widest text-foreground leading-snug text-xs">
                         {t("about.filosofia")}
@@ -301,7 +301,7 @@ export function About() {
                   <div className="hud-line-in">
                     <div className="border-l-2 border-primary pl-3 flex-1">
                       <span className="block text-[9px] uppercase tracking-[0.2em] text-muted-foreground/50 mb-1">
-                        focus::
+                        {t("about.labels.focus")}::
                       </span>
                       <span className="uppercase tracking-widest text-foreground leading-snug text-xs">
                         {t("about.enfoque")}

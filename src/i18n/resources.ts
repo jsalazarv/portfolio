@@ -7,6 +7,7 @@ export const resources = {
         about: "About",
         projects: "Projects",
         contact: "Contact",
+        close: "Close menu",
       },
       header: {
         interests: "Interests",
@@ -59,6 +60,20 @@ export const resources = {
           origin: "Mexico",
           yearsExp: "8+ years",
           directive: "Destroy complexity. Ship products end to end.",
+        },
+        labels: {
+          name: "name",
+          role: "role",
+          origin: "origin",
+          exp: "exp",
+          directive: "directive",
+          function: "function",
+          status: "status",
+          stack: "stack",
+          career: "career",
+          education: "education",
+          philosophy: "philosophy",
+          focus: "focus",
         },
         bio: "Subject is known to",
         words: [
@@ -243,6 +258,7 @@ export const resources = {
         about: "Sobre mí",
         projects: "Proyectos",
         contact: "Contacto",
+        close: "Cerrar menú",
       },
       header: {
         interests: "Intereses",
@@ -332,6 +348,20 @@ export const resources = {
           yearsExp: "8+ años",
           directive:
             "Destruir la complejidad. Construir productos de punta a punta.",
+        },
+        labels: {
+          name: "nombre",
+          role: "rol",
+          origin: "origen",
+          exp: "exp",
+          directive: "directiva",
+          function: "función",
+          status: "estado",
+          stack: "stack",
+          career: "carrera",
+          education: "educación",
+          philosophy: "filosofía",
+          focus: "enfoque",
         },
         bio: "Sujeto tiende a",
         words: [

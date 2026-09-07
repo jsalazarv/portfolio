@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useClickSound } from "@/common/hooks/useClickSound";
+import { DossierModal } from "./DossierModal";
 
 const TOTAL_LINES = 11;
 
@@ -22,9 +23,11 @@ export function About() {
   const { play: playLoadingTick, stop: stopLoadingTick } = useClickSound(
     "/sounds/loading.mp3",
   );
+  const { play: playClick } = useClickSound();
 
   const [wordIndex, setWordIndex] = useState(0);
   const [visibleLines, setVisibleLines] = useState(0);
+  const [isDossierOpen, setIsDossierOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,6 +52,7 @@ export function About() {
   }, []);
 
   return (
+    <>
     <div className="w-full -mt-8">
       {/* HUD Frame */}
       <div className="relative mb-8">
@@ -322,18 +326,21 @@ export function About() {
               <span>{t("about.hud.location")}</span>
               <span className="text-border">|</span>
               <span className="text-green-500">● {t("about.hud.online")}</span>
-              <a
-                href="/cv.pdf"
-                download
+              <button
+                onClick={() => { playClick(); setIsDossierOpen(true); }}
                 className="ml-auto flex items-center gap-1.5 border border-border/70 px-2.5 py-1 text-muted-foreground hover:border-primary hover:text-primary transition-colors duration-200 cursor-pointer"
               >
                 <span>↓</span>
                 <span>{t("about.downloadDossier")}</span>
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+    {isDossierOpen && (
+      <DossierModal onClose={() => setIsDossierOpen(false)} />
+    )}
+    </>
   );
 }

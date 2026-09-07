@@ -1,5 +1,6 @@
 import { Linkedin01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import emailjs from "@emailjs/browser";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -10,7 +11,11 @@ import { cn } from "@/common/lib/utils";
 
 const LINKEDIN_URL = "https://linkedin.com/in/jsalazarv";
 
-type SubmitState = "idle" | "sending" | "sent";
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
+
+type SubmitState = "idle" | "sending" | "sent" | "error";
 
 interface ContactFormData {
   name: string;
@@ -73,12 +78,28 @@ export function Contact() {
       return;
     }
     setSubmitState("sending");
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setSubmitState("sent");
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          title: "Mensaje de contacto",
+          name: formData.name,
+          message: formData.message,
+          email: formData.email,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY },
+      );
+      setSubmitState("sent");
+    } catch {
+      setSubmitState("error");
+    }
   }
 
   const isSending = submitState === "sending";
   const isSent = submitState === "sent";
+  const isError = submitState === "error";
 
   return (
     <div className="-mt-8">
@@ -205,6 +226,12 @@ export function Contact() {
                 />
                 <FieldError>{errors.message}</FieldError>
               </div>
+
+              {isError && (
+                <p className="font-mono text-[10px] text-red-400 tracking-wider">
+                  {t("contact.sendError")}
+                </p>
+              )}
             </form>
           )}
           {!isSent && (

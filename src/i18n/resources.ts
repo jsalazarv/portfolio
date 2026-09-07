@@ -116,6 +116,17 @@ export const resources = {
         enfoque:
           "Fluid interfaces, solid architecture and zero corporate friction.",
         downloadDossier: "Download dossier",
+        dossier: {
+          title: "REQUEST_DOSSIER",
+          subtitle: "Enter your email to receive the dossier.",
+          email: "Email",
+          emailPlaceholder: "your@email.com",
+          send: "Request dossier",
+          sending: "Sending...",
+          sent: "Dossier sent!",
+          sentDescription: "Check your inbox.",
+          sendError: "Something went wrong. Please try again.",
+        },
         experience: "Experience",
         experienceSubtitle: "Career test suite — all systems running",
         run: "Run",
@@ -159,6 +170,7 @@ export const resources = {
         sending: "Sending...",
         sent: "Message sent!",
         sentDescription: "I'll get back to you as soon as possible.",
+        sendError: "Something went wrong. Please try again.",
         validation: {
           nameRequired: "Name is required.",
           emailRequired: "Email is required.",
@@ -326,6 +338,7 @@ export const resources = {
         sending: "Enviando...",
         sent: "¡Mensaje enviado!",
         sentDescription: "Te responderé lo antes posible.",
+        sendError: "Algo salió mal. Por favor intenta de nuevo.",
         validation: {
           nameRequired: "El nombre es requerido.",
           emailRequired: "El correo es requerido.",
@@ -405,6 +418,17 @@ export const resources = {
         enfoque:
           "Interfaces fluidas, arquitectura sólida y cero fricción corporativa.",
         downloadDossier: "Descargar expediente",
+        dossier: {
+          title: "SOLICITAR_EXPEDIENTE",
+          subtitle: "Ingresa tu correo para recibir el expediente.",
+          email: "Correo",
+          emailPlaceholder: "tu@correo.com",
+          send: "Solicitar expediente",
+          sending: "Enviando...",
+          sent: "¡Expediente enviado!",
+          sentDescription: "Revisa tu bandeja de entrada.",
+          sendError: "Algo salió mal. Por favor intenta de nuevo.",
+        },
         experience: "Experiencia",
         experienceSubtitle: "Career test suite — all systems running",
         run: "Run",

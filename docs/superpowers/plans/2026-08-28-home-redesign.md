@@ -24,25 +24,27 @@
 
 ## File Map
 
-| Action | Path | Responsibility |
-|---|---|---|
-| Create | `src/common/layouts/HomeLayout/index.tsx` | Full-screen wrapper with `<Outlet />`, no header/footer |
-| Create | `src/modules/website/Home/components/DockItem/index.tsx` | Single circular nav button with active/inactive visual states |
-| Create | `src/modules/website/Home/components/DockLanguageItem/index.tsx` | Language dropdown styled as dock circle |
-| Create | `src/modules/website/Home/components/DockThemeItem/index.tsx` | Theme dropdown styled as dock circle |
-| Create | `src/modules/website/Home/components/Dock/index.tsx` | Horizontal row of dock items with hover tracking |
-| Create | `src/modules/website/Home/components/HomeStatusBar/index.tsx` | Fixed bottom bar — avatar, name, real-time clock |
-| Modify | `src/modules/website/Home/index.tsx` | Replace old sections with Dock + HomeStatusBar |
-| Modify | `src/routes/Router.tsx` | Extract `/` into its own `HomeLayout` route group |
+| Action | Path                                                             | Responsibility                                                |
+| ------ | ---------------------------------------------------------------- | ------------------------------------------------------------- |
+| Create | `src/common/layouts/HomeLayout/index.tsx`                        | Full-screen wrapper with `<Outlet />`, no header/footer       |
+| Create | `src/modules/website/Home/components/DockItem/index.tsx`         | Single circular nav button with active/inactive visual states |
+| Create | `src/modules/website/Home/components/DockLanguageItem/index.tsx` | Language dropdown styled as dock circle                       |
+| Create | `src/modules/website/Home/components/DockThemeItem/index.tsx`    | Theme dropdown styled as dock circle                          |
+| Create | `src/modules/website/Home/components/Dock/index.tsx`             | Horizontal row of dock items with hover tracking              |
+| Create | `src/modules/website/Home/components/HomeStatusBar/index.tsx`    | Fixed bottom bar — avatar, name, real-time clock              |
+| Modify | `src/modules/website/Home/index.tsx`                             | Replace old sections with Dock + HomeStatusBar                |
+| Modify | `src/routes/Router.tsx`                                          | Extract `/` into its own `HomeLayout` route group             |
 
 ---
 
 ### Task 1: HomeLayout
 
 **Files:**
+
 - Create: `src/common/layouts/HomeLayout/index.tsx`
 
 **Interfaces:**
+
 - Produces: `HomeLayout` — React component, no props, renders `<Outlet />`
 
 - [ ] **Step 1: Create the file**
@@ -82,11 +84,14 @@ git commit --author="jsalazarv <jsalazarv8@gmail.com>" \
 ### Task 2: DockItem
 
 **Files:**
+
 - Create: `src/modules/website/Home/components/DockItem/index.tsx`
 
 **Interfaces:**
+
 - Consumes: `cn` from `@/common/lib/utils`, `LucideIcon` from `lucide-react`
 - Produces:
+
 ```ts
 interface DockItemProps {
   icon: LucideIcon;
@@ -94,7 +99,7 @@ interface DockItemProps {
   isActive: boolean;
   onClick: () => void;
 }
-export function DockItem(props: DockItemProps): JSX.Element
+export function DockItem(props: DockItemProps): JSX.Element;
 ```
 
 - [ ] **Step 1: Create the file**
@@ -112,7 +117,12 @@ interface DockItemProps {
   onClick: () => void;
 }
 
-export function DockItem({ icon: Icon, label, isActive, onClick }: DockItemProps) {
+export function DockItem({
+  icon: Icon,
+  label,
+  isActive,
+  onClick,
+}: DockItemProps) {
   return (
     <div className="flex flex-col items-center gap-3">
       <button
@@ -164,10 +174,12 @@ git commit --author="jsalazarv <jsalazarv8@gmail.com>" \
 These utility items reuse existing hooks/logic (`useTranslation`, `useTheme`) but render as dock-styled circles using `DropdownMenu` with a custom trigger. No nested `<button>` inside `<button>` — `DropdownMenuTrigger` renders the circle directly via `asChild`.
 
 **Files:**
+
 - Create: `src/modules/website/Home/components/DockLanguageItem/index.tsx`
 - Create: `src/modules/website/Home/components/DockThemeItem/index.tsx`
 
 **Interfaces:**
+
 - Consumes:
   - `DropdownMenu`, `DropdownMenuTrigger`, `DropdownMenuContent`, `DropdownMenuItem` from `@/common/components/ui/dropdown-menu`
   - `useTheme` from `@/common/hooks/useTheme`
@@ -220,14 +232,19 @@ export function DockLanguageItem() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="center" side="top">
           {LANGS.map((lang) => (
-            <DropdownMenuItem key={lang.code} onClick={() => setLang(lang.code)}>
+            <DropdownMenuItem
+              key={lang.code}
+              onClick={() => setLang(lang.code)}
+            >
               <span>{lang.label}</span>
               {current === lang.code && <Check className="size-4 ml-auto" />}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <span className="opacity-0 pointer-events-none text-sm font-medium">Language</span>
+      <span className="opacity-0 pointer-events-none text-sm font-medium">
+        Language
+      </span>
     </div>
   );
 }
@@ -284,7 +301,9 @@ export function DockThemeItem() {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <span className="opacity-0 pointer-events-none text-sm font-medium">Theme</span>
+      <span className="opacity-0 pointer-events-none text-sm font-medium">
+        Theme
+      </span>
     </div>
   );
 }
@@ -313,11 +332,14 @@ git commit --author="jsalazarv <jsalazarv8@gmail.com>" \
 ### Task 4: Dock
 
 **Files:**
+
 - Create: `src/modules/website/Home/components/Dock/index.tsx`
 
 **Interfaces:**
+
 - Consumes: `DockItem` from `../DockItem`, `DockLanguageItem` from `../DockLanguageItem`, `DockThemeItem` from `../DockThemeItem`, `LucideIcon` from `lucide-react`
 - Produces:
+
 ```ts
 interface NavDockItem {
   id: string;
@@ -330,7 +352,7 @@ interface DockProps {
   items: NavDockItem[];
 }
 
-export function Dock(props: DockProps): JSX.Element
+export function Dock(props: DockProps): JSX.Element;
 ```
 
 - [ ] **Step 1: Create the file**
@@ -357,7 +379,9 @@ interface DockProps {
 }
 
 export function Dock({ items, defaultActiveId }: DockProps) {
-  const [activeId, setActiveId] = useState(defaultActiveId ?? items[0]?.id ?? "");
+  const [activeId, setActiveId] = useState(
+    defaultActiveId ?? items[0]?.id ?? "",
+  );
 
   return (
     <div className="flex flex-col items-center gap-0">
@@ -404,9 +428,11 @@ git commit --author="jsalazarv <jsalazarv8@gmail.com>" \
 ### Task 5: HomeStatusBar
 
 **Files:**
+
 - Create: `src/modules/website/Home/components/HomeStatusBar/index.tsx`
 
 **Interfaces:**
+
 - Produces: `HomeStatusBar()` — no props
 
 - [ ] **Step 1: Create the file**
@@ -431,9 +457,13 @@ export function HomeStatusBar() {
     <div className="fixed bottom-0 left-0 right-0 h-14 px-6 flex items-center justify-between border-t border-border bg-secondary">
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center shrink-0">
-          <span className="text-xs font-bold text-background select-none">JS</span>
+          <span className="text-xs font-bold text-background select-none">
+            JS
+          </span>
         </div>
-        <span className="text-sm font-medium text-muted-foreground">Juan S.</span>
+        <span className="text-sm font-medium text-muted-foreground">
+          Juan S.
+        </span>
       </div>
       <span className="text-sm font-medium text-muted-foreground tabular-nums">
         {time}
@@ -467,9 +497,11 @@ git commit --author="jsalazarv <jsalazarv8@gmail.com>" \
 Replace the current Home sections with the dock UI. Wire `Dock` + `HomeStatusBar`, define the 5 nav items.
 
 **Files:**
+
 - Modify: `src/modules/website/Home/index.tsx`
 
 **Interfaces:**
+
 - Consumes:
   - `Dock` + `NavDockItem` from `./components/Dock`
   - `HomeStatusBar` from `./components/HomeStatusBar`
@@ -527,6 +559,7 @@ npm run dev
 ```
 
 Open `http://localhost:5173`. Expected:
+
 - Gray full-screen background
 - Centered horizontal dock with 7 circle buttons
 - Hovering a nav item scales it up and shows label below
@@ -549,6 +582,7 @@ git commit --author="jsalazarv <jsalazarv8@gmail.com>" \
 Extract `/` from `WebsiteLayout` and give it its own `HomeLayout` route group.
 
 **Files:**
+
 - Modify: `src/routes/Router.tsx`
 
 - [ ] **Step 1: Update the router**
@@ -579,9 +613,7 @@ export const router = createBrowserRouter([
     path: "/",
     element: <HomeLayout />,
     errorElement: <ServerError />,
-    children: [
-      { path: "/", element: <Home /> },
-    ],
+    children: [{ path: "/", element: <Home /> }],
   },
   {
     path: "/",

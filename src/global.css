@@ -89,9 +89,9 @@
 /* Inverted palette for dark mode */
 .dark {
   /* Background colors */
-  --background: #090B0B;
+  --background: #090b0b;
   --foreground: oklch(0.98 0 0); /* Blanco claro */
-  --paper: #090B0B;
+  --paper: #090b0b;
   --paper-foreground: oklch(0.98 0 0);
   --card: oklch(0.14 0 0); /* Tarjetas en gris muy oscuro */
   --card-foreground: oklch(0.98 0 0);
@@ -265,8 +265,12 @@
   }
 
   @keyframes scan {
-    0% { top: -15%; }
-    100% { top: 115%; }
+    0% {
+      top: -15%;
+    }
+    100% {
+      top: 115%;
+    }
   }
 
   .scan-line {
@@ -306,9 +310,12 @@
     }
     10% {
       opacity: 1;
-      text-shadow: 0 0 12px currentColor, 0 0 30px currentColor;
+      text-shadow:
+        0 0 12px currentColor,
+        0 0 30px currentColor;
     }
-    20%, 100% {
+    20%,
+    100% {
       opacity: 0.55;
       text-shadow: none;
     }

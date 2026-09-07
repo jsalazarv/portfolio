@@ -41,16 +41,19 @@ The Home route gets its own layout — no header, no footer from `WebsiteLayout`
 ## Components
 
 ### `HomeLayout`
+
 - Wraps the Home page with no header/footer
 - Applies full-screen background
 - Used exclusively by the `/` route
 
 ### `Dock`
+
 - Horizontal flex row, `gap-4`, centered
 - Renders a list of `DockItem` components
 - Tracks `activeId` state (defaults to `"home"`)
 
 ### `DockItem`
+
 Props: `id`, `icon`, `label`, `onClick`, `isActive`
 
 - Circle button: `w-16 h-16` (inactive) / `w-20 h-20` (active)
@@ -62,6 +65,7 @@ Props: `id`, `icon`, `label`, `onClick`, `isActive`
 - Label: renders below the active item only, `text-sm font-medium`
 
 ### `HomeStatusBar`
+
 - Fixed bottom bar, `h-14`, `px-6`
 - Background: same gray as page, `border-t border-border`
 - Left: avatar circle (`w-8 h-8`, initials `JS` or photo) + name `Juan S.`
@@ -71,15 +75,15 @@ Props: `id`, `icon`, `label`, `onClick`, `isActive`
 
 ## Dock Items
 
-| ID | Icon (lucide-react) | Label | Action |
-|---|---|---|---|
-| `home` | `House` | Home | `navigate("/")` |
-| `blog` | `FileText` | Blog | `navigate("/blog")` |
-| `about` | `User` | About | `navigate("/about")` |
-| `projects` | `FolderOpen` | Projects | `navigate("/projects")` |
-| `contact` | `Mail` | Contact | `navigate("/contact")` |
-| `language` | `Globe` | Language | Opens language dropdown |
-| `theme` | `Sun` / `Moon` | Theme | Opens theme dropdown |
+| ID         | Icon (lucide-react) | Label    | Action                  |
+| ---------- | ------------------- | -------- | ----------------------- |
+| `home`     | `House`             | Home     | `navigate("/")`         |
+| `blog`     | `FileText`          | Blog     | `navigate("/blog")`     |
+| `about`    | `User`              | About    | `navigate("/about")`    |
+| `projects` | `FolderOpen`        | Projects | `navigate("/projects")` |
+| `contact`  | `Mail`              | Contact  | `navigate("/contact")`  |
+| `language` | `Globe`             | Language | Opens language dropdown |
+| `theme`    | `Sun` / `Moon`      | Theme    | Opens theme dropdown    |
 
 Navigation items set `activeId` on hover and navigate on click.
 Language and Theme items open their respective dropdowns (reuse existing `LanguageToggle` and `ThemeToggle` logic) — they do not set `activeId`.

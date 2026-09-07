@@ -1,12 +1,7 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 
+import { useSoundEnabled } from "@/common/hooks/useSoundEnabled";
 import { cn } from "@/common/lib/utils";
-
-const NEXT_LANG: Record<string, { code: string; label: string }> = {
-  es: { code: "en", label: "EN" },
-  en: { code: "es", label: "ES" },
-};
 
 const CLIP_RECT =
   "polygon(0% 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 0%)";
@@ -15,26 +10,26 @@ const CLIP_BEVEL_OUTER =
 const CLIP_BEVEL_INNER =
   "polygon(7px 0%, 100% 0%, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0% 100%, 0% 7px)";
 
-interface DockLanguageItemProps {
+const LABELS = { on: "Sound", off: "Muted" };
+
+interface DockSoundItemProps {
   compact?: boolean;
   stretch?: boolean;
 }
 
-export function DockLanguageItem({
+export function DockSoundItem({
   compact = false,
   stretch = false,
-}: DockLanguageItemProps) {
-  const { i18n } = useTranslation();
-  const current = (i18n.resolvedLanguage ?? i18n.language ?? "es").slice(0, 2);
-  const next = NEXT_LANG[current] ?? NEXT_LANG["es"];
+}: DockSoundItemProps) {
+  const { soundEnabled, setSoundEnabled } = useSoundEnabled();
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const isHighlighted = isHovered || isFocused;
 
-  const toggle = () => {
-    i18n.changeLanguage(next.code);
-    localStorage.setItem("lang", next.code);
-  };
+  const current = soundEnabled ? LABELS.on : LABELS.off;
+  const next = soundEnabled ? LABELS.off : LABELS.on;
+
+  const toggle = () => setSoundEnabled(!soundEnabled);
 
   return (
     <div
@@ -66,7 +61,7 @@ export function DockLanguageItem({
 
       <button
         data-dock-button
-        aria-label={`Switch to ${next.label}`}
+        aria-label={`Switch to ${next}`}
         onClick={toggle}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
@@ -77,7 +72,27 @@ export function DockLanguageItem({
           isHighlighted ? "text-foreground" : "text-muted-foreground",
         )}
       >
-        {isHovered ? next.label : current.toUpperCase()}
+        <span className="relative inline-flex justify-center">
+          <span className="invisible select-none" aria-hidden>
+            {current.length >= next.length ? current : next}
+          </span>
+          <span
+            className={cn(
+              "absolute inset-0 flex justify-center transition-opacity duration-200",
+              isHovered ? "opacity-0" : "opacity-100",
+            )}
+          >
+            {current}
+          </span>
+          <span
+            className={cn(
+              "absolute inset-0 flex justify-center transition-opacity duration-200",
+              isHovered ? "opacity-100" : "opacity-0",
+            )}
+          >
+            {next}
+          </span>
+        </span>
       </button>
     </div>
   );

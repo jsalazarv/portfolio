@@ -2,8 +2,11 @@ import { useRef } from "react";
 
 import type { IconSvgElement } from "@hugeicons/react";
 
+import { cn } from "@/common/lib/utils";
+
 import { DockItem } from "@/modules/website/Home/components/DockItem";
 import { DockLanguageItem } from "@/modules/website/Home/components/DockLanguageItem";
+import { DockSoundItem } from "@/modules/website/Home/components/DockSoundItem";
 import { DockThemeItem } from "@/modules/website/Home/components/DockThemeItem";
 
 export interface NavDockItem {
@@ -48,10 +51,16 @@ export function Dock({ items, activeId, compact = false }: DockProps) {
     buttons[nextIndex]?.focus();
   };
 
+  const stretch = !compact;
+
   return (
     <div
       ref={containerRef}
-      className="flex flex-wrap justify-center gap-4"
+      className={cn(
+        stretch
+          ? "grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-center sm:gap-4"
+          : "flex flex-wrap justify-center gap-4",
+      )}
       onKeyDown={handleKeyDown}
     >
       {items.map((item) => (
@@ -61,13 +70,15 @@ export function Dock({ items, activeId, compact = false }: DockProps) {
           label={item.label}
           isActive={activeId === item.id}
           compact={compact}
+          stretch={stretch}
           onClick={item.onClick}
           avatarSrc={item.avatarSrc}
           avatarFallback={item.avatarFallback}
         />
       ))}
-      <DockLanguageItem compact={compact} />
-      <DockThemeItem compact={compact} />
+      <DockLanguageItem compact={compact} stretch={stretch} />
+      <DockThemeItem compact={compact} stretch={stretch} />
+      <DockSoundItem compact={compact} stretch={stretch} />
     </div>
   );
 }

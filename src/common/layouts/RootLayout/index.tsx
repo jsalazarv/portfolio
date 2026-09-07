@@ -1,5 +1,3 @@
-import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
@@ -57,49 +55,63 @@ export function RootLayout() {
               }}
             >
               <div
-                className="relative bg-background px-8 py-8 md:px-14 md:py-10 overflow-hidden"
+                className="relative bg-background overflow-hidden"
                 style={{
                   clipPath:
                     "polygon(19px 0%, 100% 0%, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0% 100%, 0% 19px)",
                 }}
               >
-                <div className="absolute inset-0 z-10 scanlines-overlay pointer-events-none" />
-                {/* HUD header label */}
-                <p className="relative z-20 font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground/70 text-center mb-6">
-                  ID :: jsalazarv ·{" "}
-                  <span className="text-primary animate-pulse">● ONLINE</span>
-                </p>
+                {/* Header bar */}
+                <div className="flex items-center gap-2 px-4 py-3 bg-muted/60 border-b border-border font-mono text-[11px] backdrop-blur-sm">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0" />
+                  <span className="text-primary tracking-widest uppercase">
+                    [ jsalazarv ]
+                  </span>
+                  <span className="ml-auto text-muted-foreground tracking-wider uppercase">
+                    SYS :: ACTIVE
+                  </span>
+                </div>
 
-                {/* Nickname */}
-                <p
-                  className="relative z-20 text-center text-4xl md:text-5xl font-bold text-foreground mb-8 tracking-widest select-none"
-                  style={{
-                    fontFamily: '"Doto", sans-serif',
-                    fontVariationSettings: '"ROND" 100',
-                  }}
-                >
-                  {"jsalazarv".split("").map((char, i) => (
-                    <span
-                      key={i}
-                      className="glow-letter"
-                      style={{ animationDelay: `${i * 0.18}s` }}
-                    >
-                      {char}
-                    </span>
-                  ))}
-                </p>
+                {/* Content */}
+                <div className="relative px-8 py-8 md:px-14 md:py-10">
+                  <div className="absolute inset-0 z-10 scanlines-overlay pointer-events-none" />
 
-                {/* Dock */}
-                <div className="relative z-20">
-                  <Dock items={items} activeId={activeId} compact={false} />
+                  {/* Nickname */}
+                  <p
+                    className="relative z-20 text-center text-4xl md:text-5xl font-bold text-foreground mb-8 tracking-widest select-none"
+                    style={{
+                      fontFamily: '"Doto", sans-serif',
+                      fontVariationSettings: '"ROND" 100',
+                    }}
+                  >
+                    {"jsalazarv".split("").map((char, i) => (
+                      <span
+                        key={i}
+                        className="glow-letter"
+                        style={{ animationDelay: `${i * 0.18}s` }}
+                      >
+                        {char}
+                      </span>
+                    ))}
+                  </p>
+
+                  {/* Dock */}
+                  <div className="relative z-20">
+                    <Dock items={items} activeId={activeId} compact={false} />
+                  </div>
+                </div>
+
+                {/* Footer bar */}
+                <div className="flex items-center gap-3 px-4 py-1.5 bg-muted/60 border-t border-border font-mono text-[10px] text-muted-foreground tracking-wider backdrop-blur-sm">
+                  <span>ID::jsalazarv</span>
+                  <span className="text-border">|</span>
+                  <span>LOC::MEX</span>
+                  <span className="text-border">|</span>
+                  <span className="text-green-500">● ONLINE</span>
+                  <span className="ml-auto">{new Date().getFullYear()}</span>
                 </div>
               </div>
             </div>
-
-            {/* Ambient status line */}
-            <p className="font-mono text-[9px] tracking-[0.25em] text-muted-foreground/60 uppercase text-center mt-3">
-              SYS :: ACTIVE · LOC :: MEX · {new Date().getFullYear()}
-            </p>
           </div>
         ) : (
           /* Non-home: HUD top bar */
@@ -114,13 +126,17 @@ export function RootLayout() {
             >
               jsalazarv
             </span>
-            <button
-              aria-label="Open menu"
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden flex items-center justify-center w-9 h-9 border border-border/60 hover:border-primary/50 transition-colors duration-200 cursor-pointer focus-visible:outline-none"
-            >
-              <HugeiconsIcon icon={Menu01Icon} size={20} strokeWidth={1.5} />
-            </button>
+            <div className="md:hidden relative">
+              <span className="absolute inset-0 pointer-events-none" style={{ clipPath: "polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px)", background: "color-mix(in oklch, var(--muted-foreground) 40%, transparent)" }} />
+              <span className="absolute inset-[1px]" style={{ clipPath: "polygon(7px 0%, 100% 0%, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0% 100%, 0% 7px)", background: "var(--card)" }} />
+              <button
+                aria-label="Open menu"
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="relative z-10 font-mono text-[10px] tracking-widest uppercase text-muted-foreground cursor-pointer focus-visible:outline-none px-3 py-1.5"
+              >
+                menu
+              </button>
+            </div>
 
             {/* Desktop dock */}
             <div className="hidden md:flex">
@@ -137,15 +153,21 @@ export function RootLayout() {
             className="absolute inset-0 bg-background/80 backdrop-blur-sm"
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6">
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+            <div className="w-full flex flex-col gap-4">
             <Dock items={items} activeId={activeId} compact={false} />
-            <button
-              aria-label="Close menu"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-center w-10 h-10 border border-border/60 hover:border-primary/50 transition-colors duration-200 cursor-pointer focus-visible:outline-none"
-            >
-              <HugeiconsIcon icon={Cancel01Icon} size={18} strokeWidth={1.5} />
-            </button>
+            <div className="relative w-full">
+              <span className="absolute inset-0 pointer-events-none" style={{ clipPath: "polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px)", background: "color-mix(in oklch, var(--muted-foreground) 40%, transparent)" }} />
+              <span className="absolute inset-[1px]" style={{ clipPath: "polygon(7px 0%, 100% 0%, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0% 100%, 0% 7px)", background: "var(--card)" }} />
+              <button
+                aria-label="Close menu"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative z-10 w-full font-mono text-[10px] tracking-widest uppercase text-muted-foreground cursor-pointer focus-visible:outline-none px-3 py-1.5 text-center"
+              >
+                {t("nav.close")}
+              </button>
+            </div>
+            </div>
           </div>
         </div>
       )}

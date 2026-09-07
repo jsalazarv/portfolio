@@ -11,6 +11,7 @@ interface DockItemProps {
   label: string;
   isActive: boolean;
   compact?: boolean;
+  stretch?: boolean;
   tabIndex?: number;
   onClick: () => void;
   avatarSrc?: string;
@@ -29,21 +30,21 @@ export function DockItem({
   label,
   isActive,
   compact = false,
+  stretch = false,
   tabIndex = 0,
   onClick,
 }: DockItemProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const isHighlighted = isActive || isHovered || isFocused;
-  const playClick = useClickSound();
+  const { play: playClick } = useClickSound();
 
   return (
     <div
-      className="relative"
+      className={cn("relative", stretch && "w-full sm:w-auto")}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-
       {/* Bevel activo — relleno sólido naranja */}
       {isActive && (
         <span
@@ -57,13 +58,13 @@ export function DockItem({
         <span
           className={cn(
             "absolute inset-0 pointer-events-none transition-opacity duration-200",
-            isHighlighted ? "opacity-100" : "opacity-0",
+            stretch || isHighlighted ? "opacity-100" : "opacity-0",
           )}
         >
           <span
             className="absolute inset-0 transition-all duration-300"
             style={{
-              clipPath: isHighlighted ? CLIP_BEVEL : CLIP_RECT,
+              clipPath: stretch || isHighlighted ? CLIP_BEVEL : CLIP_RECT,
               background:
                 "color-mix(in oklch, var(--muted-foreground) 40%, transparent)",
             }}
@@ -71,7 +72,7 @@ export function DockItem({
           <span
             className="absolute inset-[1px] bg-background transition-all duration-300"
             style={{
-              clipPath: isHighlighted ? CLIP_BEVEL_INNER : CLIP_RECT,
+              clipPath: stretch || isHighlighted ? CLIP_BEVEL_INNER : CLIP_RECT,
             }}
           />
         </span>
@@ -80,13 +81,17 @@ export function DockItem({
       <button
         ref={ref}
         data-dock-button
-        onClick={() => { playClick(); onClick(); }}
+        onClick={() => {
+          playClick();
+          onClick();
+        }}
         aria-label={label}
         tabIndex={tabIndex}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         className={cn(
           "relative z-10 font-mono tracking-widest uppercase cursor-pointer transition-colors duration-200 focus-visible:outline-none",
+          stretch && "w-full sm:w-auto justify-center sm:justify-start",
           compact ? "text-[10px] px-3 py-1.5" : "text-xs px-5 py-2",
           isActive
             ? "text-primary-foreground"

@@ -1,7 +1,8 @@
 import { Linkedin01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import emailjs from "@emailjs/browser";
-import { useState, useEffect } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { TFunction } from "i18next";
@@ -15,6 +16,7 @@ const GITHUB_URL = "https://github.com/jsalazarv";
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as string;
 
 type SubmitState = "idle" | "sending" | "sent" | "error";
 
@@ -63,6 +65,8 @@ export function Contact() {
     message: "",
   });
   const [errors, setErrors] = useState<ContactFormErrors>({});
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   useEffect(() => {
     if (submitState !== "sent") return;
@@ -91,6 +95,7 @@ export function Contact() {
       setErrors(validationErrors);
       return;
     }
+    if (!captchaToken) return;
     setSubmitState("sending");
 
     try {
@@ -108,6 +113,8 @@ export function Contact() {
       setSubmitState("sent");
     } catch {
       setSubmitState("error");
+      turnstileRef.current?.reset();
+      setCaptchaToken(null);
     }
   }
 
@@ -270,6 +277,14 @@ export function Contact() {
                   {t("contact.sendError")}
                 </p>
               )}
+
+              <Turnstile
+                ref={turnstileRef}
+                siteKey={TURNSTILE_SITE_KEY}
+                onSuccess={setCaptchaToken}
+                onExpire={() => setCaptchaToken(null)}
+                options={{ theme: "dark", size: "flexible" }}
+              />
 
               {/* Submit button */}
               <div className="relative w-full mt-2">

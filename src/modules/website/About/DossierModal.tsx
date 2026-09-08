@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useTranslation } from "react-i18next";
 
 import { cn } from "@/common/lib/utils";
@@ -20,6 +21,7 @@ const CLIP_BEVEL_INNER =
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY as string;
 
 interface DossierModalProps {
   onClose: () => void;
@@ -30,6 +32,8 @@ export function DossierModal({ onClose }: DossierModalProps) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   const isSending = submitState === "sending";
   const isSent = submitState === "sent";
@@ -50,6 +54,7 @@ export function DossierModal({ onClose }: DossierModalProps) {
       setError(t("contact.validation.emailInvalid"));
       return;
     }
+    if (!captchaToken) return;
 
     setSubmitState("sending");
 
@@ -66,8 +71,11 @@ export function DossierModal({ onClose }: DossierModalProps) {
         { publicKey: EMAILJS_PUBLIC_KEY },
       );
       setSubmitState("sent");
-    } catch {
+    } catch (err) {
+      console.error("[EmailJS error]", err);
       setSubmitState("error");
+      turnstileRef.current?.reset();
+      setCaptchaToken(null);
     }
   }
 
@@ -174,8 +182,17 @@ export function DossierModal({ onClose }: DossierModalProps) {
                     )}
                   </div>
 
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={TURNSTILE_SITE_KEY}
+                    onSuccess={setCaptchaToken}
+                    onExpire={() => setCaptchaToken(null)}
+                    options={{ theme: "dark", size: "flexible" }}
+                    className="mt-4"
+                  />
+
                   {/* Submit button */}
-                  <div className="relative w-full mt-6">
+                  <div className="relative w-full mt-4">
                     <span
                       className="absolute inset-0 pointer-events-none"
                       style={{

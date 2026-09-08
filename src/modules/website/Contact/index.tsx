@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import type { TFunction } from "i18next";
 
+import { useTheme } from "@/common/hooks/useTheme";
 import { FieldError } from "@/common/components/ui/field";
 import { cn } from "@/common/lib/utils";
 
@@ -58,6 +59,7 @@ const FIELD_CLASS = cn(
 
 export function Contact() {
   const { t } = useTranslation();
+  const { theme } = useTheme();
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
@@ -279,11 +281,12 @@ export function Contact() {
               )}
 
               <Turnstile
+                key={theme}
                 ref={turnstileRef}
                 siteKey={TURNSTILE_SITE_KEY}
                 onSuccess={setCaptchaToken}
                 onExpire={() => setCaptchaToken(null)}
-                options={{ theme: "dark", size: "flexible" }}
+                options={{ appearance: "interaction-only", theme: theme === "dark" ? "dark" : "light" }}
               />
 
               {/* Submit button */}

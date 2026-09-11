@@ -3,6 +3,7 @@ import emailjs from "@emailjs/browser";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useTranslation } from "react-i18next";
 
+import { useTheme } from "@/common/hooks/useTheme";
 import { cn } from "@/common/lib/utils";
 
 type SubmitState = "idle" | "sending" | "sent" | "error";
@@ -29,6 +30,7 @@ interface DossierModalProps {
 
 export function DossierModal({ onClose }: DossierModalProps) {
   const { t } = useTranslation();
+  const { theme } = useTheme();
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
@@ -183,12 +185,12 @@ export function DossierModal({ onClose }: DossierModalProps) {
                   </div>
 
                   <Turnstile
+                    key={theme}
                     ref={turnstileRef}
                     siteKey={TURNSTILE_SITE_KEY}
                     onSuccess={setCaptchaToken}
                     onExpire={() => setCaptchaToken(null)}
-                    options={{ theme: "dark", size: "flexible" }}
-                    className="mt-4"
+                    options={{ appearance: "interaction-only", theme: theme === "dark" ? "dark" : "light" }}
                   />
 
                   {/* Submit button */}

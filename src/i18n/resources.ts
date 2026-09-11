@@ -1,6 +1,11 @@
 export const resources = {
   en: {
     translation: {
+      seo: {
+        title: "Juan Salazar | Fullstack Developer",
+        description:
+          "Portfolio of Juan Salazar, a Fullstack Developer specialized in React, Vue and TypeScript.",
+      },
       nav: {
         home: "Home",
         blog: "Blog",
@@ -264,6 +269,11 @@ export const resources = {
   },
   es: {
     translation: {
+      seo: {
+        title: "Juan Salazar | Fullstack Developer",
+        description:
+          "Portfolio de Juan Salazar, Fullstack Developer especializado en React, Vue y TypeScript.",
+      },
       nav: {
         home: "Inicio",
         blog: "Blog",

@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 
 import { DOCK_ITEMS } from "./dockItems";
 import { useDockNav } from "./useDockNav";
+import { useDocumentMeta } from "@/common/hooks/useDocumentMeta";
 
 import type { NavDockItem } from "@/modules/website/Home/components/Dock";
 
@@ -14,6 +15,7 @@ import { Dock } from "@/modules/website/Home/components/Dock";
 export function RootLayout() {
   const { isHome, activeId, navigateTo } = useDockNav();
   const { t } = useTranslation();
+  useDocumentMeta();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const items: NavDockItem[] = DOCK_ITEMS.map((def) => ({

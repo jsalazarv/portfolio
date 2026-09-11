@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
+import { SEO } from "@/common/components/SEO";
 import { useClickSound } from "@/common/hooks/useClickSound";
 import { DossierModal } from "./DossierModal";
 
@@ -53,6 +54,11 @@ export function About() {
 
   return (
     <>
+      <SEO
+        title={t("seo.pages.about.title")}
+        description={t("seo.pages.about.description")}
+        url="https://jsalazarv.dev/about"
+      />
     <div className="w-full -mt-8">
       {/* HUD Frame */}
       <div className="relative mb-8">

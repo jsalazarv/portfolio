@@ -5,6 +5,33 @@ export const resources = {
         title: "Juan Salazar | Fullstack Developer",
         description:
           "Portfolio of Juan Salazar, a Fullstack Developer specialized in React, Vue and TypeScript.",
+        pages: {
+          home: {
+            title: "Home | jsalazarv",
+            description:
+              "Portfolio of Juan Salazar, a Fullstack Developer specialized in React, Vue and TypeScript.",
+          },
+          about: {
+            title: "About | jsalazarv",
+            description:
+              "Learn about Juan Salazar's background, skills, and experience as a Fullstack Developer.",
+          },
+          contact: {
+            title: "Contact | jsalazarv",
+            description:
+              "Get in touch with Juan Salazar. Available for freelance projects and collaborations.",
+          },
+          blog: {
+            title: "Blog | jsalazarv",
+            description:
+              "Articles on web development, clean code, and engineering experiences by Juan Salazar.",
+          },
+          projects: {
+            title: "Projects | jsalazarv",
+            description:
+              "Explore the projects built by Juan Salazar, a Fullstack Developer specialized in React and TypeScript.",
+          },
+        },
       },
       nav: {
         home: "Home",
@@ -273,6 +300,33 @@ export const resources = {
         title: "Juan Salazar | Fullstack Developer",
         description:
           "Portfolio de Juan Salazar, Fullstack Developer especializado en React, Vue y TypeScript.",
+        pages: {
+          home: {
+            title: "Home | jsalazarv",
+            description:
+              "Portfolio de Juan Salazar, Fullstack Developer especializado en React, Vue y TypeScript.",
+          },
+          about: {
+            title: "About | jsalazarv",
+            description:
+              "Conoce la trayectoria, habilidades y experiencia de Juan Salazar como Fullstack Developer.",
+          },
+          contact: {
+            title: "Contact | jsalazarv",
+            description:
+              "Contacta a Juan Salazar. Disponible para proyectos freelance y colaboraciones.",
+          },
+          blog: {
+            title: "Blog | jsalazarv",
+            description:
+              "Artículos sobre desarrollo web, clean code y experiencias de ingeniería por Juan Salazar.",
+          },
+          projects: {
+            title: "Projects | jsalazarv",
+            description:
+              "Explora los proyectos de Juan Salazar, Fullstack Developer especializado en React y TypeScript.",
+          },
+        },
       },
       nav: {
         home: "Inicio",

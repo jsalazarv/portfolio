@@ -5,6 +5,8 @@ import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
+import { SEO } from "@/common/components/SEO";
+
 import type { TFunction } from "i18next";
 
 import { useTheme } from "@/common/hooks/useTheme";
@@ -125,6 +127,12 @@ export function Contact() {
   const isError = submitState === "error";
 
   return (
+    <>
+      <SEO
+        title={t("seo.pages.contact.title")}
+        description={t("seo.pages.contact.description")}
+        url="https://jsalazarv.dev/contact"
+      />
     <div className="-mt-8">
       {/* Single HUD container */}
       <div
@@ -320,5 +328,6 @@ export function Contact() {
         </div>
       </div>
     </div>
+    </>
   );
 }

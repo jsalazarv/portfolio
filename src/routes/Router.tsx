@@ -15,15 +15,7 @@ import { Contact } from "@/modules/website/Contact";
 import { NotFound } from "@/modules/website/errors/NotFound";
 import { ServerError } from "@/modules/website/errors/ServerError";
 import { Home } from "@/modules/website/Home";
-
-function Placeholder({ title }: { title: string }) {
-  return (
-    <div className="py-12 text-center text-muted-foreground">
-      <h1 className="text-2xl font-semibold text-foreground mb-2">{title}</h1>
-      <p>Próximamente</p>
-    </div>
-  );
-}
+import { Projects } from "@/modules/website/Projects";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +25,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/about", element: <About /> },
-      { path: "/projects", element: <Placeholder title="Projects" /> },
+      { path: "/projects", element: <Projects /> },
       { path: "/contact", element: <Contact /> },
       { path: "/blog", element: <Blog /> },
       { path: "/blog/:slug", element: <BlogPost /> },

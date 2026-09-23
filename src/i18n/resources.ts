@@ -187,6 +187,26 @@ export const resources = {
           subtitle: "query returned 0 results",
         },
       },
+      projects: {
+        hud: {
+          title: "PROJECTS_ARCHIVE",
+          records: "RECORDS",
+        },
+        subtitle: "Selected work — products shipped end to end",
+        noImage: "NO_IMAGE",
+        demo: "Demo",
+        repo: "Repo",
+        items: {
+          portics: {
+            description:
+              "Corporate website development for Portics, a company specialized in international logistics and foreign trade. Built responsive interfaces, reusable components, and features focused on showcasing their services and facilitating contact with potential clients.",
+          },
+          poctapoc: {
+            description:
+              "Development of a cross-platform sports prediction platform, covering the web app, iOS/Android mobile apps, and backend API. Built the API with NestJS and PostgreSQL to manage users, prediction groups, results, scores, and leaderboards. Built the mobile apps with Flutter for a consistent cross-platform experience. Deployed and managed infrastructure with Docker, Railway, and MinIO, and integrated Resend for email communication.",
+          },
+        },
+      },
       contact: {
         title: "Contact",
         subtitle: "Let's build something great.",
@@ -385,6 +405,27 @@ export const resources = {
         empty: {
           title: "// SIN_REGISTROS",
           subtitle: "la consulta no devolvió resultados",
+        },
+      },
+      projects: {
+        hud: {
+          title: "ARCHIVO_PROYECTOS",
+          records: "REGISTROS",
+        },
+        subtitle:
+          "Trabajo seleccionado — productos construidos de punta a punta",
+        noImage: "SIN_IMAGEN",
+        demo: "Demo",
+        repo: "Repo",
+        items: {
+          portics: {
+            description:
+              "Desarrollo de sitio web corporativo para Portics, empresa especializada en logística internacional y comercio exterior. Implementación de interfaces responsivas, componentes reutilizables y funcionalidades orientadas a presentar sus servicios y facilitar el contacto con clientes potenciales.",
+          },
+          poctapoc: {
+            description:
+              "Desarrollo de una plataforma multiplataforma de predicciones deportivas, participando en la construcción integral del producto mediante aplicación web, aplicaciones móviles para iOS y Android y API backend. Desarrollo de la API utilizando NestJS y PostgreSQL, implementando la lógica de negocio y los servicios necesarios para gestionar usuarios, grupos de predicciones, resultados, puntuaciones y tablas de clasificación. Desarrollo de las aplicaciones móviles con Flutter, integrando los servicios backend para mantener una experiencia consistente entre plataformas. Implementación y administración de servicios mediante Docker, Railway y MinIO, además de integración de servicios externos como Resend para funcionalidades de comunicación por correo electrónico.",
+          },
         },
       },
       contact: {

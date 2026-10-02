@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Projects } from "../components/react/Projects";
+---
+<BaseLayout
+  title="Projects | jsalazarv"
+  description="Explore the projects built by Juan Salazar, a Fullstack Developer specialized in React and TypeScript."
+  url="https://jsalazarv.dev/projects"
+>
+  <Projects client:load />
+</BaseLayout>

@@ -2,7 +2,7 @@ import { ExternalLinkIcon, GithubIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslation } from "react-i18next";
 
-import type { Project } from "../types";
+import type { Project } from "./types";
 
 interface ProjectCardProps {
   project: Project;

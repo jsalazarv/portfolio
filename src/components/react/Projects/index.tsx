@@ -1,7 +1,9 @@
+import "@/i18n";
+
 import { useTranslation } from "react-i18next";
 
-import { ProjectCard } from "./components/ProjectCard";
-import { PROJECTS } from "./data/projects";
+import { ProjectCard } from "./ProjectCard";
+import { PROJECTS } from "./data";
 
 import { SEO } from "@/common/components/SEO";
 
@@ -13,7 +15,7 @@ export function Projects() {
       <SEO
         title={t("seo.pages.projects.title")}
         description={t("seo.pages.projects.description")}
-        url={`${window.location.origin}/projects`}
+        url="https://jsalazarv.dev/projects"
         type="website"
       />
 

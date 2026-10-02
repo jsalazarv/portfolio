@@ -91,3 +91,6 @@ storybook-static
 *.temp
 .cache/
 
+# Subagent-driven-development scratch workspace
+.superpowers/
+

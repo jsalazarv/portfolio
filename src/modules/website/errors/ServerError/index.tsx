@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useRouteError } from "react-router-dom";
 
 import { Button } from "@/common/components/ui/button";
-import { ErrorLayout } from "@/common/layouts/ErrorLayout";
+import { ErrorLayout } from "@/components/react/ErrorLayout";
 
 export function ServerError() {
   const error = useRouteError();
@@ -34,7 +34,6 @@ export function ServerError() {
       errorCode="500"
       title={t("errors.serverError.title")}
       description={t("errors.serverError.description")}
-      standalone={true}
     >
       <Button asChild size="lg" className="w-full sm:w-auto">
         <Link to="/">

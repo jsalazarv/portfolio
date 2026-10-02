@@ -31,7 +31,10 @@ export function DockSoundItem({
   const next = soundEnabled ? LABELS.off : LABELS.on;
   const { play } = useClickSound("/sounds/toggle-interface.mp3", true);
 
-  const toggle = () => { play(); setSoundEnabled(!soundEnabled); };
+  const toggle = () => {
+    play();
+    setSoundEnabled(!soundEnabled);
+  };
 
   return (
     <div

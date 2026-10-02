@@ -24,9 +24,8 @@ export const mockCmsClient: CmsClient = {
   async getPost(slug) {
     const posts = postsData as BlogPost[];
     return (
-      posts.find(
-        (post) => post.slug === slug && post.status === "published",
-      ) ?? null
+      posts.find((post) => post.slug === slug && post.status === "published") ??
+      null
     );
   },
 };

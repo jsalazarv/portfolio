@@ -1,7 +1,4 @@
-import {
-  Home01Icon,
-  SearchRemoveIcon,
-} from "@hugeicons/core-free-icons";
+import { Home01Icon, SearchRemoveIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslation } from "react-i18next";
 

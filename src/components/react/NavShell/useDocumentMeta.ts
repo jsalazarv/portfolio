@@ -28,10 +28,7 @@ export function useDocumentMeta(path: string) {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    setMeta(
-      'meta[property="og:locale"]',
-      LOCALE_MAP[i18n.language] ?? "en_US",
-    );
+    setMeta('meta[property="og:locale"]', LOCALE_MAP[i18n.language] ?? "en_US");
     setMeta(
       'meta[property="og:locale:alternate"]',
       ALTERNATE_LOCALE_MAP[i18n.language] ?? "es_MX",

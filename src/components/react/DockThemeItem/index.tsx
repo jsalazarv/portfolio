@@ -42,7 +42,10 @@ export function DockThemeItem({
 
   const { play } = useClickSound("/sounds/toggle-interface.mp3");
 
-  const toggle = () => { play(); setTheme(next); };
+  const toggle = () => {
+    play();
+    setTheme(next);
+  };
 
   return (
     <div

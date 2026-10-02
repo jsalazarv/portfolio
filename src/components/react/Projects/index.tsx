@@ -2,8 +2,8 @@ import "@/i18n";
 
 import { useTranslation } from "react-i18next";
 
-import { ProjectCard } from "./ProjectCard";
 import { PROJECTS } from "./data";
+import { ProjectCard } from "./ProjectCard";
 
 import { SEO } from "@/common/components/SEO";
 

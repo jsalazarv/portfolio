@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
+import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useTheme } from "@/common/hooks/useTheme";
@@ -20,7 +20,8 @@ const CLIP_BEVEL_INNER =
   "polygon(7px 0%, 100% 0%, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0% 100%, 0% 7px)";
 
 const EMAILJS_SERVICE_ID = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID as string;
-const EMAILJS_TEMPLATE_ID = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID as string;
+const EMAILJS_TEMPLATE_ID = import.meta.env
+  .PUBLIC_EMAILJS_TEMPLATE_ID as string;
 const EMAILJS_PUBLIC_KEY = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY as string;
 const TURNSTILE_SITE_KEY = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string;
 
@@ -190,7 +191,10 @@ export function DossierModal({ onClose }: DossierModalProps) {
                     siteKey={TURNSTILE_SITE_KEY}
                     onSuccess={setCaptchaToken}
                     onExpire={() => setCaptchaToken(null)}
-                    options={{ appearance: "interaction-only", theme: theme === "dark" ? "dark" : "light" }}
+                    options={{
+                      appearance: "interaction-only",
+                      theme: theme === "dark" ? "dark" : "light",
+                    }}
                   />
 
                   {/* Submit button */}

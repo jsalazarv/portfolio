@@ -1,6 +1,6 @@
+import { navigate } from "astro:transitions/client";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { navigate } from "astro:transitions/client";
 
 import { DOCK_ITEMS } from "./dockItems";
 import { useDockNav } from "./useDockNav";
@@ -8,8 +8,8 @@ import { useDocumentMeta } from "./useDocumentMeta";
 
 import type { NavDockItem } from "@/components/react/Dock";
 
-import { AppProviders } from "@/common/providers/AppProviders";
 import { cn } from "@/common/lib/utils";
+import { AppProviders } from "@/common/providers/AppProviders";
 import { Dock } from "@/components/react/Dock";
 
 export interface NavShellProps {

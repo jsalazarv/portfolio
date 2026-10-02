@@ -78,21 +78,20 @@ const isHome = Astro.url.pathname === "/";
     })} />
     <ClientRouter />
     <script is:inline>
-      (function () {
-        var storedTheme = localStorage.getItem("__PTMngrTheme");
-        var theme =
-          storedTheme === "light" || storedTheme === "dark"
-            ? storedTheme
-            : window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
+      function applyAppearance() {
+        var stored = localStorage.getItem("__PTMngrTheme");
+        var theme = stored === "light" || stored === "dark"
+          ? stored
+          : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.classList.remove("light", "dark");
         document.documentElement.classList.add(theme);
 
         var storedLang = localStorage.getItem("lang");
-        var browserLang = navigator.language.toLowerCase();
-        var lang = storedLang || (browserLang.startsWith("es") ? "es" : "en");
-        document.documentElement.lang = lang;
-      })();
+        document.documentElement.lang =
+          storedLang || (navigator.language.toLowerCase().startsWith("es") ? "es" : "en");
+      }
+      applyAppearance();
+      document.addEventListener("astro:after-swap", applyAppearance);
     </script>
   </head>
   <body>

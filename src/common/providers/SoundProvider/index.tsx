@@ -12,6 +12,7 @@ export function SoundProvider({
   storageKey = "sound-enabled",
 }: SoundProviderProps) {
   const [soundEnabled, setSoundEnabledState] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
     const stored = localStorage.getItem(storageKey);
     return stored === null ? true : stored === "true";
   });

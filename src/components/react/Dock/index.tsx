@@ -4,10 +4,10 @@ import type { IconSvgElement } from "@hugeicons/react";
 
 import { cn } from "@/common/lib/utils";
 
-import { DockItem } from "@/modules/website/Home/components/DockItem";
-import { DockLanguageItem } from "@/modules/website/Home/components/DockLanguageItem";
-import { DockSoundItem } from "@/modules/website/Home/components/DockSoundItem";
-import { DockThemeItem } from "@/modules/website/Home/components/DockThemeItem";
+import { DockItem } from "@/components/react/DockItem";
+import { DockLanguageItem } from "@/components/react/DockLanguageItem";
+import { DockSoundItem } from "@/components/react/DockSoundItem";
+import { DockThemeItem } from "@/components/react/DockThemeItem";
 
 export interface NavDockItem {
   id: string;

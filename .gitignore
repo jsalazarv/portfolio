@@ -57,6 +57,9 @@ Desktop.ini
 .vite/
 vite.config.*.timestamp-*
 
+# Astro
+.astro/
+
 # Optional npm cache directory
 .npm
 

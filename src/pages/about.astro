@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { About } from "../components/react/About";
+---
+<BaseLayout
+  title="About | jsalazarv"
+  description="Learn about Juan Salazar's background, skills, and experience as a Fullstack Developer."
+  url="https://jsalazarv.dev/about"
+>
+  <About client:load />
+</BaseLayout>

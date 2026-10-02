@@ -2,7 +2,6 @@ import { Clock01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { Link } from "react-router-dom";
 
 import type { BlogPost } from "@/common/types/blog.types";
 
@@ -19,7 +18,7 @@ interface PostCardProps {
 
 export function PostCard({ post }: PostCardProps) {
   return (
-    <Link to={`/blog/${post.slug}`}>
+    <a href={`/blog/${post.slug}`}>
       <Card
         padding="compact"
         rounded="large"
@@ -67,6 +66,6 @@ export function PostCard({ post }: PostCardProps) {
           </div>
         </div>
       </Card>
-    </Link>
+    </a>
   );
 }

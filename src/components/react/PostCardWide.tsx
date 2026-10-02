@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { Link } from "react-router-dom";
 
 import type { BlogPost } from "@/common/types/blog.types";
 
@@ -18,8 +17,8 @@ const CLIP_BEVEL =
 
 export function PostCardWide({ post }: PostCardWideProps) {
   return (
-    <Link
-      to={`/blog/${post.slug}`}
+    <a
+      href={`/blog/${post.slug}`}
       className="group relative shrink-0 w-36 h-52 sm:w-40 sm:h-60 overflow-hidden block snap-start"
       style={{ clipPath: CLIP_BEVEL }}
     >
@@ -59,6 +58,6 @@ export function PostCardWide({ post }: PostCardWideProps) {
           </span>
         </div>
       </div>
-    </Link>
+    </a>
   );
 }

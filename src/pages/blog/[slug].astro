@@ -24,7 +24,7 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { post } = Astro.props as Props;
+const { post } = Astro.props;
 
 const allPosts = await cms.getPosts();
 const relatedPosts = allPosts

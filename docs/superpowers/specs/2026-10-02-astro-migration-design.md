@@ -104,7 +104,8 @@ export interface CmsClient {
 - **Ahora:** `mockCmsClient` lee `src/mocks/data/posts.json` directamente (import estático; MSW deja de ser necesario para esto, ya que en build time no hay un `fetch` de navegador que interceptar).
 - **Cuando EmDash esté listo:** `emdashCmsClient` implementa la misma interfaz contra la API/SDK de EmDash. El cliente activo se selecciona por env var (`CMS_PROVIDER=mock|emdash`). Las páginas `.astro` no cambian.
 - `blog/[slug].astro` usa `getStaticPaths()` llamando a `cms.getPosts()` para generar todos los slugs en build.
-- Renderizado de Markdown: se mantiene `react-markdown` + `remark-gfm` + `rehype-sanitize`/`rehype-raw`, pero se usa en `blog/[slug].astro` **sin directiva `client:*`** — Astro lo renderiza a HTML en build time y no envía su JS al navegador. Esto es consistente con que el Blog sea Astro puro: cero JS de React en esa ruta salvo que una pieza puntual (ej. botón "copiar código") necesite explícitamente una isla pequeña.
+- Renderizado de Markdown: se mantiene `react-markdown` + `remark-gfm` + `rehype-sanitize`/`rehype-raw`, pero se usa en `blog/[slug].astro` **sin directiva `client:*`** — Astro lo renderiza a HTML en build time y no envía su JS al navegador. `blog/[slug].astro` queda así con cero JS de React (los "posts relacionados" también se calculan en build time con `cms.getPosts()`, replicando el scoring por categorías/tags que hoy corre en el cliente en `RelatedPosts`).
+- `blog/index.astro` (el listado) **sí** necesita una isla pequeña (`BlogSearch`, `client:load`): hoy el buscador y el filtro por categoría son 100% client-side sobre el array de posts ya cargado (sin red). Esa isla recibe el array completo de posts (ya resuelto en build time vía `cms.getPosts()`) como prop serializable y reproduce exactamente esa lógica de búsqueda/filtro/agrupado — es la única isla del Blog.
 - Publicar contenido nuevo en EmDash requiere rebuild/redeploy (webhook EmDash → Vercel). Queda anotado como trabajo futuro, fuera de esta migración.
 
 ---
@@ -127,7 +128,7 @@ export interface CmsClient {
 
 ## Manejo de errores
 
-- `404.astro` reemplaza `NotFound`: página estática nativa sin JS (hoy carga todo React para mostrar un 404).
+- `404.astro` reemplaza `NotFound`, montando `ErrorLayout` como isla React (`client:load`) igual que el resto de páginas de contenido — se descarta una versión 100% sin JS para esta ruta porque necesitaría reinventar el toggle de idioma con un mecanismo aparte (fuera de `react-i18next`), lo cual viola YAGNI y arriesga inconsistencia con el resto del sitio. La ganancia de Astro aquí es menor (ya no es una ruta resuelta por el router cliente, es una página 404 real servida por Vercel) aunque no sea cero-JS.
 - No existe ya un `errorElement` por ruta de React Router. Un error en build-time (p. ej. falla el fetch a EmDash al generar `blog/*`) debe **fallar el build explícitamente** — fail fast: se detiene el build y se ve en el deploy de Vercel, en vez de servir una página rota en producción.
 - Errores runtime dentro de una isla (p. ej. el formulario de Contact fallando con EmailJS/Turnstile) se manejan con el propio estado `SubmitState` del componente — no cambia respecto a hoy.
 - No se replica una página "500" dinámica: en un sitio SSG no hay un servidor real que la dispare en runtime. Se documenta esta diferencia explícitamente para que no se lea como un olvido.

@@ -12,7 +12,7 @@ import { SignUp } from "@/modules/website/auth/SignUp";
 import { Blog } from "@/modules/website/Blog";
 import { BlogPost } from "@/modules/website/Blog/BlogPost";
 import { Contact } from "@/modules/website/Contact";
-import { NotFound } from "@/modules/website/errors/NotFound";
+import { NotFound } from "@/components/react/NotFound";
 import { ServerError } from "@/modules/website/errors/ServerError";
 import { Home } from "@/modules/website/Home";
 import { Projects } from "@/modules/website/Projects";

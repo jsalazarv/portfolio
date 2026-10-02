@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import { profile } from "@/modules/website/Home/data/profile";
+import { profile } from "./profile";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

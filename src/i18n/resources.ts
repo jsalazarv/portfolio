@@ -69,7 +69,6 @@ export const resources = {
           description:
             "Sorry, the page you are looking for doesn't exist or has been moved.",
           backHome: "Back to home",
-          toDashboard: "Go to dashboard",
         },
         serverError: {
           title: "Server error",
@@ -384,7 +383,6 @@ export const resources = {
           description:
             "Lo sentimos, la pagina que buscas no existe o ha sido movida.",
           backHome: "Volver al inicio",
-          toDashboard: "Ir al dashboard",
         },
         serverError: {
           title: "Error del servidor",

@@ -44,8 +44,10 @@ src/
       [slug].astro            → post individual, SSG vía getStaticPaths
     404.astro               → NotFound nativo Astro, sin JS
   layouts/
-    BaseLayout.astro         → <html>/<head>/SEO, scripts inline de init (tema/idioma/sonido), Header/Footer
-  components/react/          → todo lo que hoy vive en modules/website/* + common/components (contenido migrado casi sin cambios)
+    BaseLayout.astro         → <html>/<head>/SEO, <ClientRouter />, NavShell island persistido, Footer
+  components/react/
+    NavShell/                → Dock de navegación persistido entre páginas (ver sección dedicada abajo)
+    [resto]                  → todo lo que hoy vive en modules/website/* + common/components (contenido migrado casi sin cambios)
   lib/
     cms.ts                  → adapter de datos del blog (mock hoy, EmDash después)
   i18n/, common/hooks, common/lib, common/types, common/services → se mantienen con cambios mínimos
@@ -57,12 +59,34 @@ src/
 - `src/modules/website/auth/**` (SignIn, SignUp)
 - `src/common/layouts/AdminLayout`
 - Rutas `/sign-in`, `/sign-up`, `/dashboard`, `/dashboard/blog*`
-- Dependencias `react-router`, `react-router-dom` (Astro resuelve ruteo por archivos)
+- Dependencias `react-router`, `react-router-dom` (Astro resuelve ruteo por archivos; la navegación persistente del Dock usa `<ClientRouter />` de `astro:transitions`, ver sección dedicada)
 - Uso de `portfolio-api` como backend (el repo en sí no se toca, queda fuera de alcance)
 
 ### Mapeo de rutas (idéntico al actual)
 
 `/`, `/about`, `/projects`, `/contact`, `/blog`, `/blog/:slug`, catch-all 404. Sin prefijos de idioma.
+
+---
+
+## Navegación persistente (Dock) entre páginas
+
+**Hallazgo (post-aprobación del diseño inicial):** `src/common/layouts/RootLayout` no es un simple header/footer — contiene el **Dock de navegación animado** (`useDockNav` + `Dock`) que vive en *todas* las rutas y anima (500ms ease-in-out) entre su posición centrada (Home) y la barra superior (resto de rutas) **sin remount**, apoyándose en el ruteo client-side de React Router. `WebsiteLayout`/`Header` es código muerto (solo su `Footer` se reutiliza). Esta transición animada es una feature nombrada explícitamente (ver `docs/superpowers/plans/2026-08-31-dock-navigation-transition.md`) y el enfoque original de "una isla independiente por página" la rompía: en Astro cada página es un documento separado, así que navegar `/` → `/about` sería una recarga completa que desmonta y remonta el Dock, perdiendo la animación.
+
+**Corrección:** se usa `<ClientRouter />` de `astro:transitions` en `BaseLayout.astro`, que intercepta la navegación entre páginas Astro (fetch + DOM diff en vez de recarga completa). El Dock se extrae a un componente `NavShell` (puerto directo de `RootLayout` + `Dock` + `useDockNav`) y se monta **una sola vez en `BaseLayout.astro`**, fuera de cada página individual, con:
+
+```astro
+<div transition:persist transition:name="nav-shell">
+  <NavShell client:load activePath={Astro.url.pathname} />
+</div>
+```
+
+`transition:persist` le dice a Astro que no destruya ese nodo del DOM (ni su isla React hidratada) al navegar — el mismo elemento persiste entre páginas porque vive en el layout compartido por todas.
+
+**Cambios respecto al `useDockNav` actual:**
+- Ya no usa `useNavigate`/`useLocation` de React Router (no existen fuera de una SPA). En su lugar, los items del Dock son `<a href="...">` normales — `<ClientRouter />` ya intercepta esos clics y hace la transición.
+- Para recalcular `isHome`/`activeId` tras cada navegación (ya que el island persiste y no se re-monta), escucha el evento `astro:page-load` (se dispara después de cada transición, incluida la carga inicial) y relee `window.location.pathname`.
+
+**Riesgo documentado — sincronización de i18n entre islas:** con `i18next` inicializado "dentro de cada isla" (ver sección siguiente), `NavShell` y la isla de contenido de la página (Home/About/etc.) son islas separadas. Que `i18n.changeLanguage()` en el Dock actualice instantáneamente el texto de la página depende de que Vite/Astro deduplique el módulo `src/i18n/index.ts` en un chunk compartido entre ambas islas (comportamiento esperado de su bundler basado en ESM, pero no un contrato explícito de Astro). Se añade una verificación manual explícita para esto en la sección de Verificación.
 
 ---
 
@@ -88,8 +112,8 @@ export interface CmsClient {
 ## Estado global de cliente (idioma, tema, sonido)
 
 - Un script inline en `BaseLayout.astro` resuelve idioma (`localStorage` → `navigator.language` → fallback `es`) y tema antes del primer paint, igual que hoy corre en `main.tsx`/`i18n/index.ts`, para evitar FOUC.
-- `i18next`/`react-i18next` se inicializa **dentro de cada isla React** (Home/About/Projects/Contact), no a nivel Astro — cada isla monta su propio provider con el idioma ya resuelto por el script inline. El toggle sigue siendo instantáneo, sin reload, igual que ahora.
-- `useTheme`, `useClickSound` y los componentes `DockThemeItem`, `DockSoundItem`, `DockLanguageItem` se portan sin cambios de lógica dentro de las islas.
+- `i18next`/`react-i18next` se inicializa **dentro de cada isla React** (`NavShell`, Home, About, Projects, Contact) importando el mismo módulo singleton `src/i18n/index.ts` — cada isla monta su propio provider, pero todas comparten la misma instancia de `i18next` (ver riesgo documentado en la sección de Navegación persistente). El toggle sigue siendo instantáneo, sin reload, igual que ahora.
+- `useTheme`, `useClickSound` y los componentes `DockThemeItem`, `DockSoundItem`, `DockLanguageItem` se portan sin cambios de lógica, ahora viviendo dentro de `NavShell` (no duplicados por página).
 
 ---
 
@@ -124,6 +148,8 @@ export interface CmsClient {
 - `astro build` sin errores ni warnings de islas.
 - Smoke test manual de cada ruta: Home (dock idioma/tema/sonido + animaciones), About (Terminal/DossierModal/Stickers), Projects (carousel), Contact (validación + envío EmailJS + Turnstile), Blog (listado + post individual con Markdown), 404.
 - Confirmar que cambiar idioma/tema no provoca FOUC ni reload, comparando contra el comportamiento actual en `main`.
+- Navegar entre todas las rutas y confirmar que el Dock anima su transición centrado↔barra-superior sin remount visible (parpadeo), igual que en `main`.
+- Con el Dock en una página (ej. `/about`) y la página de contenido en otra, cambiar idioma desde `DockLanguageItem` y confirmar que el texto de la isla de contenido (no solo el Dock) se traduce instantáneamente — valida el supuesto de módulo `i18next` compartido entre islas.
 - Comparar peso de JS / Lighthouse antes vs. después, en particular para Blog y 404 (donde se espera la mayor reducción).
 
 ---

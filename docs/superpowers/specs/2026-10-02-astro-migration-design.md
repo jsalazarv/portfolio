@@ -35,7 +35,7 @@ Se descartan 2 y 3 por violar requisitos explícitos del usuario. Se adopta el e
 ```
 src/
   pages/
-    index.astro            → Home (isla React completa)
+    index.astro            → Home (sin contenido propio: lo único visible en "/" hoy es el HUD del NavShell; no requiere isla de contenido adicional)
     about.astro             → About (isla React completa)
     projects.astro           → Projects (isla React completa)
     contact.astro            → Contact (isla React completa)
@@ -65,6 +65,19 @@ src/
 ### Mapeo de rutas (idéntico al actual)
 
 `/`, `/about`, `/projects`, `/contact`, `/blog`, `/blog/:slug`, catch-all 404. Sin prefijos de idioma.
+
+### Código muerto detectado (no se porta, se elimina)
+
+Al auditar qué se usa realmente antes de portarlo, se encontró código sin ninguna referencia en la app actual (sobrevivió al rediseño de `docs/superpowers/plans/2026-08-31-dock-navigation-transition.md`, que reemplazó el contenido anterior de Home por el HUD actual):
+
+- `src/modules/website/Home/partials/**` (`HeaderSection`, `ExperienceSection`, `SkillsEducationSection`, `DetailsSection`, `PortfolioSection`) y los componentes que solo ellos usaban: `SkillCard`, `ExperienceCard`, `EducationCard`, `ToolBadge`, `HomeStatusBar`.
+- `src/modules/website/Home/data/{details,interests,education,experience,portfolio}.*` (se conserva `profile.ts`, usado por `Footer`).
+- `src/modules/website/About/{Terminal,Stickers,StopSign}.tsx` (ni siquiera los importa `About/index.tsx`, que solo usa `DossierModal`).
+- `src/common/layouts/WebsiteLayout/index.tsx` y su `components/Header` (nunca montados; el router actual usa `RootLayout`, no `WebsiteLayout` — solo se reutiliza `WebsiteLayout/components/Footer`).
+- `src/common/components/LanguageToggle.tsx` y `ThemeToggle/` (solo los usaba el `Header` muerto; el Dock tiene sus propios `DockLanguageItem`/`DockThemeItem`).
+- `embla-carousel`/`embla-carousel-react` y `src/common/components/ui/carousel.tsx` (solo los usaba `ExperienceSection`, ya muerto). Projects no usa carousel — es un grid de tarjetas.
+- `src/modules/website/Blog/mockPosts.ts` (datos Lorem-ipsum hardcodeados que hoy alimentan el listado del Blog en vez de `posts.json`/`blogService` — una inconsistencia existente entre listado y detalle que esta migración corrige al unificar ambos sobre `cms.ts`).
+- `src/modules/website/Blog/components/{PostCardSkeleton,BlogPostSkeleton,PostCardWideSkeleton}.tsx` y `src/common/components/ui/Skeleton/` (solo tienen sentido con fetch en cliente; en SSG los datos ya están resueltos en build time, nunca hay estado de carga).
 
 ---
 
@@ -121,7 +134,7 @@ export interface CmsClient {
 ## Animaciones, estilos y assets
 
 - Toda la animación es CSS/Tailwind (`tw-animate-css` + 3 `@keyframes` en `global.css`), sin librería JS de animación → `global.css`, `tailwind.config.ts` y el plugin `@tailwindcss/vite` se copian sin cambios (Astro soporta plugins de Vite nativamente).
-- Componentes UI (Radix `dropdown-menu`/`label`/`separator`, `button`/`badge`/`input` estilo shadcn, Embla carousel, `HugeiconsIcon`) se mantienen sin modificación, viviendo dentro de las islas React.
+- Componentes UI (Radix `dropdown-menu`/`label`/`separator`, `button`/`badge`/`input` estilo shadcn, `HugeiconsIcon`) se mantienen sin modificación, viviendo dentro de las islas React. (`embla-carousel`/`ui/carousel.tsx` no se portan: solo los consumía `Home/partials/ExperienceSection`, código muerto no referenciado por ninguna ruta actual — ver hallazgo de código muerto abajo.)
 - `public/` (sonidos, imágenes, `favicon`, `sitemap.xml`, `robots.txt`, `og-image`) se copia tal cual — Astro sirve `public/` igual que Vite.
 
 ---
@@ -147,7 +160,7 @@ export interface CmsClient {
 ## Verificación (no implementación)
 
 - `astro build` sin errores ni warnings de islas.
-- Smoke test manual de cada ruta: Home (dock idioma/tema/sonido + animaciones), About (Terminal/DossierModal/Stickers), Projects (carousel), Contact (validación + envío EmailJS + Turnstile), Blog (listado + post individual con Markdown), 404.
+- Smoke test manual de cada ruta: Home (dock idioma/tema/sonido + animaciones), About (secuencia HUD + DossierModal, incluyendo su propio envío EmailJS/Turnstile), Projects (grid de tarjetas), Contact (validación + envío EmailJS + Turnstile), Blog (listado con búsqueda/filtro + post individual con Markdown), 404.
 - Confirmar que cambiar idioma/tema no provoca FOUC ni reload, comparando contra el comportamiento actual en `main`.
 - Navegar entre todas las rutas y confirmar que el Dock anima su transición centrado↔barra-superior sin remount visible (parpadeo), igual que en `main`.
 - Con el Dock en una página (ej. `/about`) y la página de contenido en otra, cambiar idioma desde `DockLanguageItem` y confirmar que el texto de la isla de contenido (no solo el Dock) se traduce instantáneamente — valida el supuesto de módulo `i18next` compartido entre islas.

@@ -5,9 +5,10 @@ import { useTranslation } from "react-i18next";
 import "@/i18n";
 
 import { Button } from "@/common/components/ui/button";
+import { AppProviders } from "@/common/providers/AppProviders";
 import { ErrorLayout } from "@/components/react/ErrorLayout";
 
-export function NotFound() {
+function NotFoundInner() {
   const { t } = useTranslation();
 
   return (
@@ -31,5 +32,13 @@ export function NotFound() {
         </a>
       </Button>
     </ErrorLayout>
+  );
+}
+
+export function NotFound() {
+  return (
+    <AppProviders>
+      <NotFoundInner />
+    </AppProviders>
   );
 }

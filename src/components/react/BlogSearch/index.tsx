@@ -6,6 +6,7 @@ import "@/i18n";
 import type { BlogPost } from "@/common/types/blog.types";
 
 import { cn } from "@/common/lib/utils";
+import { AppProviders } from "@/common/providers/AppProviders";
 import { PostCardWide } from "@/components/react/PostCardWide";
 import { SearchBar } from "@/components/react/SearchBar";
 
@@ -132,7 +133,7 @@ export interface BlogSearchProps {
   posts: BlogPost[];
 }
 
-export function BlogSearch({ posts }: BlogSearchProps) {
+function BlogSearchInner({ posts }: BlogSearchProps) {
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -230,5 +231,13 @@ export function BlogSearch({ posts }: BlogSearchProps) {
         </span>
       </div>
     </>
+  );
+}
+
+export function BlogSearch(props: BlogSearchProps) {
+  return (
+    <AppProviders>
+      <BlogSearchInner {...props} />
+    </AppProviders>
   );
 }

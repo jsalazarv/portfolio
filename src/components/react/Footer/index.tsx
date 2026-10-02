@@ -1,8 +1,12 @@
+import "@/i18n";
+
 import { useTranslation } from "react-i18next";
 
 import { profile } from "./profile";
 
-export function Footer() {
+import { AppProviders } from "@/common/providers/AppProviders";
+
+function FooterInner() {
   const currentYear = new Date().getFullYear();
   const { t } = useTranslation();
 
@@ -32,5 +36,13 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+export function Footer() {
+  return (
+    <AppProviders>
+      <FooterInner />
+    </AppProviders>
   );
 }

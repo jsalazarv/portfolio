@@ -7,10 +7,11 @@ import { DossierModal } from "./DossierModal";
 
 import { SEO } from "@/common/components/SEO";
 import { useClickSound } from "@/common/hooks/useClickSound";
+import { AppProviders } from "@/common/providers/AppProviders";
 
 const TOTAL_LINES = 11;
 
-export function About() {
+function AboutInner() {
   const { t } = useTranslation();
   const words = t("about.words", { returnObjects: true }) as string[];
   const skills = t("about.skills", { returnObjects: true }) as string[];
@@ -359,5 +360,13 @@ export function About() {
         <DossierModal onClose={() => setIsDossierOpen(false)} />
       )}
     </>
+  );
+}
+
+export function About() {
+  return (
+    <AppProviders>
+      <AboutInner />
+    </AppProviders>
   );
 }

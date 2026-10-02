@@ -13,6 +13,7 @@ import { SEO } from "@/common/components/SEO";
 import { FieldError } from "@/common/components/ui/field";
 import { useTheme } from "@/common/hooks/useTheme";
 import { cn } from "@/common/lib/utils";
+import { AppProviders } from "@/common/providers/AppProviders";
 
 const LINKEDIN_URL = "https://linkedin.com/in/jsalazarv";
 const GITHUB_URL = "https://github.com/jsalazarv";
@@ -61,7 +62,7 @@ const FIELD_CLASS = cn(
   "disabled:opacity-40 disabled:cursor-not-allowed",
 );
 
-export function Contact() {
+function ContactInner() {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
@@ -343,5 +344,13 @@ export function Contact() {
         </div>
       </div>
     </>
+  );
+}
+
+export function Contact() {
+  return (
+    <AppProviders>
+      <ContactInner />
+    </AppProviders>
   );
 }

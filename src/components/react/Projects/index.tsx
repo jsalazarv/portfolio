@@ -6,8 +6,9 @@ import { PROJECTS } from "./data";
 import { ProjectCard } from "./ProjectCard";
 
 import { SEO } from "@/common/components/SEO";
+import { AppProviders } from "@/common/providers/AppProviders";
 
-export function Projects() {
+function ProjectsInner() {
   const { t } = useTranslation();
 
   return (
@@ -76,5 +77,13 @@ export function Projects() {
         </div>
       </div>
     </>
+  );
+}
+
+export function Projects() {
+  return (
+    <AppProviders>
+      <ProjectsInner />
+    </AppProviders>
   );
 }

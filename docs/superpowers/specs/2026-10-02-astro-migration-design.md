@@ -1,0 +1,136 @@
+# Migración a Astro — Design Spec
+
+**Date:** 2026-10-02
+**Scope:** Todo el proyecto `portfolio` (Vite + React SPA → Astro). Incluye eliminación del módulo admin/auth y preparación de la capa de datos del Blog para consumir EmDash CMS más adelante. `portfolio-api` queda fuera de alcance.
+**Branch:** `migration/astro`
+
+---
+
+## Contexto y motivación
+
+El admin del blog se gestionará en EmDash CMS en lugar de `src/modules/admin` + `portfolio-api`. Al desaparecer el admin, el sitio público deja de necesitar autenticación propia, y la mayor parte del proyecto pasa a ser contenido público (Home, About, Projects, Contact, Blog) — el caso de uso donde Astro aporta valor real (menos JS, mejor SEO, build estático) sin sacrificar nada de lo que hoy funciona.
+
+**Requisito no negociable del usuario:** no perder animaciones, rutas ni características existentes durante la migración.
+
+EmDash CMS todavía no está configurado — se configurará en paralelo. La capa de datos del blog debe quedar desacoplada para no requerir reescritura cuando EmDash esté listo.
+
+---
+
+## Decisión arquitectónica central: granularidad de las islas
+
+Hoy el idioma (`react-i18next`), el tema y el sonido se resuelven 100% en cliente, con toggle instantáneo sin reload y sin prefijo de idioma en la URL. Páginas como Home son en la práctica una mini-aplicación (dock de toggles, animaciones, modales).
+
+Se evaluaron tres enfoques:
+
+1. **Shell estático + islas grandes en páginas app-like (elegido).** Astro resuelve rutas/`<head>`/SEO; Home/About/Projects/Contact se montan como un único React island cada una (`client:load`), prácticamente idénticas a hoy. El Blog sí se vuelve Astro puro (SSG real). Cumple el requisito de cero pérdida de features.
+2. **Astro-nativo con reload en cambio de idioma.** Máxima reducción de JS, pero el toggle de idioma pasa a recargar la página — viola el requisito de no perder características.
+3. **i18n con rutas por idioma (`/en`, `/es`).** Full estático y SEO-friendly por idioma, pero cambia el esquema de URLs — viola el requisito de no perder rutas.
+
+Se descartan 2 y 3 por violar requisitos explícitos del usuario. Se adopta el enfoque 1.
+
+---
+
+## Estructura del proyecto
+
+```
+src/
+  pages/
+    index.astro            → Home (isla React completa)
+    about.astro             → About (isla React completa)
+    projects.astro           → Projects (isla React completa)
+    contact.astro            → Contact (isla React completa)
+    blog/
+      index.astro            → listado, SSG, lee lib/cms.ts en build time
+      [slug].astro            → post individual, SSG vía getStaticPaths
+    404.astro               → NotFound nativo Astro, sin JS
+  layouts/
+    BaseLayout.astro         → <html>/<head>/SEO, scripts inline de init (tema/idioma/sonido), Header/Footer
+  components/react/          → todo lo que hoy vive en modules/website/* + common/components (contenido migrado casi sin cambios)
+  lib/
+    cms.ts                  → adapter de datos del blog (mock hoy, EmDash después)
+  i18n/, common/hooks, common/lib, common/types, common/services → se mantienen con cambios mínimos
+```
+
+### Se elimina por completo
+
+- `src/modules/admin/**` (Dashboard, Blog admin CRUD)
+- `src/modules/website/auth/**` (SignIn, SignUp)
+- `src/common/layouts/AdminLayout`
+- Rutas `/sign-in`, `/sign-up`, `/dashboard`, `/dashboard/blog*`
+- Dependencias `react-router`, `react-router-dom` (Astro resuelve ruteo por archivos)
+- Uso de `portfolio-api` como backend (el repo en sí no se toca, queda fuera de alcance)
+
+### Mapeo de rutas (idéntico al actual)
+
+`/`, `/about`, `/projects`, `/contact`, `/blog`, `/blog/:slug`, catch-all 404. Sin prefijos de idioma.
+
+---
+
+## Capa de datos del Blog (CMS adapter)
+
+Hoy `blogService.getPost/getPosts` ya abstrae el origen de datos (MSW → `src/mocks/data/posts.json`). Se preserva exactamente ese contrato, movido a build-time:
+
+```ts
+export interface CmsClient {
+  getPosts(): Promise<BlogPost[]>;
+  getPost(slug: string): Promise<BlogPost | null>;
+}
+```
+
+- **Ahora:** `mockCmsClient` lee `src/mocks/data/posts.json` directamente (import estático; MSW deja de ser necesario para esto, ya que en build time no hay un `fetch` de navegador que interceptar).
+- **Cuando EmDash esté listo:** `emdashCmsClient` implementa la misma interfaz contra la API/SDK de EmDash. El cliente activo se selecciona por env var (`CMS_PROVIDER=mock|emdash`). Las páginas `.astro` no cambian.
+- `blog/[slug].astro` usa `getStaticPaths()` llamando a `cms.getPosts()` para generar todos los slugs en build.
+- Renderizado de Markdown: se mantiene `react-markdown` + `remark-gfm` + `rehype-sanitize`/`rehype-raw`, pero se usa en `blog/[slug].astro` **sin directiva `client:*`** — Astro lo renderiza a HTML en build time y no envía su JS al navegador. Esto es consistente con que el Blog sea Astro puro: cero JS de React en esa ruta salvo que una pieza puntual (ej. botón "copiar código") necesite explícitamente una isla pequeña.
+- Publicar contenido nuevo en EmDash requiere rebuild/redeploy (webhook EmDash → Vercel). Queda anotado como trabajo futuro, fuera de esta migración.
+
+---
+
+## Estado global de cliente (idioma, tema, sonido)
+
+- Un script inline en `BaseLayout.astro` resuelve idioma (`localStorage` → `navigator.language` → fallback `es`) y tema antes del primer paint, igual que hoy corre en `main.tsx`/`i18n/index.ts`, para evitar FOUC.
+- `i18next`/`react-i18next` se inicializa **dentro de cada isla React** (Home/About/Projects/Contact), no a nivel Astro — cada isla monta su propio provider con el idioma ya resuelto por el script inline. El toggle sigue siendo instantáneo, sin reload, igual que ahora.
+- `useTheme`, `useClickSound` y los componentes `DockThemeItem`, `DockSoundItem`, `DockLanguageItem` se portan sin cambios de lógica dentro de las islas.
+
+---
+
+## Animaciones, estilos y assets
+
+- Toda la animación es CSS/Tailwind (`tw-animate-css` + 3 `@keyframes` en `global.css`), sin librería JS de animación → `global.css`, `tailwind.config.ts` y el plugin `@tailwindcss/vite` se copian sin cambios (Astro soporta plugins de Vite nativamente).
+- Componentes UI (Radix `dropdown-menu`/`label`/`separator`, `button`/`badge`/`input` estilo shadcn, Embla carousel, `HugeiconsIcon`) se mantienen sin modificación, viviendo dentro de las islas React.
+- `public/` (sonidos, imágenes, `favicon`, `sitemap.xml`, `robots.txt`, `og-image`) se copia tal cual — Astro sirve `public/` igual que Vite.
+
+---
+
+## Manejo de errores
+
+- `404.astro` reemplaza `NotFound`: página estática nativa sin JS (hoy carga todo React para mostrar un 404).
+- No existe ya un `errorElement` por ruta de React Router. Un error en build-time (p. ej. falla el fetch a EmDash al generar `blog/*`) debe **fallar el build explícitamente** — fail fast: se detiene el build y se ve en el deploy de Vercel, en vez de servir una página rota en producción.
+- Errores runtime dentro de una isla (p. ej. el formulario de Contact fallando con EmailJS/Turnstile) se manejan con el propio estado `SubmitState` del componente — no cambia respecto a hoy.
+- No se replica una página "500" dinámica: en un sitio SSG no hay un servidor real que la dispare en runtime. Se documenta esta diferencia explícitamente para que no se lea como un olvido.
+
+---
+
+## Build y deploy (Vercel)
+
+- `vercel.json` pierde el rewrite SPA (`/(.*) → /index.html`): Astro con output estático genera archivos reales por ruta.
+- Se usa el output estático por defecto de Astro — sin adapter SSR, consistente con la decisión de "SSG con rebuild" para el Blog.
+- Variables de entorno de cliente se renombran de `VITE_*` a `PUBLIC_*` (`PUBLIC_EMAILJS_SERVICE_ID`, `PUBLIC_EMAILJS_TEMPLATE_ID`, `PUBLIC_EMAILJS_PUBLIC_KEY`, `PUBLIC_TURNSTILE_SITE_KEY`).
+- Webhook de EmDash → redeploy en Vercel para refrescar el blog: trabajo futuro, fuera de esta migración.
+
+---
+
+## Verificación (no implementación)
+
+- `astro build` sin errores ni warnings de islas.
+- Smoke test manual de cada ruta: Home (dock idioma/tema/sonido + animaciones), About (Terminal/DossierModal/Stickers), Projects (carousel), Contact (validación + envío EmailJS + Turnstile), Blog (listado + post individual con Markdown), 404.
+- Confirmar que cambiar idioma/tema no provoca FOUC ni reload, comparando contra el comportamiento actual en `main`.
+- Comparar peso de JS / Lighthouse antes vs. después, en particular para Blog y 404 (donde se espera la mayor reducción).
+
+---
+
+## Fuera de alcance
+
+- Cualquier cambio al repo `portfolio-api` (queda intacto; se decide después si se archiva).
+- Configuración real de EmDash CMS (se asume interfaz `CmsClient` estable; el cliente real se implementa cuando EmDash esté disponible).
+- Webhook de rebuild automático al publicar contenido en EmDash.
+- Rutas o SSR dinámico: todo el sitio es estático (SSG), por decisión explícita del usuario.

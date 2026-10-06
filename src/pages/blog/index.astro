@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { BlogSearch } from "../../components/react/BlogSearch";
+import { cms } from "../../lib/cms";
+
+const posts = await cms.getPosts();
+---
+<BaseLayout
+  title="Blog | Juan Salazar"
+  description="Artículos sobre desarrollo web, clean code, React, TypeScript y experiencias como desarrollador freelance"
+  url="https://jsalazarv.dev/blog"
+>
+  <div class="-mt-8">
+    <div
+      class="bg-muted-foreground/50 p-px"
+      style="clip-path: polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px);"
+    >
+      <div
+        class="relative bg-background overflow-hidden px-2"
+        style="clip-path: polygon(19px 0%, 100% 0%, 100% calc(100% - 19px), calc(100% - 19px) 100%, 0% 100%, 0% 19px);"
+      >
+        <div class="absolute inset-0 scanlines-overlay pointer-events-none z-10" />
+
+        <BlogSearch client:load posts={posts} />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

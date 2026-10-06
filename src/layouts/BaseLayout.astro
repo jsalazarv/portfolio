@@ -1,0 +1,115 @@
+---
+import { ClientRouter } from "astro:transitions";
+
+import { NavShell } from "../components/react/NavShell";
+import { Footer } from "../components/react/Footer";
+
+import "../global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  url: string;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description,
+  image = "https://jsalazarv.dev/og-image-1200x630.png",
+  url,
+  type = "website",
+} = Astro.props;
+
+const isHome = Astro.url.pathname === "/";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Doto:ROND@0..100&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={url} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_MX" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="author" content="Juan Salazar" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="theme-color"
+      content="#f5f8fa"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#090b0b"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href={url} />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Juan Salazar",
+      url: "https://jsalazarv.dev",
+      jobTitle: "Fullstack Developer",
+      image: "https://jsalazarv.dev/avatar.png",
+      sameAs: [
+        "https://github.com/jsalazarv",
+        "https://linkedin.com/in/jsalazarv",
+      ],
+    })} />
+    <ClientRouter />
+    <script is:inline>
+      function applyAppearance() {
+        var stored = localStorage.getItem("__PTMngrTheme");
+        var theme = stored === "light" || stored === "dark"
+          ? stored
+          : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.classList.remove("light", "dark");
+        document.documentElement.classList.add(theme);
+
+        var storedLang = localStorage.getItem("lang");
+        document.documentElement.lang =
+          storedLang || (navigator.language.toLowerCase().startsWith("es") ? "es" : "en");
+      }
+      applyAppearance();
+      document.addEventListener("astro:after-swap", applyAppearance);
+    </script>
+  </head>
+  <body>
+    <div class="min-h-screen bg-background">
+      <div transition:persist transition:name="nav-shell">
+        <NavShell client:load initialPath={Astro.url.pathname} />
+      </div>
+
+      {isHome ? (
+        <slot />
+      ) : (
+        <div class="flex flex-col min-h-screen">
+          <main class="flex-1 pt-28 px-4 md:px-8 pb-4 max-w-3xl mx-auto w-full">
+            <slot />
+          </main>
+          <Footer client:load />
+        </div>
+      )}
+    </div>
+  </body>
+</html>

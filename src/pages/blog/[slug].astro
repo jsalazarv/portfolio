@@ -1,0 +1,110 @@
+---
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { PostCard } from "../../components/react/PostCard";
+import { cms } from "../../lib/cms";
+import {
+  calculateReadingTime,
+  formatReadingTime,
+} from "../../common/utils/readingTime";
+
+export const getStaticPaths = (async () => {
+  const posts = await cms.getPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { post } = Astro.props;
+
+const allPosts = await cms.getPosts();
+const relatedPosts = allPosts
+  .filter((p) => p.id !== post.id)
+  .map((p) => {
+    let score = 0;
+    p.categories.forEach((cat) => {
+      if (post.categories.includes(cat)) score += 3;
+    });
+    p.tags.forEach((tag) => {
+      if (post.tags.includes(tag)) score += 1;
+    });
+    return { post: p, score };
+  })
+  .filter(({ score }) => score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 2)
+  .map(({ post: p }) => p);
+---
+<BaseLayout
+  title={`${post.title} | Blog`}
+  description={post.description}
+  image={post.coverImage}
+  url={`https://jsalazarv.dev/blog/${post.slug}`}
+  type="article"
+>
+  <article class="mx-auto w-full md:max-w-3xl space-y-8 py-8">
+    <a href="/blog" class="inline-flex items-center text-sm text-muted-foreground hover:text-foreground">
+      ← Volver al blog
+    </a>
+
+    {post.coverImage && (
+      <img
+        src={post.coverImage}
+        alt={post.title}
+        class="w-full h-64 md:h-96 object-cover rounded-2xl"
+      />
+    )}
+
+    <div class="space-y-4">
+      <div class="flex gap-2 flex-wrap">
+        {post.categories.map((cat: string) => (
+          <span class="text-xs rounded-full bg-secondary px-2.5 py-0.5">{cat}</span>
+        ))}
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold text-foreground">{post.title}</h1>
+      <p class="text-lg text-muted-foreground">{post.description}</p>
+
+      <div class="flex items-center gap-4 text-sm text-muted-foreground">
+        <span>{post.author}</span>
+        <span>
+          {format(new Date(post.publishedAt || post.createdAt), "dd 'de' MMMM, yyyy", { locale: es })}
+        </span>
+        <span>{formatReadingTime(calculateReadingTime(post.content))}</span>
+      </div>
+    </div>
+
+    <div class="prose prose-gray dark:prose-invert max-w-none">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+    </div>
+
+    {post.tags.length > 0 && (
+      <div class="flex gap-2 flex-wrap pt-8 border-t border-border">
+        <span class="text-sm font-medium text-muted-foreground">Tags:</span>
+        {post.tags.map((tag: string) => (
+          <span class="text-xs rounded-full border px-2.5 py-0.5">#{tag}</span>
+        ))}
+      </div>
+    )}
+
+    {relatedPosts.length > 0 && (
+      <section class="space-y-6 pt-12 border-t">
+        <h2 class="text-2xl font-bold text-foreground">Posts Relacionados</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {relatedPosts.map((related) => (
+            <PostCard post={related} />
+          ))}
+        </div>
+      </section>
+    )}
+  </article>
+</BaseLayout>

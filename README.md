@@ -1,237 +1,119 @@
-# Portfolio Personal con Sistema de Blog
+# Portfolio Personal
 
-Portfolio profesional desarrollado con **React 19**, **TypeScript** y **Tailwind CSS v4**, que incluye un sistema completo de blog con panel de administración.
+Portfolio profesional de Juan Salazar, construido con **Astro**, islands de **React 19** y **Tailwind CSS v4**. Incluye un blog cuyo contenido se sirve a través de una capa de CMS desacoplada (`src/lib/cms.ts`).
 
-## 🚀 Características Principales
+## Características Principales
 
-### 📄 Portfolio
+- Sitio estático (SSG) con Astro, hidratando solo los componentes interactivos como islands de React (`client:load`)
+- View Transitions (`<ClientRouter />`) para navegación client-side entre páginas
+- Tema claro/oscuro con persistencia en `localStorage`, aplicado antes del primer paint (sin FOUC) y re-aplicado tras cada transición de página
+- Internacionalización (i18next / react-i18next)
+- Blog con búsqueda y filtros por categoría, contenido en Markdown
+- Formulario de contacto (EmailJS + Cloudflare Turnstile)
+- SEO (Open Graph + Twitter Cards) por página
 
-- Secciones: Header, Experiencia, Educación, Habilidades, Proyectos, Detalles
-- Diseño responsivo con componentes reutilizables
-- Sistema de diseño consistente (Design System documentado)
-- Tema claro/oscuro con persistencia
-- Internacionalización (i18next)
+## Stack Tecnológico
 
-### 📝 Sistema de Blog
-
-- **Blog Público:**
-  - Listado de posts con paginación (6 posts por página)
-  - Búsqueda en tiempo real por título/descripción
-  - Filtros por categorías
-  - Vista individual de posts con Markdown
-  - Posts relacionados basados en categorías y tags
-  - Tiempo de lectura estimado
-  - Loading skeletons para mejor UX
-  - SEO optimizado (Open Graph + Twitter Cards)
-
-- **Panel de Administración:**
-  - CRUD completo de posts (Crear, Leer, Actualizar, Eliminar)
-  - Editor Markdown con preview en tiempo real
-  - Validación de formularios con Zod
-  - Generación automática de slug
-  - Toast notifications para feedback de acciones
-  - Gestión de categorías, tags e imágenes de portada
-  - Estados: Borrador/Publicado
-
-## 🛠️ Stack Tecnológico
-
-### Core
-
-- **React 19** - Biblioteca UI
+- **Astro 7** - Framework principal (SSG, islands, routing basado en archivos)
+- **React 19** - Islands interactivos
 - **TypeScript 5.9** - Tipado estricto
-- **Vite 7** - Build tool y dev server
-- **React Router 7** - Enrutamiento
-
-### Estilos
-
 - **Tailwind CSS v4** - Framework de utilidades CSS
-- **CVA** (Class Variance Authority) - Gestión de variantes
-- **Lucide React** - Iconos
-
-### Formularios y Validación
-
-- **React Hook Form** - Gestión de formularios
-- **Zod** - Validación de esquemas
-
-### Blog
-
-- **react-markdown** - Renderizado de Markdown
-- **remark-gfm** - GitHub Flavored Markdown
-- **rehype-raw** / **rehype-sanitize** - Procesamiento HTML seguro
-- **date-fns** - Formateo de fechas
-- **slugify** - Generación de URLs
-
-### UX/UI
-
-- **Sonner** - Toast notifications
-- **Radix UI** - Componentes accesibles sin estilos
-- **Embla Carousel** - Carruseles
-
-### Desarrollo
-
-- **MSW** (Mock Service Worker) - Mock de API REST
+- **i18next** / **react-i18next** - Internacionalización
+- **react-markdown** + **remark-gfm** - Renderizado de Markdown del blog
+- **EmailJS** - Envío del formulario de contacto
+- **Cloudflare Turnstile** - Verificación anti-bot en el formulario de contacto
+- **Vitest** - Testing
 - **ESLint** + **Prettier** - Linting y formateo
-- **TypeScript ESLint** - Reglas específicas de TS
 
-## 📦 Instalación
+## Instalación
 
 ```bash
 # Clonar el repositorio
 git clone <repository-url>
-cd Portfolio
+cd portfolio
 
 # Instalar dependencias
 npm install
 
-# Inicializar MSW (si es necesario)
-npx msw init public/ --save
+# Copiar variables de entorno y completarlas
+cp .env.example .env
 
 # Ejecutar en desarrollo
 npm run dev
 ```
 
-## 🔧 Scripts Disponibles
+## Scripts Disponibles
 
 ```bash
-npm run dev          # Iniciar servidor de desarrollo
-npm run build        # Build de producción
-npm run preview      # Preview del build
-npm run lint         # Ejecutar ESLint
-npm run lint:fix     # Corregir errores de ESLint
-npm run format       # Formatear código con Prettier
-npm run format:check # Verificar formato
+npm run dev           # Servidor de desarrollo (astro dev)
+npm run build         # Build de producción (astro build)
+npm run preview       # Preview del build de producción
+npm run test          # Ejecutar tests (vitest run)
+npm run lint          # Ejecutar ESLint
+npm run lint:fix      # Corregir errores de ESLint
+npm run format        # Formatear código con Prettier
+npm run format:check  # Verificar formato
 ```
 
-## 📁 Estructura del Proyecto
+## Variables de Entorno
+
+Todas las variables expuestas al cliente usan el prefijo `PUBLIC_*` (requerido por Astro/Vite; `VITE_*` no se usa en este proyecto). Ver `.env.example` para la lista completa y actualizada:
+
+```env
+PUBLIC_EMAILJS_SERVICE_ID=
+PUBLIC_EMAILJS_TEMPLATE_ID=
+PUBLIC_EMAILJS_PUBLIC_KEY=
+PUBLIC_TURNSTILE_SITE_KEY=
+```
+
+## Estructura del Proyecto
 
 ```
 src/
+├── components/
+│   └── react/            # Islands de React (NavShell, About, Projects, Contact,
+│                          # BlogSearch, Footer, NotFound, Dock, etc.)
 ├── common/
-│   ├── components/
-│   │   ├── ui/              # Componentes base (Button, Card, Badge, Skeleton, etc.)
-│   │   └── SEO/             # Componente SEO para meta tags
-│   ├── layouts/             # Layouts (Website, Admin, Error)
+│   ├── components/        # Componentes compartidos (SEO, ui/)
+│   ├── hooks/              # Hooks compartidos (useTheme, useClickSound, ...)
 │   ├── lib/                 # Utilidades (cn, etc.)
-│   ├── providers/           # Providers (Theme)
-│   ├── services/            # API clients (blog.service.ts)
-│   ├── types/               # TypeScript interfaces compartidas
-│   └── utils/               # Utilidades (readingTime, etc.)
-│
-├── modules/
-│   ├── website/
-│   │   ├── Home/            # Página principal del portfolio
-│   │   ├── Blog/            # Blog público
-│   │   │   ├── components/  # PostCard, SearchBar, Pagination, Filters, etc.
-│   │   │   ├── index.tsx    # Listado de posts
-│   │   │   └── BlogPost.tsx # Vista individual
-│   │   ├── auth/            # SignIn, SignUp
-│   │   └── errors/          # NotFound, ServerError
-│   │
-│   └── admin/
-│       ├── Dashboard/       # Dashboard principal
-│       └── Blog/            # Gestión de blog
-│           ├── components/  # PostForm, MarkdownEditor
-│           ├── schemas/     # Esquemas de validación Zod
-│           ├── index.tsx    # Listado admin
-│           ├── CreatePost.tsx
-│           └── EditPost.tsx
-│
-├── mocks/                   # Mock Service Worker
-│   ├── data/                # posts.json
-│   ├── handlers/            # blog.handlers.ts
-│   └── browser.ts           # Configuración MSW
-│
-├── i18n/                    # Internacionalización
-├── routes/                  # Configuración de rutas
-├── global.css               # Estilos globales + prose para Markdown
-└── main.tsx                 # Entry point
+│   ├── providers/            # ThemeProvider, SoundProvider, AppProviders
+│   └── types/                 # Tipos compartidos (BlogPost, ...)
+├── config/                      # Configuración de la app (storage prefix)
+├── i18n/                         # Internacionalización
+├── layouts/                       # BaseLayout.astro (shell HTML, tema, View Transitions)
+├── lib/
+│   ├── cms.ts                      # Capa de acceso al contenido del blog
+│   └── data/posts.json              # Datos mock del blog
+├── pages/                             # Rutas de Astro (file-based routing)
+└── global.css                          # Estilos globales
 ```
 
-## 🎨 Sistema de Diseño
-
-El proyecto implementa un sistema de diseño consistente documentado en `docs/DESIGN_SYSTEM.md`:
-
-- **Fuente:** Inter (Google Fonts)
-- **Espaciado:** gap-2 (8px), gap-3 (12px), gap-4 (16px), gap-6 (24px)
-- **Colores:** Variables CSS semánticas (primary, secondary, muted, etc.)
-- **Componentes:** Card, Badge, Button con variantes usando CVA
-- **Container:** max-w-3xl para consistencia visual
-
-## 🔄 API Mock (MSW)
-
-El proyecto usa **Mock Service Worker** para simular una API REST en desarrollo:
-
-- **GET** `/api/posts` - Listar posts (con paginación, búsqueda, filtros)
-- **GET** `/api/posts/:slug` - Obtener post por slug
-- **POST** `/api/posts` - Crear post
-- **PUT** `/api/posts/:id` - Actualizar post
-- **DELETE** `/api/posts/:id` - Eliminar post
-
-Los datos se almacenan en memoria (se resetean al recargar).
-
-## 🌐 Rutas
-
-### Públicas
+## Rutas
 
 - `/` - Home (Portfolio)
+- `/about` - Sobre mí
+- `/projects` - Proyectos
+- `/contact` - Contacto
 - `/blog` - Listado de posts
 - `/blog/:slug` - Post individual
-- `/sign-in` - Iniciar sesión
-- `/sign-up` - Registrarse
+- `404` - Página no encontrada
 
-### Admin (Dashboard)
+No existe un panel de administración en este repositorio: el contenido del blog se gestiona externamente (ver `BLOG_README.md`).
 
-- `/dashboard` - Dashboard principal
-- `/dashboard/blog` - Gestión de posts
-- `/dashboard/blog/new` - Crear post
-- `/dashboard/blog/edit/:id` - Editar post
+## Deploy
 
-## 🚀 Deploy
+```bash
+npm run build
+npm run preview   # para verificar el build localmente
+```
 
-Para desplegar el proyecto en producción:
+El proyecto está pensado para desplegarse en Vercel (ver `vercel.json`), pero el output de `astro build` es estático y puede servirse desde cualquier hosting compatible.
 
-1. **Build:**
-
-   ```bash
-   npm run build
-   ```
-
-2. **Configurar Backend Real:**
-   - Reemplazar MSW con API real
-   - Actualizar `src/common/services/blog.service.ts`
-   - Implementar autenticación
-
-3. **Variables de Entorno:**
-
-   ```env
-   VITE_API_URL=https://api.tudominio.com
-   ```
-
-4. **Opciones de Hosting:**
-   - Vercel
-   - Netlify
-   - GitHub Pages
-   - AWS S3 + CloudFront
-
-## 📝 Próximas Mejoras
-
-- [ ] Integración con backend real (Express/FastAPI)
-- [ ] Autenticación y autorización
-- [ ] Upload de imágenes a CDN
-- [ ] Comentarios en posts
-- [ ] Búsqueda avanzada con Algolia
-- [ ] Code splitting para optimizar bundle
-- [ ] Modo offline con Service Worker
-- [ ] Blog multiidioma
-
-## 📄 Licencia
+## Licencia
 
 Este proyecto es privado y de uso personal.
 
-## 👨‍💻 Autor
+## Autor
 
 **Juan Salazar** - Desarrollador Full Stack
-
----
-
-**Última actualización:** Febrero 2026

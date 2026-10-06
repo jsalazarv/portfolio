@@ -57,6 +57,9 @@ Desktop.ini
 .vite/
 vite.config.*.timestamp-*
 
+# Astro
+.astro/
+
 # Optional npm cache directory
 .npm
 
@@ -90,4 +93,7 @@ storybook-static
 *.tmp
 *.temp
 .cache/
+
+# Subagent-driven-development scratch workspace
+.superpowers/
 

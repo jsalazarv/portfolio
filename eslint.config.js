@@ -10,7 +10,7 @@ import globals from "globals";
 
 export default [
   {
-    ignores: ["./dist"],
+    ignores: ["./dist", "./.astro"],
   },
   prettierConfig,
   {
@@ -63,6 +63,12 @@ export default [
           },
         },
       ],
+    },
+  },
+  {
+    files: ["src/env.d.ts"],
+    rules: {
+      "@typescript-eslint/triple-slash-reference": "off",
     },
   },
 ];
